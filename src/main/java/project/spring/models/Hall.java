@@ -24,6 +24,9 @@ public class Hall {
     private List<Performance> performances =  new ArrayList<>();
 
 
+
+
+
     public Hall(){}
 
     public Hall(String name, String time) {
@@ -59,6 +62,8 @@ public class Hall {
         this.performances = performances;
     }
 
+
+
     public List<Performance> getPerformances() {
         return performances;
     }
@@ -69,6 +74,7 @@ public class Hall {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", time='" + time + '\'' +
+                ", performances=" + performances +
                 '}';
     }
 }

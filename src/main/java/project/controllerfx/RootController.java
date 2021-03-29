@@ -23,7 +23,7 @@ public class RootController {
 
 
     @FXML
-    private TableView<Client> clientInfo;
+    private TableView<Ticket> clientInfo;
 
     @FXML
     private TableColumn<Client, String> surnamecolumn;
@@ -121,31 +121,26 @@ public class RootController {
 
 
     private void initTable(){
-        this.clientInfo.setItems(parsing.getClient());
-        System.out.println("66666" + this.clientInfo.getItems());
+        this.clientInfo.setItems(parsing.getClients());
+
+
 
     }
 
-    private void ShowInfo(Client client){
-        if( client!= null){
+    private void ShowInfo(Ticket ticket){
+        if( ticket!= null){
 
 
-            lablecontact.setText(String.valueOf(client.getContact()));
-            //lableid.setText(String.valueOf(client.getTicket().getId()));
+            lablecontact.setText(String.valueOf(ticket.getClient().getContact()));
+            lableid.setText(String.valueOf(ticket.getId()));
+            lableprice.setText(String.valueOf(ticket.getPrice()));
+            lablehallname.setText(String.valueOf(ticket.getSeat().getHall().getName()));
+            lablepertime.setText(String.valueOf(ticket.getSeat().getHall().getTime()));
+            //lablenameofper.setText(String.valueOf(ticket.getSeat().getHall().getPer().getName()));
+            lableseatlocation.setText(String.valueOf(ticket.getSeat().getLocation()));
+            lableseattype.setText(String.valueOf(ticket.getSeat().getType()));
 
 
-            //lableprice.setText(String.valueOf(client.getTicket().getId()));
-
-            /*
-            lableprice.setText(String.valueOf(parsing.getPrices()));
-            lableid.setText(String.valueOf(parsing.getIds()));
-            lablehallname.setText(String.valueOf(parsing.getHallName()));
-            lablepertime.setText(String.valueOf(parsing.getPerfTime()));
-            lablenameofper.setText(String.valueOf(parsing.getNameofPer()));
-            lableseatlocation.setText(String.valueOf(parsing.getSeatLocation()));
-            lableseattype.setText(String.valueOf(parsing.getSeatType()));
-
-             */
         }else{
             lablecontact.setText("не информации");
         }

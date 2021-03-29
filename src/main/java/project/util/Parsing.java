@@ -15,9 +15,9 @@ import java.util.List;
 
 public class Parsing {
 
-    private ObservableList<Client> client = FXCollections.observableArrayList();
+    private ObservableList<Client> clients = FXCollections.observableArrayList();
     private ObservableList<Ticket> tickets = FXCollections.observableArrayList();
-    private Client clientclass;
+
     private Ticket ticketclass;
     private Hall hallclass;
     private Performance perfotmanceclass;
@@ -90,6 +90,7 @@ public class Parsing {
                 tempHall.setTime(hall.getString("time"));
 
                 String perfomancesString = hall.getString("performances");
+                System.out.println(perfomancesString + "-----------------------++++++++");
                 JSONArray perfomances = new JSONArray(perfomancesString);
                 List<Performance> performanceList = new ArrayList<>();
 
@@ -104,154 +105,39 @@ public class Parsing {
                     tempPerfomance.setAgelimit(perfomanceJSON.getInt("agelimit"));
 
                     performanceList.add(tempPerfomance);
-                    System.out.println(tempPerfomance);
+                    System.out.println("dssd" + performanceList);
+                    tempHall.setPerformances(performanceList);
 
                 }
-                tempHall.setPerformances(performanceList);
-                System.out.println("dtrfyguh" + tempHall);
+
+
                 tempSeat.setHall(tempHall);
                 tempTicket.setSeat(tempSeat);
                 System.out.println(tempTicket);
                 tickets.add(tempTicket);
                 System.out.println("-------------------------");
                 System.out.println(tickets);
+                System.out.println("cli " + tempTicket.getClient());
+                clients.add(tempTicket.getClient());
+                System.out.println(clients);
 
 
-
-
-                 /*
-            вывожу имя и фамилию с контактами
-             */
-               /*
-                String firstname = json.getJSONObject(i).getString("firstname");
-                String lastname = json.getJSONObject(i).getString("lastname");
-                String contact = json.getJSONObject(i).getString("contact");
-                String ageperson = json.getJSONObject(i).getString("age");
-                String idclient = json.getJSONObject(i).getString("id");*/
-            /*
-            вывожу id - номер билета
-             *//*
-                String ticket = json.getJSONObject(i).getString("ticket");
-                JSONObject numeric = new JSONObject(ticket);
-                String number_of_ticket = numeric.getString("id");
-                String price = numeric.getString("price");
-                System.out.println("тикет" + ticket);*/
-
-             /*
-            вывожу место
-             *//*
-                String seat = numeric.getString("seat");
-                JSONObject seat_on_hall = new JSONObject(seat);
-                String location = seat_on_hall.getString("location");
-                String type = seat_on_hall.getString("type");*/
-
-            /*
-            вывожу название зала и время спектакля
-             *//*
-                String hall = seat_on_hall.getString("hall");
-                JSONObject type_hall = new JSONObject(hall);
-                String name = type_hall.getString("name");
-                String time = type_hall.getString("time");*/
-
-
-            /*
-            выввожу название спектакля и возрастное ограничение
-             *//*
-                clientclass = new Client(firstname, lastname, contact, Integer.parseInt(ageperson));
-                clientclass.setId(Long.valueOf(idclient));
-
-                ticketclass = new Ticket(Integer.parseInt(price));
-                ticketclass.setId(Long.valueOf(number_of_ticket));
-                System.out.println(clientclass);
-
-                String performance = type_hall.getString("performances");
-                JSONArray name_per = new JSONArray(performance);
-                for (int j =0; j<name_per.length(); j++){
-                    String name_of_per = name_per.getJSONObject(j).getString("name");
-                    String age = name_per.getJSONObject(j).getString("agelimit");
-                    String timeofpremier = name_per.getJSONObject(j).getString("timeofpremier");
-                    String  timeofend= name_per.getJSONObject(j).getString("timeofend");*/
-
-
-
-                    /*
-
-                    clientclass = new Client(firstname, lastname, contact, Integer.parseInt(ageperson));
-                    clientclass.setId(Long.valueOf(idclient));
-                    client.add(clientclass);
-
-                     */
-
-                    //perfotmanceclass = new Performance(name_of_per, timeofpremier, timeofend, Integer.parseInt(age));
-                    //hallclass = new Hall(name, time);
-
-                    //System.out.println("SDXFCGVHBJK" + clientclass.getTicket().getId());
-
-                    //seatclass = new Seat( Integer.parseInt(location), type);
-
-                    /*clientclass.setTicket(ticketclass);
-                    client.add(clientclass);
-
-                    System.out.println("id" + idclient + "\nИмя: " + firstname +"\n" + "Фамилия: " + lastname +
-                            "\n" + "Номер билета: " + number_of_ticket + "\n" + "Место: " + type + " " + location +
-                            "\n" + "Цена: " + price + "\n" + "Зал: " + name + "\n" +
-                            "Время: " + time +"\n" + "Контакты " + contact + "\n" + "Название спектакля: " + name_of_per +
-                            "\n" + "Возрастное ограничение " + age + "\n***************************"  + timeofpremier + timeofend);*/
 
             }
-            System.out.println(client.size());
+            System.out.println(clients.size());
+
+
+
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
     }
 
-
-    public ObservableList<Client> getClient() {
-        return client;
+    public ObservableList<Client> getClients(){
+        return clients;
     }
-
-
-
-    public ObservableList<Ticket> getTickets() {
-        return  tickets;
-    }
-
-    public String getContacts(){
-        return clientclass.getContact();
-    }
-
-    public Integer getPrices(){
-        return ticketclass.getPrice();
-    }
-
-    public Long getIds(){
-        return ticketclass.getId();
-    }
-
-    public String getHallName(){
-        return hallclass.getName();
-    }
-
-    public String getPerfTime(){
-        return hallclass.getTime();
-    }
-
-    public String getNameofPer(){
-        return perfotmanceclass.getName();
-    }
-
-    public Integer getSeatLocation(){
-        return seatclass.getLocation();
-    }
-
-    public String getSeatType(){
-        return seatclass.getType();
-    }
-
-
-
-
 
 
 }
