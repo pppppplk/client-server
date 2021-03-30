@@ -3,6 +3,9 @@ package project.controllerfx;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
@@ -12,16 +15,14 @@ import project.spring.models.Ticket;
 import project.util.Parsing;
 import project.spring.models.Client;
 
+import java.awt.event.ActionEvent;
 import java.io.IOException;
 
 public class RootController {
 
     private ObservableList<Client> clients = FXCollections.observableArrayList();
     private Parsing parsing = new Parsing();
-
-
-
-
+    private SearchController searchController;
 
 
     @FXML
@@ -66,6 +67,9 @@ public class RootController {
     @FXML
     private Label lableseattype;
 
+    @FXML
+    private MenuItem searchid;
+
 
     private JavaFX main;
     private Stage stage;
@@ -74,17 +78,15 @@ public class RootController {
     }
 
     @FXML
-    private void  initialize(){
+    private void initialize() {
 
         initTable();
         namecolumn.setCellValueFactory(cellData -> cellData.getValue().getClient().getFirstNameProp());
         surnamecolumn.setCellValueFactory(cellData -> cellData.getValue().getClient().getLastNameProp());
 
         ShowInfo(null); //очищаем справа
-        clientInfo.getSelectionModel().selectedItemProperty().addListener((observable,oldValue,newValue)
+        clientInfo.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue)
                 -> ShowInfo(newValue));
-
-
 
 
 
@@ -105,6 +107,7 @@ public class RootController {
 
     }
 
+
     public JavaFX getMain() {
         return main;
     }
@@ -122,21 +125,20 @@ public class RootController {
     }
 
 
-    private void initTable(){
+    private void initTable() {
         this.clientInfo.setItems(parsing.getTickets());
-
 
 
     }
 
-    private void ShowInfo(Ticket ticket){
-        if( ticket!= null){
+    private void ShowInfo(Ticket ticket) {
+        if (ticket != null) {
             lablecontact.setText(String.valueOf(ticket.getClient().getContact()));
             lableid.setText(String.valueOf(ticket.getId()));
             lableprice.setText(String.valueOf(ticket.getPrice()));
             lablehallname.setText(String.valueOf(ticket.getSeat().getHall().getName()));
             lablepertime.setText(String.valueOf(ticket.getSeat().getHall().getTime()));
-            for (int i = 0; i<ticket.getSeat().getHall().getPerformances().size(); i++){
+            for (int i = 0; i < ticket.getSeat().getHall().getPerformances().size(); i++) {
                 lablenameofper.setText(String.valueOf(ticket.getSeat().getHall().getPerformances().get(i).getName()));
             }
 
@@ -144,10 +146,32 @@ public class RootController {
             lableseattype.setText(String.valueOf(ticket.getSeat().getType()));
 
 
-        }else{
+        } else {
             lablecontact.setText("нет информации");
         }
 
     }
+
+    @FXML
+
+    public void searchButton(javafx.event.ActionEvent actionEvent) {
+        try {
+
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/search.fxml"));
+            Parent root1 = (Parent) fxmlLoader.load();
+            stage = new Stage();
+            stage.setTitle("Поиск");
+            stage.setScene(new Scene(root1));
+            stage.show();
+
+        } catch (Exception e) {
+            System.out.println(e);
+            System.out.println("окно не открывается ");
+
+
+        }
+
+    }
+
 
 }

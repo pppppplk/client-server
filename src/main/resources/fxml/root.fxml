@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="399.0" prefWidth="630.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.controllerfx.RootController">
+<BorderPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.controllerfx.RootController">
    <top>
-      <MenuBar prefHeight="30.0" prefWidth="622.0" BorderPane.alignment="CENTER">
+      <MenuBar prefHeight="30.0" prefWidth="622.0" styleClass="button" stylesheets="@../styles/rootview.css" BorderPane.alignment="CENTER">
         <menus>
           <Menu mnemonicParsing="false" text="File">
             <items>
@@ -17,25 +18,28 @@
               <MenuItem mnemonicParsing="false" text="Delete" />
             </items>
           </Menu>
-          <Menu mnemonicParsing="false" text="Help">
+          <Menu mnemonicParsing="false" text="Помощь">
             <items>
-              <MenuItem mnemonicParsing="false" text="About" />
+              <MenuItem fx:id="searchid" mnemonicParsing="false" onAction="#searchButton" text="Поиск" />
             </items>
           </Menu>
         </menus>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
       </MenuBar>
    </top>
    <center>
-      <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="background" stylesheets="@../styles/rootview.css" BorderPane.alignment="CENTER">
          <children>
-            <SplitPane dividerPositions="0.5" prefHeight="371.0" prefWidth="600.0">
+            <SplitPane dividerPositions="0.5" prefHeight="371.0" prefWidth="600.0" styleClass="background" stylesheets="@../styles/rootview.css">
                <items>
-                  <AnchorPane prefHeight="327.0" prefWidth="508.0">
+                  <AnchorPane prefHeight="327.0" prefWidth="508.0" styleClass="background" stylesheets="@../styles/rootview.css">
                      <children>
-                        <TableView fx:id="clientInfo" prefHeight="367.0" prefWidth="296.0">
+                        <TableView fx:id="clientInfo" prefHeight="367.0" prefWidth="296.0" styleClass="background" stylesheets="@../styles/rootview.css">
                           <columns>
-                            <TableColumn fx:id="surnamecolumn" prefWidth="157.0" text="Фамилия" />
-                            <TableColumn fx:id="namecolumn" prefWidth="138.0" text="Имя" />
+                            <TableColumn fx:id="surnamecolumn" prefWidth="157.0" styleClass="table-view" text="Фамилия" />
+                            <TableColumn fx:id="namecolumn" prefWidth="138.0" styleClass="table-view" text="Имя" />
                           </columns>
                         </TableView>
                      </children></AnchorPane>
@@ -57,32 +61,32 @@
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <Label contentDisplay="CENTER" prefHeight="17.0" prefWidth="134.0" text="                 Спектакль:" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS" GridPane.rowIndex="1" />
-                              <Label prefHeight="17.0" prefWidth="110.0" text="                        Зал:" GridPane.rowIndex="2" />
-                              <Label prefHeight="17.0" prefWidth="120.0" text="                     Место:" GridPane.rowIndex="4" />
-                              <Label prefHeight="17.0" prefWidth="120.0" text="                     Время:" GridPane.rowIndex="5" />
-                              <Label prefHeight="17.0" prefWidth="143.0" text="                   Контакты:" GridPane.rowIndex="6" />
-                              <Label prefHeight="17.0" prefWidth="158.0" text="                       Цена:" GridPane.rowIndex="7" />
-                              <Label prefHeight="17.0" prefWidth="117.0" text="                      Зона: " GridPane.rowIndex="3" />
-                              <Label prefHeight="17.0" prefWidth="112.0" text="                 № билета:" />
-                              <Label fx:id="lableid" prefHeight="17.0" prefWidth="137.0" text="   Label" GridPane.columnIndex="1" />
-                              <Label fx:id="lablenameofper" prefHeight="17.0" prefWidth="133.0" text="   Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                              <Label fx:id="lablehallname" prefHeight="17.0" prefWidth="127.0" text="   Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                              <Label fx:id="lableseattype" prefHeight="17.0" prefWidth="134.0" text="   Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                              <Label fx:id="lableseatlocation" prefHeight="17.0" prefWidth="133.0" text="   Label" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                              <Label fx:id="lablepertime" prefHeight="17.0" prefWidth="139.0" text="   Label" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                              <Label fx:id="lablecontact" prefHeight="17.0" prefWidth="148.0" text="   Label" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                              <Label fx:id="lableprice" prefHeight="17.0" prefWidth="139.0" text="   Label" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                              <Label contentDisplay="CENTER" prefHeight="17.0" prefWidth="134.0" text="                 Спектакль:" textAlignment="CENTER" textFill="WHITE" textOverrun="CENTER_ELLIPSIS" GridPane.rowIndex="1" />
+                              <Label prefHeight="17.0" prefWidth="110.0" text="                        Зал:" textFill="WHITE" GridPane.rowIndex="2" />
+                              <Label prefHeight="17.0" prefWidth="120.0" text="                     Место:" textFill="WHITE" GridPane.rowIndex="4" />
+                              <Label prefHeight="17.0" prefWidth="120.0" text="                     Время:" textFill="WHITE" GridPane.rowIndex="5" />
+                              <Label prefHeight="17.0" prefWidth="143.0" text="                   Контакты:" textFill="WHITE" GridPane.rowIndex="6" />
+                              <Label prefHeight="17.0" prefWidth="158.0" text="                       Цена:" textFill="WHITE" GridPane.rowIndex="7" />
+                              <Label prefHeight="17.0" prefWidth="117.0" text="                      Зона: " textFill="WHITE" GridPane.rowIndex="3" />
+                              <Label prefHeight="17.0" prefWidth="112.0" text="                 № билета:" textFill="WHITE" />
+                              <Label fx:id="lableid" prefHeight="17.0" prefWidth="137.0" text="   Label" textFill="WHITE" GridPane.columnIndex="1" />
+                              <Label fx:id="lablenameofper" prefHeight="17.0" prefWidth="133.0" text="   Label" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <Label fx:id="lablehallname" prefHeight="17.0" prefWidth="127.0" text="   Label" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <Label fx:id="lableseattype" prefHeight="17.0" prefWidth="134.0" text="   Label" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                              <Label fx:id="lableseatlocation" prefHeight="17.0" prefWidth="133.0" text="   Label" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                              <Label fx:id="lablepertime" prefHeight="17.0" prefWidth="139.0" text="   Label" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                              <Label fx:id="lablecontact" prefHeight="17.0" prefWidth="148.0" text="   Label" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                              <Label fx:id="lableprice" prefHeight="17.0" prefWidth="139.0" text="   Label" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="7" />
                            </children>
                         </GridPane>
                         <HBox layoutX="21.0" layoutY="324.0" prefHeight="31.0" prefWidth="100.0">
                            <children>
-                              <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="99.0" text="Добавить" />
+                              <Button fx:id="addid" mnemonicParsing="false" prefHeight="30.0" prefWidth="99.0" text="Добавить" textFill="WHITE" />
                            </children>
                         </HBox>
                         <HBox layoutX="187.0" layoutY="324.0" prefHeight="31.0" prefWidth="107.0">
                            <children>
-                              <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="99.0" text="Удалить" />
+                              <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="99.0" text="Удалить" textFill="WHITE" />
                            </children></HBox>
                      </children></AnchorPane>
                </items></SplitPane>

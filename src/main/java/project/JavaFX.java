@@ -1,11 +1,23 @@
 package project;
 
+import com.sun.webkit.ContextMenu;
 import javafx.application.Application;
+import javafx.fxml.FXML;
+import javafx.scene.Parent;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
+import javafx.stage.Window;
 import project.controllerfx.RootController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import project.controllerfx.SearchController;
+import project.spring.models.Ticket;
+import project.util.Parsing;
+
+import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.io.*;
 
 
@@ -15,12 +27,14 @@ public class JavaFX extends Application {
     private BorderPane rootLayout;
 
 
+
     @Override
     public void start(Stage primaryStage) throws Exception {
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("Информационно-справочная система театра");
 
         initRootLayout();
+
         //showPersonOverview();
     }
 
@@ -42,6 +56,9 @@ public class JavaFX extends Application {
             e.printStackTrace();
         }
     }
+
+
+
 
     /*
 

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="286.0" prefWidth="492.0" styleClass="background" stylesheets="@../styles/search.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.controllerfx.SearchController">
+   <children>
+      <Label layoutX="133.0" layoutY="14.0" prefHeight="17.0" prefWidth="237.0" text="        Поиск клиента  по номеру билета " textAlignment="CENTER">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font></Label>
+      <TextField layoutX="158.0" layoutY="250.0" onAction="#Search" prefHeight="27.0" prefWidth="187.0" AnchorPane.bottomAnchor="9.0" AnchorPane.leftAnchor="158.0" AnchorPane.rightAnchor="147.0" AnchorPane.topAnchor="250.0" />
+      <Label layoutX="119.0" layoutY="255.0" text="№" />
+      <Label  layoutX="222.0" layoutY="126.0" text="Label" />
+   </children>
+</AnchorPane>
