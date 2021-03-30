@@ -135,8 +135,9 @@ public class Parsing {
 
     }
 
-    public ObservableList<Client> getClients(){
-        return clients;
+
+    public ObservableList<Ticket> getTickets(){
+        return tickets;
     }
 
 

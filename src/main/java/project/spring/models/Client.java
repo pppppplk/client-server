@@ -2,6 +2,8 @@ package project.spring.models;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleSetProperty;
+import javafx.beans.property.SimpleStringProperty;
 
 import javax.persistence.*;
 import java.util.HashMap;
@@ -20,6 +22,8 @@ public class Client{
     private String firstname, lastname, contact;
     private int age;
 
+    public SimpleStringProperty getFirstNameProp(){return new SimpleStringProperty(firstname); }
+    public SimpleStringProperty getLastNameProp(){return new SimpleStringProperty(lastname); }
 
     public Client(String firstname, String lastname, String contact, Integer age) {
         this.firstname = firstname;

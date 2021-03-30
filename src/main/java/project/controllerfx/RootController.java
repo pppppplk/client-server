@@ -7,6 +7,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import project.JavaFX;
+import project.spring.models.Performance;
 import project.spring.models.Ticket;
 import project.util.Parsing;
 import project.spring.models.Client;
@@ -22,14 +23,15 @@ public class RootController {
 
 
 
+
     @FXML
     private TableView<Ticket> clientInfo;
 
     @FXML
-    private TableColumn<Client, String> surnamecolumn;
+    private TableColumn<Ticket, String> surnamecolumn;
 
     @FXML
-    private TableColumn<Client, String> namecolumn;
+    private TableColumn<Ticket, String> namecolumn;
 
     @FXML
     private ChoiceBox<String> hallChoiceBox;
@@ -75,8 +77,8 @@ public class RootController {
     private void  initialize(){
 
         initTable();
-        namecolumn.setCellValueFactory(new PropertyValueFactory<Client, String>("firstname"));
-        surnamecolumn.setCellValueFactory(new PropertyValueFactory<Client, String>("lastname"));
+        namecolumn.setCellValueFactory(cellData -> cellData.getValue().getClient().getFirstNameProp());
+        surnamecolumn.setCellValueFactory(cellData -> cellData.getValue().getClient().getLastNameProp());
 
         ShowInfo(null); //очищаем справа
         clientInfo.getSelectionModel().selectedItemProperty().addListener((observable,oldValue,newValue)
@@ -121,7 +123,7 @@ public class RootController {
 
 
     private void initTable(){
-        this.clientInfo.setItems(parsing.getClients());
+        this.clientInfo.setItems(parsing.getTickets());
 
 
 
@@ -129,20 +131,21 @@ public class RootController {
 
     private void ShowInfo(Ticket ticket){
         if( ticket!= null){
-
-
             lablecontact.setText(String.valueOf(ticket.getClient().getContact()));
             lableid.setText(String.valueOf(ticket.getId()));
             lableprice.setText(String.valueOf(ticket.getPrice()));
             lablehallname.setText(String.valueOf(ticket.getSeat().getHall().getName()));
             lablepertime.setText(String.valueOf(ticket.getSeat().getHall().getTime()));
-            //lablenameofper.setText(String.valueOf(ticket.getSeat().getHall().getPer().getName()));
+            for (int i = 0; i<ticket.getSeat().getHall().getPerformances().size(); i++){
+                lablenameofper.setText(String.valueOf(ticket.getSeat().getHall().getPerformances().get(i).getName()));
+            }
+
             lableseatlocation.setText(String.valueOf(ticket.getSeat().getLocation()));
             lableseattype.setText(String.valueOf(ticket.getSeat().getType()));
 
 
         }else{
-            lablecontact.setText("не информации");
+            lablecontact.setText("нет информации");
         }
 
     }
