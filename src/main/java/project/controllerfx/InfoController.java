@@ -1,3 +1,4 @@
+
 package project.controllerfx;
 
 
@@ -15,7 +16,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SearchController{
+public class InfoController {
 
 
     private JavaFX main;
@@ -48,15 +49,21 @@ public class SearchController{
     }
 
 
-    public SearchController() throws IOException{ }
+    public InfoController() throws IOException{ }
 
 
-
+    /*
 
     public void Search(javafx.event.ActionEvent actionEvent) {
 
 
         textField = new TextField();
+        label1 = new Label();
+
+        textField.setText("t");
+        textField.getText();
+        label1.setText(textField.getText());
+        System.out.println(textField.getText());
         /*
 
         Long znach = Long.valueOf(textField.getText());
@@ -67,6 +74,8 @@ public class SearchController{
         System.out.println("список" + textlist );
 
          */
+    /*
+
 
         if(!textField.getText().isEmpty()){
             System.out.println("yhtfgtdrsgz");
@@ -74,4 +83,10 @@ public class SearchController{
             System.out.println("123456");
         }
     }
+
+     */
+
 }
+
+
+

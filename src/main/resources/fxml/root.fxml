@@ -4,7 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.controllerfx.RootController">
+<BorderPane prefHeight="446.0" prefWidth="596.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.controllerfx.RootController">
    <top>
       <MenuBar prefHeight="30.0" prefWidth="622.0" styleClass="button" stylesheets="@../styles/rootview.css" BorderPane.alignment="CENTER">
         <menus>
@@ -13,9 +13,9 @@
               <MenuItem mnemonicParsing="false" text="Close" />
             </items>
           </Menu>
-          <Menu mnemonicParsing="false" text="Edit">
+          <Menu mnemonicParsing="false" text="Изменение">
             <items>
-              <MenuItem mnemonicParsing="false" text="Delete" />
+              <MenuItem mnemonicParsing="false" text="Изменить " />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Помощь">
@@ -43,7 +43,7 @@
                           </columns>
                         </TableView>
                      </children></AnchorPane>
-                  <AnchorPane prefHeight="369.0" prefWidth="370.0">
+                  <AnchorPane prefHeight="409.0" prefWidth="341.0">
                      <children>
                         <GridPane prefHeight="286.0" prefWidth="321.0">
                           <columnConstraints>
@@ -90,6 +90,10 @@
                            </children></HBox>
                      </children></AnchorPane>
                </items></SplitPane>
+            <TextField fx:id="searchtext" layoutX="87.0" layoutY="375.0" prefHeight="27.0" prefWidth="179.0">
+
+            </TextField>
+            <Label layoutX="29.0" layoutY="380.0" text="Поиск" textFill="WHITE" />
          </children>
       </AnchorPane>
    </center>

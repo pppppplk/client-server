@@ -1,28 +1,24 @@
 package project.controllerfx;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import project.JavaFX;
-import project.spring.models.Performance;
 import project.spring.models.Ticket;
 import project.util.Parsing;
-import project.spring.models.Client;
 
-import java.awt.event.ActionEvent;
 import java.io.IOException;
 
 public class RootController {
 
-    private ObservableList<Client> clients = FXCollections.observableArrayList();
+    //private ObservableList<Ticket> clientslist = FXCollections.observableArrayList();
     private Parsing parsing = new Parsing();
-    private SearchController searchController;
+    //private SearchController searchController;
 
 
     @FXML
@@ -68,7 +64,9 @@ public class RootController {
     private Label lableseattype;
 
     @FXML
-    private MenuItem searchid;
+    private TextField searchtext;
+
+
 
 
     private JavaFX main;
@@ -81,6 +79,7 @@ public class RootController {
     private void initialize() {
 
         initTable();
+        SearchTable();
         namecolumn.setCellValueFactory(cellData -> cellData.getValue().getClient().getFirstNameProp());
         surnamecolumn.setCellValueFactory(cellData -> cellData.getValue().getClient().getLastNameProp());
 
@@ -157,7 +156,7 @@ public class RootController {
     public void searchButton(javafx.event.ActionEvent actionEvent) {
         try {
 
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/search.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/info.fxml"));
             Parent root1 = (Parent) fxmlLoader.load();
             stage = new Stage();
             stage.setTitle("Поиск");
@@ -170,6 +169,50 @@ public class RootController {
 
 
         }
+
+    }
+
+
+    @FXML
+
+    /**
+     * функция, которая ищет клиентов по бд
+     */
+
+    public void SearchTable(){
+
+        System.out.println("зашел");
+
+        FilteredList<Ticket> filteredList = new FilteredList<>(parsing.getTickets(), b -> true);
+
+        searchtext.textProperty().addListener((observable, oldValue, newValue ) -> {
+            filteredList.setPredicate(ticket -> {
+
+                if (newValue == null || newValue.isEmpty()){
+                    return true;
+                }
+
+                String filter = newValue.toLowerCase();
+
+                if (ticket.getClient().getFirstname().toLowerCase().indexOf(filter) != -1){
+                    return true;
+                }else if (ticket.getClient().getLastname().toLowerCase().indexOf(filter) != -1){
+                    return true;
+                }else{
+                    return  false;
+
+                }
+
+                });
+
+                });
+
+
+        SortedList<Ticket> sortedList = new SortedList<>(filteredList);
+        sortedList.comparatorProperty().bind(clientInfo.comparatorProperty());
+        clientInfo.setItems(sortedList);
+
+
 
     }
 
