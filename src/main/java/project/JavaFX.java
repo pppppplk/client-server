@@ -1,23 +1,12 @@
 package project;
 
-import com.sun.webkit.ContextMenu;
+
 import javafx.application.Application;
-import javafx.fxml.FXML;
-import javafx.scene.Parent;
-import javafx.scene.layout.AnchorPane;
-import javafx.stage.Modality;
-import javafx.stage.Window;
 import project.controllerfx.RootController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-
-import project.spring.models.Ticket;
-import project.util.Parsing;
-
-import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.io.*;
 
 
@@ -48,7 +37,6 @@ public class JavaFX extends Application {
             RootController rootController = loader.getController();
             rootController.setStage(primaryStage);
             rootController.setMain(this);
-            //rootController.fillClients(this.clients);
             Scene scene = new Scene(rootLayout);
             primaryStage.setScene(scene);
             primaryStage.show();

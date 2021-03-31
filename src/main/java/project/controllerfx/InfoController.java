@@ -11,7 +11,6 @@ import project.spring.models.Ticket;
 import project.util.Parsing;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -51,40 +50,6 @@ public class InfoController {
 
     public InfoController() throws IOException{ }
 
-
-    /*
-
-    public void Search(javafx.event.ActionEvent actionEvent) {
-
-
-        textField = new TextField();
-        label1 = new Label();
-
-        textField.setText("t");
-        textField.getText();
-        label1.setText(textField.getText());
-        System.out.println(textField.getText());
-        /*
-
-        Long znach = Long.valueOf(textField.getText());
-        label1.setText(String.valueOf(znach));
-
-        System.out.println(textField.getText());
-        textlist.add(textField.getText());
-        System.out.println("список" + textlist );
-
-         */
-    /*
-
-
-        if(!textField.getText().isEmpty()){
-            System.out.println("yhtfgtdrsgz");
-        }else{
-            System.out.println("123456");
-        }
-    }
-
-     */
 
 }
 

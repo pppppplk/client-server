@@ -9,6 +9,8 @@ public interface TicketRepo extends JpaRepository<Ticket, Long> {
 
     List<Ticket> findTicketByPrice(Integer price);
 
+    List<Ticket> findTicketsById(Long id);
+
     Ticket findTicketById(Long id);
 
 }

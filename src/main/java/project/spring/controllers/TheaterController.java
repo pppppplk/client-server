@@ -97,14 +97,25 @@ public class TheaterController {
 
 
 
+    @DeleteMapping("/tickets")
+
+    // http://127.0.0.1:8080/api/theater/tickets?id=..
+    Ticket deleteTicket(@RequestParam Long id) {
+        List<Ticket> foundTickets = this.ticketRepo.findTicketsById(id);
+        Ticket foundTicket = foundTickets.get(foundTickets.size()-1);
+        this.ticketRepo.delete(foundTicket);
+        return foundTicket;
+    }
 
 
-//    @DeleteMapping("/ticket")
-//    Ticket deleteTicket(@RequestParam Integer price) {
-//        List<Ticket> foundTickets = this.ticketDao.findTicketByPrice(price);
-//        Ticket foundTicket = foundTickets.get(foundTickets.size()-1);
-//        this.ticketDao.delete(foundTicket);
-//        return foundTicket;
-//    }
+    @DeleteMapping("/clients")
+
+        // http://127.0.0.1:8080/api/theater/clients?id=..
+    Client deleteClient(@RequestParam Long id) {
+        List<Client> foundClients = this.clientRepo.findClientsById(id);
+        Client foundClient = foundClients.get(foundClients.size()-1);
+        this.clientRepo.delete(foundClient);
+        return foundClient;
+    }
 
 }

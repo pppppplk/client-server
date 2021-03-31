@@ -18,14 +18,11 @@ public class Parsing {
     private ObservableList<Client> clients = FXCollections.observableArrayList();
     private ObservableList<Ticket> tickets = FXCollections.observableArrayList();
 
-    private Ticket ticketclass;
-    private Hall hallclass;
-    private Performance perfotmanceclass;
-    private Seat seatclass;
-
-
 
     public Parsing() throws IOException{
+
+
+
 
 
         URL url = new URL("http://localhost:8080/api/theater/tickets/all");
@@ -39,7 +36,7 @@ public class Parsing {
         String str = " ";
 
         // считываеи из url  построчно информацию и добавляем ее в строку,
-        // затем возвращаем строку уже со всей информацией о погоде, которая находится в url
+        // затем возвращаем строку уже со всей информацией, которая находится в url
         while ((str = bufferedReader.readLine()) != null) {
 
             stringBuilder.append(str);

@@ -2,6 +2,7 @@ package project.controllerfx;
 
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -10,15 +11,19 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 import project.JavaFX;
 import project.spring.models.Ticket;
+import project.util.Delete;
 import project.util.Parsing;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.MouseEvent;
 import java.io.IOException;
+import java.util.Optional;
 
 public class RootController {
 
-    //private ObservableList<Ticket> clientslist = FXCollections.observableArrayList();
+
     private Parsing parsing = new Parsing();
-    //private SearchController searchController;
+    private Delete delete = new Delete();
 
 
     @FXML
@@ -67,8 +72,6 @@ public class RootController {
     private TextField searchtext;
 
 
-
-
     private JavaFX main;
     private Stage stage;
 
@@ -80,6 +83,7 @@ public class RootController {
 
         initTable();
         SearchTable();
+
         namecolumn.setCellValueFactory(cellData -> cellData.getValue().getClient().getFirstNameProp());
         surnamecolumn.setCellValueFactory(cellData -> cellData.getValue().getClient().getLastNameProp());
 
@@ -130,6 +134,10 @@ public class RootController {
 
     }
 
+    /**
+     * @param ticket полная информауия о клиенте и его билете
+     */
+
     private void ShowInfo(Ticket ticket) {
         if (ticket != null) {
             lablecontact.setText(String.valueOf(ticket.getClient().getContact()));
@@ -151,6 +159,11 @@ public class RootController {
 
     }
 
+
+    /**
+     * @param actionEvent функция, окрывающая окно инструкции
+     */
+
     @FXML
 
     public void searchButton(javafx.event.ActionEvent actionEvent) {
@@ -159,7 +172,7 @@ public class RootController {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/info.fxml"));
             Parent root1 = (Parent) fxmlLoader.load();
             stage = new Stage();
-            stage.setTitle("Поиск");
+            stage.setTitle("Инструкция");
             stage.setScene(new Scene(root1));
             stage.show();
 
@@ -179,33 +192,33 @@ public class RootController {
      * функция, которая ищет клиентов по бд
      */
 
-    public void SearchTable(){
+    public void SearchTable() {
 
         System.out.println("зашел");
 
         FilteredList<Ticket> filteredList = new FilteredList<>(parsing.getTickets(), b -> true);
 
-        searchtext.textProperty().addListener((observable, oldValue, newValue ) -> {
+        searchtext.textProperty().addListener((observable, oldValue, newValue) -> {
             filteredList.setPredicate(ticket -> {
 
-                if (newValue == null || newValue.isEmpty()){
+                if (newValue == null || newValue.isEmpty()) {
                     return true;
                 }
 
                 String filter = newValue.toLowerCase();
 
-                if (ticket.getClient().getFirstname().toLowerCase().indexOf(filter) != -1){
+                if (ticket.getClient().getFirstname().toLowerCase().indexOf(filter) != -1) {
                     return true;
-                }else if (ticket.getClient().getLastname().toLowerCase().indexOf(filter) != -1){
+                } else if (ticket.getClient().getLastname().toLowerCase().indexOf(filter) != -1) {
                     return true;
-                }else{
-                    return  false;
+                } else {
+                    return false;
 
                 }
 
-                });
+            });
 
-                });
+        });
 
 
         SortedList<Ticket> sortedList = new SortedList<>(filteredList);
@@ -213,8 +226,45 @@ public class RootController {
         clientInfo.setItems(sortedList);
 
 
-
     }
 
 
-}
+    /**
+     * @param actionEvent
+     * @throws IOException функция удаления клиента из бд + окно с предупрежденим и ошибкой
+     */
+
+
+    @FXML
+    public void DeleteClient(javafx.event.ActionEvent actionEvent) throws IOException {
+
+        System.out.println("удаление");
+        int clientrow = clientInfo.getSelectionModel().getSelectedIndex();
+        if (clientrow >= 0) {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Предупреждение");
+            alert.setHeaderText("Нажмите ОК, если хотите удалить пользователя");
+            Optional<ButtonType> option = alert.showAndWait();
+            if (option.get() == ButtonType.OK) {
+                System.out.println("перед удалением");
+
+                //delete.DeleteRest();
+
+            }else if (option.get() == ButtonType.CANCEL){
+                System.out.println("окно закрыто ");
+            }
+            alert.showAndWait();
+
+
+        } else {
+                Alert alert2 = new Alert(Alert.AlertType.ERROR);
+                alert2.setTitle("Ошибка");
+                alert2.setHeaderText("Не выбран пользователь для удаления");
+
+                alert2.showAndWait();
+            }
+
+
+        }
+    }
+
