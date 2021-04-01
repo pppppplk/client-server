@@ -101,10 +101,13 @@ public class TheaterController {
 
     // http://127.0.0.1:8080/api/theater/tickets?id=..
     Ticket deleteTicket(@RequestParam Long id) {
-        List<Ticket> foundTickets = this.ticketRepo.findTicketsById(id);
-        Ticket foundTicket = foundTickets.get(foundTickets.size()-1);
+
+        Ticket foundTicket = this.ticketRepo.findTicketById(id);
         this.ticketRepo.delete(foundTicket);
         return foundTicket;
+
+
+
     }
 
 
@@ -112,8 +115,7 @@ public class TheaterController {
 
         // http://127.0.0.1:8080/api/theater/clients?id=..
     Client deleteClient(@RequestParam Long id) {
-        List<Client> foundClients = this.clientRepo.findClientsById(id);
-        Client foundClient = foundClients.get(foundClients.size()-1);
+        Client foundClient = this.clientRepo.findClientById(id);
         this.clientRepo.delete(foundClient);
         return foundClient;
     }

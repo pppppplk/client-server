@@ -74,16 +74,9 @@
                               <Label fx:id="lableprice" prefHeight="17.0" prefWidth="139.0" text="   Label" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="7" />
                            </children>
                         </GridPane>
-                        <HBox layoutX="21.0" layoutY="324.0" prefHeight="31.0" prefWidth="100.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="21.0" AnchorPane.rightAnchor="173.0" AnchorPane.topAnchor="324.0">
-                           <children>
-                              <Button fx:id="addid" mnemonicParsing="false" prefHeight="30.0" prefWidth="99.0" text="Добавить" textFill="WHITE" />
-                           </children>
-                        </HBox>
-                        <HBox layoutX="187.0" layoutY="324.0" prefHeight="31.0" prefWidth="107.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="21.0" AnchorPane.rightAnchor="173.0" AnchorPane.topAnchor="324.0">
-                           <children>
-                              <Button mnemonicParsing="false" onAction="#DeleteClient" prefHeight="30.0" prefWidth="99.0" text="Удалить" textFill="WHITE">
+                         <Button layoutX="26.0" layoutY="325.0" mnemonicParsing="false" onAction="#addButton" prefHeight="30.0" prefWidth="99.0" text="Добавить" textFill="WHITE" />
+                         <Button layoutX="147.0" layoutY="325.0" mnemonicParsing="false" onAction="#DeleteClient" prefHeight="30.0" prefWidth="99.0" text="Удалить" textFill="WHITE">
                               </Button>
-                           </children></HBox>
                      </children></AnchorPane>
                </items></SplitPane>
             <TextField fx:id="searchtext" layoutX="87.0" layoutY="375.0" prefHeight="27.0" prefWidth="179.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="87.0" AnchorPane.rightAnchor="330.0" AnchorPane.topAnchor="375.0">

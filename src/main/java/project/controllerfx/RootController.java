@@ -2,19 +2,20 @@ package project.controllerfx;
 
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import project.JavaFX;
 import project.spring.models.Ticket;
 import project.util.Delete;
 import project.util.Parsing;
 
-import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.util.Optional;
@@ -70,6 +71,9 @@ public class RootController {
 
     @FXML
     private TextField searchtext;
+
+    @FXML
+    private Button addid;
 
 
     private JavaFX main;
@@ -240,6 +244,7 @@ public class RootController {
 
         System.out.println("удаление");
         int clientrow = clientInfo.getSelectionModel().getSelectedIndex();
+
         if (clientrow >= 0) {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Предупреждение");
@@ -248,7 +253,25 @@ public class RootController {
             if (option.get() == ButtonType.OK) {
                 System.out.println("перед удалением");
 
-                //delete.DeleteRest();
+                if(clientInfo.getSelectionModel().getSelectedItem()  == null){
+                    try{
+                        Alert alert2 = new Alert(Alert.AlertType.ERROR);
+                        alert2.setTitle("Ошибка");
+                        alert2.setHeaderText("Не выбран пользователь для удаления");
+                        alert2.showAndWait();
+                    }catch (Exception e){
+
+                    }
+                }else{
+                    Long idticket = clientInfo.getSelectionModel().getSelectedItem().getId();
+                    Long idclient = clientInfo.getSelectionModel().getSelectedItem().getClient().getId();
+
+                    delete.DeleteRest("http://localhost:8080/api/theater/tickets?id="+idticket);
+                    delete.DeleteRest("http://localhost:8080/api/theater/clients?id="+idclient);
+                    initTable();
+                    clientInfo.getItems().removeAll(clientInfo.getSelectionModel().getSelectedItem());
+                }
+
 
             }else if (option.get() == ButtonType.CANCEL){
                 System.out.println("окно закрыто ");
@@ -265,6 +288,35 @@ public class RootController {
             }
 
 
-        }
     }
+
+
+    @FXML
+    public void addButton() {
+
+        System.out.println("зашел в добавление");
+
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(main.getClass().getResource("/fxml/post.fxml"));
+            AnchorPane root1 = fxmlLoader.load();
+            stage = new Stage();
+            stage.setTitle("Инструкция");
+            stage.setScene(new Scene(root1));
+            stage.show();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("окно не открывается ");
+
+
+        }
+
+
+    }
+}
+
+
+
+
+
 

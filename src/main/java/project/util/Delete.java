@@ -1,20 +1,28 @@
 package project.util;
 
+import project.spring.models.Ticket;
+
 import java.io.*;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.nio.charset.StandardCharsets;
 
 public class Delete {
 
-    public void DeleteRest() throws IOException {
-        URL url = new URL("http://localhost:8080/api/theater/clients");
+    public void DeleteRest(String link) throws IOException {
+        URL url = new URL(link);
 
-        URLConnection urlConnection = url.openConnection(); // предоставляем доступ к атрибутам url
+        HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
 
-        InputStream inputStream = new BufferedInputStream(urlConnection.getInputStream()); //получение данных из  источника
+        httpURLConnection.setRequestProperty("Content-Type", "utf-8");
+        httpURLConnection.setRequestProperty("Accept", "application/json");
+        httpURLConnection.setRequestMethod("DELETE");
+        InputStream inputStream = new BufferedInputStream(httpURLConnection.getInputStream()); //получение данных из  источника
         StringBuilder stringBuilder = new StringBuilder();
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream)); //считывает текст
+
         String str = " ";
 
         // считываеи из url  построчно информацию и добавляем ее в строку,
@@ -26,7 +34,6 @@ public class Delete {
         }
         String response = stringBuilder.toString();
         bufferedReader.close();
-        System.out.println("delete delete" + response);
     }
 
 }

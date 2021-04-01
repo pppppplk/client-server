@@ -3,6 +3,7 @@ package project.spring.models;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import javafx.collections.ObservableList;
+import org.hibernate.annotations.Fetch;
 
 import javax.persistence.*;
 
@@ -20,12 +21,12 @@ public class Ticket {
      */
 
     @JsonManagedReference
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "client_id")
     private Client client;
 
     @JsonManagedReference
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "seat_id")
     private Seat seat;
 

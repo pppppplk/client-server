@@ -2,6 +2,8 @@ package project;
 
 
 import javafx.application.Application;
+import javafx.fxml.LoadException;
+import javafx.scene.control.Alert;
 import project.controllerfx.RootController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -19,9 +21,11 @@ public class JavaFX extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+
+
+
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("Информационно-справочная система театра");
-
         initRootLayout();
 
         //showPersonOverview();
@@ -40,8 +44,14 @@ public class JavaFX extends Application {
             Scene scene = new Scene(rootLayout);
             primaryStage.setScene(scene);
             primaryStage.show();
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
+            Alert alert2 = new Alert(Alert.AlertType.ERROR);
+            alert2.setTitle("Ошибка");
+            alert2.setHeaderText("Сервер не запущен. Запустите сервер!");
+
+            alert2.showAndWait();
+
         }
     }
 
