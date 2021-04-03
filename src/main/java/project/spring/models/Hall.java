@@ -1,10 +1,8 @@
 package project.spring.models;
 
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import javax.persistence.*;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,11 +15,19 @@ public class Hall {
     private Long id;
 
     private String name;
-    private String time;
 
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "hall")
+
+
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "hall")
     private List<Performance> performances =  new ArrayList<>();
+
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "hall")
+    private List<Time> times =  new ArrayList<>();
+
+
 
 
 
@@ -29,10 +35,12 @@ public class Hall {
 
     public Hall(){}
 
-    public Hall(String name, String time) {
+    public Hall(String name) {
         this.name =  name;
-        this.time = time;
+
     }
+
+
 
     public Long getId() {
         return id;
@@ -50,22 +58,19 @@ public class Hall {
         this.name = name;
     }
 
-    public String getTime() {
-        return time;
-    }
-
-    public void setTime(String time) {
-        this.time = time;
-    }
-
     public void setPerformances(List<Performance> performances) {
         this.performances = performances;
     }
-
-
-
     public List<Performance> getPerformances() {
         return performances;
+    }
+
+    public List<Time> getTimes() {
+        return times;
+    }
+
+    public void setTimes(List<Time> times) {
+        this.times = times;
     }
 
     @Override
@@ -73,8 +78,8 @@ public class Hall {
         return "Hall{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", time='" + time + '\'' +
                 ", performances=" + performances +
+                ", times=" + times +
                 '}';
     }
 }

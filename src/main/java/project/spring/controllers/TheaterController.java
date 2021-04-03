@@ -20,24 +20,30 @@ public class TheaterController {
     private final HallRepo hallRepo;
     private final SeatRepo seatRepo;
     private final PerformanceRepo performanceRepo;
+    private final TimeRepo timeRepo;
+
+
 
 
     public TheaterController(ClientRepo clientRepo, TicketRepo ticketRepo, HallRepo hallRepo,
-                             SeatRepo seatRepo, PerformanceRepo performanceRepo) {
+                             SeatRepo seatRepo, PerformanceRepo performanceRepo, TimeRepo timeRepo) {
         this.clientRepo = clientRepo;
         this.ticketRepo = ticketRepo;
         this.hallRepo = hallRepo;
         this.seatRepo = seatRepo;
         this.performanceRepo = performanceRepo;
+        this.timeRepo = timeRepo;
     }
 
 
 
     @PostMapping("/tickets")
-    Ticket createTicket(@RequestParam Integer price,@RequestParam Integer location, @RequestParam String type ) {
+    Ticket createTicket(@RequestParam Integer price,@RequestParam Integer location, @RequestParam String type,
+                        @RequestParam String firstname, @RequestParam String lastname, @RequestParam String contact,
+                        @RequestParam Integer age) {
 //        curl -X POST http://127.0.0.1:8080/api/theater/tickets?price=4238&location=9&type=A
         Ticket ticket = new Ticket(price);
-        Client client = new Client("Николай", "Жуков", "86665314432", 70);
+        Client client = new Client(firstname, lastname, contact, age);
         Seat seat = new Seat(location, type);
 
         Date d = new Date();
@@ -57,10 +63,13 @@ public class TheaterController {
 
         Performance performance = new Performance("Мастер и Маргарита",
                 dateprem1, dateend1, 16);
-        Hall hall = new Hall("малый зал", date1);
+        Hall hall = new Hall("малый зал");
+
+        Time time = new Time(date1);
 
         this.clientRepo.save(client);
         this.hallRepo.save(hall);
+        this.timeRepo.save(time);
 
         seat.setHall(hall);
         this.seatRepo.save(seat);
@@ -69,6 +78,10 @@ public class TheaterController {
         ticket.setSeat(seat);
         return this.ticketRepo.save(ticket);
     }
+
+
+
+
 
     @GetMapping("/tickets/{id}")
     Ticket getTicket(@PathVariable Long id) {
@@ -95,6 +108,28 @@ public class TheaterController {
         return this.ticketRepo.findAll();
     }
 
+    @GetMapping("/halls/all")
+    List<Hall> getHalls(){
+        return this.hallRepo.findAll();
+    }
+
+    @GetMapping("/times/{id}")
+    List<Time> getTimes(@PathVariable Long id){
+        return this.timeRepo.findAllByHall_Id(id);
+    }
+
+
+    @GetMapping("/times/all")
+    List<Time> getTimes(){
+        return this.timeRepo.findAll();
+    }
+
+
+    @GetMapping("/perfs/all")
+    List<Performance> getPerformances(){
+        return this.performanceRepo.findAll();
+    }
+
 
 
     @DeleteMapping("/tickets")
@@ -109,6 +144,8 @@ public class TheaterController {
 
 
     }
+
+
 
 
     @DeleteMapping("/clients")

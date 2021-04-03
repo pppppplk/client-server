@@ -17,6 +17,8 @@ public class Parsing {
 
     private ObservableList<Client> clients = FXCollections.observableArrayList();
     private ObservableList<Ticket> tickets = FXCollections.observableArrayList();
+    private ObservableList<Hall> halls = FXCollections.observableArrayList();
+
 
 
     public Parsing() throws IOException{
@@ -83,26 +85,40 @@ public class Parsing {
                 Hall tempHall = new Hall();
                 tempHall.setId(hall.getLong("id"));
                 tempHall.setName(hall.getString("name"));
-                tempHall.setTime(hall.getString("time"));
+                //tempHall.setTime(hall.getString("time"));
+
 
                 String perfomancesString = hall.getString("performances");
+                String timeString = hall.getString("times");
                 System.out.println(perfomancesString + "-----------------------++++++++");
                 JSONArray perfomances = new JSONArray(perfomancesString);
+                JSONArray times = new JSONArray(timeString);
+                List<Time> timeList = new ArrayList<>();
                 List<Performance> performanceList = new ArrayList<>();
 
 
                 for (int j = 0; j<perfomances.length(); j++){
                     JSONObject perfomanceJSON = perfomances.getJSONObject(j);
+                    JSONObject timeJSON = times.getJSONObject(j);
+                    Time tempTime = new Time();
                     Performance tempPerfomance = new Performance();
+                    tempTime.setId(timeJSON.getLong("id"));
+                    tempTime.setTimeinhall(timeJSON.getString("timeinhall"));
                     tempPerfomance.setId(perfomanceJSON.getLong("id"));
                     tempPerfomance.setName(perfomanceJSON.getString("name"));
                     tempPerfomance.setTimeofpremier(perfomanceJSON.getString("timeofpremier"));
                     tempPerfomance.setTimeofend(perfomanceJSON.getString("timeofend"));
                     tempPerfomance.setAgelimit(perfomanceJSON.getInt("agelimit"));
 
+
                     performanceList.add(tempPerfomance);
+                    timeList.add(tempTime);
                     System.out.println("dssd" + performanceList);
                     tempHall.setPerformances(performanceList);
+                    tempHall.setTimes(timeList);
+                    halls.add(tempHall);
+
+
 
                 }
 
@@ -119,8 +135,13 @@ public class Parsing {
 
 
 
+
+
+
+
             }
             System.out.println(clients.size());
+            System.out.println(halls);
 
 
 
@@ -135,6 +156,11 @@ public class Parsing {
     public ObservableList<Ticket> getTickets(){
         return tickets;
     }
+
+    public ObservableList<Hall> getHalls(){
+        return halls;
+    }
+
 
 
 }

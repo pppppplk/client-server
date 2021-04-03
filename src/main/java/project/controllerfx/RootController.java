@@ -2,8 +2,6 @@ package project.controllerfx;
 
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -13,10 +11,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import project.JavaFX;
 import project.spring.models.Ticket;
-import project.util.Delete;
+import project.util.Rest;
 import project.util.Parsing;
 
-import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.util.Optional;
 
@@ -24,7 +21,7 @@ public class RootController {
 
 
     private Parsing parsing = new Parsing();
-    private Delete delete = new Delete();
+    private Rest rest = new Rest();
 
 
     @FXML
@@ -97,21 +94,6 @@ public class RootController {
 
 
 
-
-        /*
-        заполняю выпадающий список зала
-
-        ObservableList<String> hall = FXCollections.observableArrayList("Большой зал", "Малый зал", "Средний зал");
-        hallChoiceBox.setItems(hall);
-
-        ObservableList<String>  zone = FXCollections.observableArrayList("Партер", "Амфитеатр", "Бельэтаж", "Балкон");
-        zoneChoiceBox.setItems(zone);
-
-        ObservableList<String>  price = FXCollections.observableArrayList("3500", "3000", "2000", "1300");
-        priceChoiceBox.setItems(price);
-
-         */
-
     }
 
 
@@ -138,6 +120,8 @@ public class RootController {
 
     }
 
+
+
     /**
      * @param ticket полная информауия о клиенте и его билете
      */
@@ -148,9 +132,12 @@ public class RootController {
             lableid.setText(String.valueOf(ticket.getId()));
             lableprice.setText(String.valueOf(ticket.getPrice()));
             lablehallname.setText(String.valueOf(ticket.getSeat().getHall().getName()));
-            lablepertime.setText(String.valueOf(ticket.getSeat().getHall().getTime()));
+
             for (int i = 0; i < ticket.getSeat().getHall().getPerformances().size(); i++) {
                 lablenameofper.setText(String.valueOf(ticket.getSeat().getHall().getPerformances().get(i).getName()));
+                for(int j=0; j<ticket.getSeat().getHall().getTimes().size(); j++){
+                    lablepertime.setText(String.valueOf(ticket.getSeat().getHall().getTimes().get(j).getTimeinhall()));
+                }
             }
 
             lableseatlocation.setText(String.valueOf(ticket.getSeat().getLocation()));
@@ -266,8 +253,8 @@ public class RootController {
                     Long idticket = clientInfo.getSelectionModel().getSelectedItem().getId();
                     Long idclient = clientInfo.getSelectionModel().getSelectedItem().getClient().getId();
 
-                    delete.DeleteRest("http://localhost:8080/api/theater/tickets?id="+idticket);
-                    delete.DeleteRest("http://localhost:8080/api/theater/clients?id="+idclient);
+                    rest.DeleteRest("http://localhost:8080/api/theater/tickets?id="+idticket);
+                    rest.DeleteRest("http://localhost:8080/api/theater/clients?id="+idclient);
                     initTable();
                     clientInfo.getItems().removeAll(clientInfo.getSelectionModel().getSelectedItem());
                 }
