@@ -7,6 +7,8 @@ import project.spring.models.*;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -124,10 +126,30 @@ public class TheaterController {
         return this.timeRepo.findAll();
     }
 
+    @GetMapping("/seats/all")
+    List<Seat> getSeats(){
+        return this.seatRepo.findAll();
+    }
 
-    @GetMapping("/perfs/all")
-    List<Performance> getPerformances(){
-        return this.performanceRepo.findAll();
+
+    @GetMapping("/perfs/data={data}")
+    List<Performance> getPerformances(@PathVariable String data){
+        List<Performance> allper = this.performanceRepo.findAll();
+        List<Performance> list = new ArrayList<>();
+        for ( Performance datainper  :  allper){
+            LocalDate start = LocalDate.parse(datainper.getTimeofpremier());
+            LocalDate end = LocalDate.parse(datainper.getTimeofend());
+            LocalDate calendar = LocalDate.parse(data);
+            if (start != null  &&  end != null){
+                if((start.isBefore(calendar) && end.isAfter(calendar)) || (start.isEqual(calendar) || end.isEqual(calendar))){
+                    list.add(datainper);
+                }
+
+            }else{
+                System.out.println("пусто");
+            }
+        }
+        return  list;
     }
 
 

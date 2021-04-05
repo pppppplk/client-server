@@ -9,15 +9,10 @@ import javafx.stage.Stage;
 import org.json.JSONArray;
 import org.json.JSONException;
 import project.JavaFX;
-import project.spring.models.Hall;
-import project.spring.models.Ticket;
 import project.util.Rest;
-import project.util.Parsing;
-
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.chrono.ChronoLocalDate;
-import java.util.regex.Pattern;
+
 
 public class PostController {
 
@@ -59,6 +54,14 @@ public class PostController {
     @FXML
     private DatePicker calendar;
 
+    @FXML
+    private Button ok;
+
+    @FXML
+    private Button cancel;
+
+
+
     private Rest connect = new Rest();
     private LocalDate datestart;
     private LocalDate dateend;
@@ -69,119 +72,10 @@ public class PostController {
     private void initialize() throws IOException, JSONException {
 
 
+
+
+
         System.out.println("полученная инфа из пост");
-
-        /**
-         * проверка валидвции ввода данных
-         */
-
-        firstname.setOnAction(actionEvent -> {
-            System.out.println(firstname.getText());
-
-            if(TestString(firstname.getText())){
-                System.out.println("проверка пройдена");
-            }else{
-                Alert alert2 = new Alert(Alert.AlertType.ERROR);
-                alert2.setTitle("Ошибка");
-                alert2.setHeaderText("Неверный тип данных. Введите буквы");
-                alert2.showAndWait();
-            }
-        });
-
-        lastname.setOnAction(actionEvent -> {
-            System.out.println(lastname.getText());
-
-            if(TestString(lastname.getText())){
-                System.out.println("проверка пройдена");
-            }else{
-                Alert alert2 = new Alert(Alert.AlertType.ERROR);
-                alert2.setTitle("Ошибка");
-                alert2.setHeaderText("Неверный тип данных. Введите буквы");
-                alert2.showAndWait();
-            }
-        });
-
-
-        age.setOnAction(actionEvent -> {
-            System.out.println(age.getText());
-
-            if((TestInt(age.getText()))){
-                System.out.println("проверка пройдена");
-            }else{
-                Alert alert2 = new Alert(Alert.AlertType.ERROR);
-                alert2.setTitle("Ошибка");
-                alert2.setHeaderText("Неверный тип данных. Введите число");
-                alert2.showAndWait();
-            }
-        });
-
-        contact.setOnAction(actionEvent -> {
-            System.out.println(contact.getText());
-
-            if((TestContact(contact.getText()))){
-                System.out.println("проверка пройдена");
-            }else{
-                Alert alert2 = new Alert(Alert.AlertType.ERROR);
-                alert2.setTitle("Ошибка");
-                alert2.setHeaderText("Неверный тип данных. Введите сотовый номер телефона");
-                alert2.showAndWait();
-            }
-        });
-
-
-
-
-        /**
-         * не доделан календаль и выборка по нему
-         */
-        JSONArray getper =  new JSONArray(connect.GetRest("http://localhost:8080/api/theater/perfs/all"));
-
-        ObservableList<String> nameofper = FXCollections.observableArrayList();
-
-        try{
-            for (int i=0; i<getper.length(); i++) {
-                nameofper.add(getper.getJSONObject(i).getString("name"));
-                datestart = LocalDate.parse(getper.getJSONObject(i).getString("timeofpremier"));
-                dateend = LocalDate.parse(getper.getJSONObject(i).getString("timeofend"));
-                if (calendar.getValue() != null){
-                    System.out.println("календарь"+ calendar.getValue());
-                }else{
-                    calendar.setOnAction(actionEvent -> {
-                        System.out.println("календарь 2 "+ calendar.getValue());
-                        System.out.println("начало "+ datestart);
-                        try{
-                            if(datestart.isBefore(calendar.getValue()) && dateend.isAfter(calendar.getValue()) ){
-                                perfomChoiceBox.setItems(nameofper);
-
-                            }else{
-                                perfomChoiceBox = null;
-
-                            }
-                        }catch (Exception e ){
-                            e.printStackTrace();
-                            Alert alert2 = new Alert(Alert.AlertType.WARNING);
-                            alert2.setTitle("Ошибка");
-                            alert2.setHeaderText("На данную дату нет спектаклей");
-                            alert2.showAndWait();
-
-                        }
-
-                    });
-                    System.out.println("пустой календаль");
-                }
-
-            }
-
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-
-
-        //perfomChoiceBox.setItems(nameofper);
-
-        /**
-         * соотвествие зала со временем
-         */
 
 
         JSONArray gethall =  new JSONArray(connect.GetRest("http://localhost:8080/api/theater/halls/all"));
@@ -221,9 +115,23 @@ public class PostController {
         });
 
 
+        JSONArray getseat =  new JSONArray(connect.GetRest("http://localhost:8080/api/theater/seats/all"));
+        System.out.println("место" + getseat);
+        ObservableList<String> nameofseat = FXCollections.observableArrayList();
+        System.out.println("место" + nameofseat);
+        for (int i=0; i<getseat.length(); i++) {
+            nameofseat.add(getseat.getJSONObject(i).getString("employment"));
+            nameofseat.add(getseat.getJSONObject(i).getString("location"));
+            nameofseat.add(getseat.getJSONObject(i).getString("type"));
+        }
+
+        System.out.println(nameofseat);
+
 
         ObservableList<Integer>  place = FXCollections.observableArrayList(1,2 ,3, 4 ,5, 6, 7, 8, 9, 10);
         placeChoiceBox.setItems(place);
+
+
 
 
         /**
@@ -250,7 +158,7 @@ public class PostController {
         });
 
 
-
+        PostClient();
 
 
     }
@@ -294,7 +202,45 @@ public class PostController {
 
 
     private void PostClient(){
+        ok.setOnAction(actionEvent -> {
+            if(firstname.getText() == "" || lastname.getText() == "" || contact.getText() == "" || age.getText() == "" ||
+                zoneChoiceBox.getValue() == null || perfomChoiceBox.getValue() == null || hallChoiceBox.getValue() == null ||
+                placeChoiceBox.getValue() == null || timeChoiceBox.getValue() == null || calendar.getValue() == null){
+                Alert alert2 = new Alert(Alert.AlertType.ERROR);
+                alert2.setTitle("Ошибка");
+                alert2.setHeaderText("Не все данные введены");
+                alert2.showAndWait();
+            }else{
+                if((TestString(firstname.getText())) && (TestString(lastname.getText())) && (TestContact(contact.getText()))  && (TestInt(age.getText())) ){
+                    System.out.println("проверка пройдена");
 
+                }else{
+                    Alert alert2 = new Alert(Alert.AlertType.ERROR);
+                    alert2.setTitle("Ошибка");
+                    alert2.setHeaderText("Неверный тип данных. Введите имя/фамилию русскими символами. Номер телефона вводится через +7");
+                    alert2.showAndWait();
+                }
+                System.out.println("добавили нового пользователя ");
+            }
+        });
+
+    }
+
+    /**
+     * сопоставление даты спектаклей с календарем
+     * @throws IOException
+     * @throws JSONException
+     */
+
+    @FXML
+    private void handleChoice() throws IOException, JSONException {
+        JSONArray getper =  new JSONArray(connect.GetRest("http://localhost:8080/api/theater/perfs/data=" + calendar.getValue()));
+        System.out.println("не обработанные даты" + getper);
+        ObservableList<String> nameofper = FXCollections.observableArrayList();
+        for (int i=0; i<getper.length(); i++) {
+            nameofper.add(getper.getJSONObject(i).getString("name"));
+        }
+        perfomChoiceBox.setItems(nameofper);
     }
 
 
