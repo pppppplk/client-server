@@ -15,7 +15,7 @@ public class Performance {
     private Long id;
 
     private String name;
-    private String timeofpremier, timeofend ;
+    private String timeofpremier, timeofend, time ;
     private Integer agelimit;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
@@ -28,10 +28,11 @@ public class Performance {
     }
 
     public Performance(String name, String timeofpremier,
-                       String timeofend, Integer agelimit ){
+                       String timeofend,String time,  Integer agelimit ){
         this.name = name;
         this.timeofpremier = timeofpremier;
         this.timeofend = timeofend;
+        this.time = time;
         this.agelimit = agelimit;
     }
 
@@ -46,6 +47,16 @@ public class Performance {
     public String getName() {
         return name;
     }
+
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
 
     public void setName(String name) {
         this.name = name;
@@ -83,6 +94,7 @@ public class Performance {
                 ", name='" + name + '\'' +
                 ", timeofpremier='" + timeofpremier + '\'' +
                 ", timeofend='" + timeofend + '\'' +
+                ", time='" + time + '\'' +
                 ", agelimit=" + agelimit +
                 '}';
     }

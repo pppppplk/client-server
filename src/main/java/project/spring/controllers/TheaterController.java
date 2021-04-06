@@ -6,6 +6,9 @@ import project.spring.repo.*;
 import project.spring.models.*;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URLDecoder;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -52,7 +55,7 @@ public class TheaterController {
         SimpleDateFormat date;
         SimpleDateFormat dateprem;
         SimpleDateFormat dateend;
-        date = new SimpleDateFormat("01.01.2021 12:20");
+        date = new SimpleDateFormat("12:20");
         dateprem = new SimpleDateFormat("01.01.2021 10:00");
         dateend = new SimpleDateFormat("01.07.2021 20:00");
 
@@ -64,7 +67,7 @@ public class TheaterController {
         String dateend1 = dateend.format(d);
 
         Performance performance = new Performance("Мастер и Маргарита",
-                dateprem1, dateend1, 16);
+                dateprem1, dateend1,date1, 16);
         Hall hall = new Hall("малый зал");
 
         Time time = new Time(date1);
@@ -132,17 +135,29 @@ public class TheaterController {
     }
 
 
+    @GetMapping("/perfs/all")
+    List<Performance> getPerfs(){
+        return this.performanceRepo.findAll();
+    }
+
+
+
     @GetMapping("/perfs/data={data}")
     List<Performance> getPerformances(@PathVariable String data){
         List<Performance> allper = this.performanceRepo.findAll();
         List<Performance> list = new ArrayList<>();
+        List<String> names = new ArrayList<>();
         for ( Performance datainper  :  allper){
             LocalDate start = LocalDate.parse(datainper.getTimeofpremier());
             LocalDate end = LocalDate.parse(datainper.getTimeofend());
             LocalDate calendar = LocalDate.parse(data);
             if (start != null  &&  end != null){
                 if((start.isBefore(calendar) && end.isAfter(calendar)) || (start.isEqual(calendar) || end.isEqual(calendar))){
-                    list.add(datainper);
+                    if(!names.contains(datainper.getName())){
+                        list.add(datainper);
+                        names.add(datainper.getName());
+                        System.out.println(names);
+                    }
                 }
 
             }else{
@@ -178,5 +193,12 @@ public class TheaterController {
         this.clientRepo.delete(foundClient);
         return foundClient;
     }
+
+    @GetMapping("/perfs/name={name}")
+    List<Performance> getTimesOnPerf(@PathVariable String name){
+        return this.performanceRepo.findAllByName(URLDecoder.decode(name));
+    }
+
+
 
 }

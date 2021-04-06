@@ -135,9 +135,7 @@ public class RootController {
 
             for (int i = 0; i < ticket.getSeat().getHall().getPerformances().size(); i++) {
                 lablenameofper.setText(String.valueOf(ticket.getSeat().getHall().getPerformances().get(i).getName()));
-                for(int j=0; j<ticket.getSeat().getHall().getTimes().size(); j++){
-                    lablepertime.setText(String.valueOf(ticket.getSeat().getHall().getTimes().get(j).getTimeinhall()));
-                }
+                lablepertime.setText(String.valueOf(ticket.getSeat().getHall().getPerformances().get(i).getTime()));
             }
 
             lableseatlocation.setText(String.valueOf(ticket.getSeat().getLocation()));

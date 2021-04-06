@@ -11,7 +11,13 @@ import org.json.JSONException;
 import project.JavaFX;
 import project.util.Rest;
 import java.io.IOException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
+import java.util.AbstractList;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 
 public class PostController {
@@ -68,26 +74,41 @@ public class PostController {
 
 
 
+
+
+
+
     @FXML
     private void initialize() throws IOException, JSONException {
 
 
-
-
-
         System.out.println("полученная инфа из пост");
-
 
         JSONArray gethall =  new JSONArray(connect.GetRest("http://localhost:8080/api/theater/halls/all"));
 
         ObservableList<String> names = FXCollections.observableArrayList();
         for (int i=0; i<gethall.length(); i++){
             names.add(gethall.getJSONObject(i).getString("name"));
-
+            String id_hall = gethall.getJSONObject(i).getString("id");
 
         }
         hallChoiceBox.setItems(names);
 
+        JSONArray gettime =  new JSONArray(connect.GetRest("http://127.0.0.1:8080/api/theater/perfs/all"));
+        ObservableList<String> nameoftime = FXCollections.observableArrayList();
+        for (int i=0; i<gettime.length(); i++) {
+            String nameofper = gettime.getJSONObject(i).getString("name");
+            System.out.println("все все все "+nameofper);
+
+        }
+        System.out.println("время" + nameoftime);
+
+        
+
+
+
+
+        /*
         JSONArray gettime =  new JSONArray(connect.GetRest("http://localhost:8080/api/theater/times/"+1));
         JSONArray gettime2 =  new JSONArray(connect.GetRest("http://localhost:8080/api/theater/times/"+2));
         ObservableList<String> nameoftime = FXCollections.observableArrayList();
@@ -114,22 +135,36 @@ public class PostController {
 
         });
 
+         */
+
+
+        ObservableList<Integer>  place = FXCollections.observableArrayList(1,2 ,3, 4 ,5, 6, 7, 8, 9, 10);
+        placeChoiceBox.setItems(place);
+
 
         JSONArray getseat =  new JSONArray(connect.GetRest("http://localhost:8080/api/theater/seats/all"));
         System.out.println("место" + getseat);
         ObservableList<String> nameofseat = FXCollections.observableArrayList();
-        System.out.println("место" + nameofseat);
+
         for (int i=0; i<getseat.length(); i++) {
             nameofseat.add(getseat.getJSONObject(i).getString("employment"));
             nameofseat.add(getseat.getJSONObject(i).getString("location"));
             nameofseat.add(getseat.getJSONObject(i).getString("type"));
+
+            Integer location = getseat.getJSONObject(i).getInt("location");
+            System.out.println(location);
+            String type = getseat.getJSONObject(i).getString("type");
+
         }
 
         System.out.println(nameofseat);
 
 
-        ObservableList<Integer>  place = FXCollections.observableArrayList(1,2 ,3, 4 ,5, 6, 7, 8, 9, 10);
-        placeChoiceBox.setItems(place);
+
+
+
+
+
 
 
 
@@ -198,8 +233,10 @@ public class PostController {
 
 
 
-    public PostController() throws IOException{ }
 
+
+
+    public PostController() throws IOException{ }
 
     private void PostClient(){
         ok.setOnAction(actionEvent -> {
@@ -241,6 +278,23 @@ public class PostController {
             nameofper.add(getper.getJSONObject(i).getString("name"));
         }
         perfomChoiceBox.setItems(nameofper);
+    }
+
+    /**
+     * функция заполнения времени по спектаклю
+     * @throws IOException
+     * @throws JSONException
+     */
+    @FXML
+    private void hadleTimePerf() throws IOException, JSONException {
+        System.out.println(perfomChoiceBox.getValue());
+        JSONArray getTimes =  new JSONArray(connect.GetRest("http://localhost:8080/api/theater/perfs/name="+ URLEncoder.encode(perfomChoiceBox.getValue(), StandardCharsets.UTF_8)));
+        System.out.println("обработанные времена" + getTimes);
+        ObservableList<String> timeofper = FXCollections.observableArrayList();
+        for (int i=0; i<getTimes.length(); i++) {
+            timeofper.add(getTimes.getJSONObject(i).getString("time"));
+        }
+        timeChoiceBox.setItems(timeofper);
     }
 
 
