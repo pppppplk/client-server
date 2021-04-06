@@ -34,15 +34,6 @@ public class RootController {
     private TableColumn<Ticket, String> namecolumn;
 
     @FXML
-    private ChoiceBox<String> hallChoiceBox;
-
-    @FXML
-    private ChoiceBox<String> zoneChoiceBox;
-
-    @FXML
-    private ChoiceBox<String> priceChoiceBox;
-
-    @FXML
     private Label lablecontact;
 
     @FXML
@@ -70,7 +61,18 @@ public class RootController {
     private TextField searchtext;
 
     @FXML
-    private Button addid;
+    private TextField firstnametext;
+
+    @FXML
+    private TextField lastnametext;
+
+    @FXML
+    private TextField contacttext;
+
+    @FXML
+    private TextField agetext;
+
+
 
 
     private JavaFX main;
@@ -84,6 +86,7 @@ public class RootController {
 
         initTable();
         SearchTable();
+        //Info();
 
         namecolumn.setCellValueFactory(cellData -> cellData.getValue().getClient().getFirstNameProp());
         surnamecolumn.setCellValueFactory(cellData -> cellData.getValue().getClient().getLastNameProp());
@@ -120,10 +123,80 @@ public class RootController {
 
     }
 
+    /**
+     * открытие окна для изменения клиента
+     */
+
+
+    /*
+    @FXML
+    public void PutClient(){
+        System.out.println("изменение");
+        int clientrow = clientInfo.getSelectionModel().getSelectedIndex();
+
+        if (clientrow >= 0) {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Предупреждение");
+            alert.setHeaderText("Нажмите ОК, если хотите изменить пользователя");
+            Optional<ButtonType> option = alert.showAndWait();
+            if (option.get() == ButtonType.OK) {
+                System.out.println("перед изменением");
+
+                if(clientInfo.getSelectionModel().getSelectedItem()  == null){
+                    try{
+                        Alert alert2 = new Alert(Alert.AlertType.ERROR);
+                        alert2.setTitle("Ошибка");
+                        alert2.setHeaderText("Не выбран пользователь для изменения");
+                        alert2.showAndWait();
+                    }catch (Exception e){
+
+                    }
+                }else{
+                    System.out.println("открыла окно для изменения");
+
+                    try {
+                        FXMLLoader fxmlLoader = new FXMLLoader(main.getClass().getResource("/fxml/update.fxml"));
+                        AnchorPane root1 = fxmlLoader.load();
+                        stage = new Stage();
+                        stage.setTitle("Изменение");
+                        stage.setScene(new Scene(root1));
+                        stage.show();
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        System.out.println("окно не открывается ");
+
+
+                    }
+                    //initTable();
+                    //clientInfo.getItems().removeAll(clientInfo.getSelectionModel().getSelectedItem());
+                }
+
+
+            }else if (option.get() == ButtonType.CANCEL){
+                System.out.println("окно закрыто ");
+            }
+            alert.showAndWait();
+
+
+        } else {
+            Alert alert2 = new Alert(Alert.AlertType.ERROR);
+            alert2.setTitle("Ошибка");
+            alert2.setHeaderText("Не выбран пользователь для изменения");
+
+            alert2.showAndWait();
+        }
+
+
+    }
+
+     */
+
 
 
     /**
      * @param ticket полная информауия о клиенте и его билете
+     *
      */
 
     private void ShowInfo(Ticket ticket) {
@@ -132,6 +205,10 @@ public class RootController {
             lableid.setText(String.valueOf(ticket.getId()));
             lableprice.setText(String.valueOf(ticket.getPrice()));
             lablehallname.setText(String.valueOf(ticket.getSeat().getHall().getName()));
+            firstnametext.setText(String.valueOf(ticket.getClient().getFirstname()));
+            lastnametext.setText(String.valueOf(ticket.getClient().getLastname()));
+            contacttext.setText(String.valueOf(ticket.getClient().getContact()));
+            agetext.setText(String.valueOf(ticket.getClient().getAge()));
 
             for (int i = 0; i < ticket.getSeat().getHall().getPerformances().size(); i++) {
                 lablenameofper.setText(String.valueOf(ticket.getSeat().getHall().getPerformances().get(i).getName()));
@@ -147,6 +224,8 @@ public class RootController {
         }
 
     }
+
+
 
 
     /**
@@ -298,6 +377,12 @@ public class RootController {
 
 
     }
+
+
+
+
+
+
 }
 
 

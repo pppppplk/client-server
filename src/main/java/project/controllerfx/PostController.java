@@ -84,6 +84,8 @@ public class PostController {
 
         System.out.println("полученная инфа из пост");
 
+
+
         JSONArray gethall =  new JSONArray(connect.GetRest("http://localhost:8080/api/theater/halls/all"));
 
         ObservableList<String> names = FXCollections.observableArrayList();
@@ -94,54 +96,18 @@ public class PostController {
         }
         hallChoiceBox.setItems(names);
 
-        JSONArray gettime =  new JSONArray(connect.GetRest("http://127.0.0.1:8080/api/theater/perfs/all"));
-        ObservableList<String> nameoftime = FXCollections.observableArrayList();
-        for (int i=0; i<gettime.length(); i++) {
-            String nameofper = gettime.getJSONObject(i).getString("name");
-            System.out.println("все все все "+nameofper);
-
-        }
-        System.out.println("время" + nameoftime);
 
         
 
 
 
 
-        /*
-        JSONArray gettime =  new JSONArray(connect.GetRest("http://localhost:8080/api/theater/times/"+1));
-        JSONArray gettime2 =  new JSONArray(connect.GetRest("http://localhost:8080/api/theater/times/"+2));
-        ObservableList<String> nameoftime = FXCollections.observableArrayList();
-        ObservableList<String> nameoftime2 = FXCollections.observableArrayList();
-        for (int i=0; i<gettime.length() || i<gettime2.length(); i++) {
-            nameoftime.add(gettime.getJSONObject(i).getString("timeinhall"));
-            nameoftime2.add(gettime2.getJSONObject(i).getString("timeinhall"));
-        }
-        System.out.println(nameoftime);
-
-        hallChoiceBox.setOnAction(actionEvent -> {
-            String hallname = names.get(0);
-            String hallname1 = names.get(1);
-
-            if(hallname == hallChoiceBox.getValue()){
-                timeChoiceBox.setItems(nameoftime);
-
-            }else if(hallname1 == hallChoiceBox.getValue()){
-                System.out.println("vudsagsbac 22222" );
-                timeChoiceBox.setItems(nameoftime2);
-            }else{
-                System.out.println("не заходит");
-            }
-
-        });
-
-         */
 
 
         ObservableList<Integer>  place = FXCollections.observableArrayList(1,2 ,3, 4 ,5, 6, 7, 8, 9, 10);
         placeChoiceBox.setItems(place);
 
-
+        /**
         JSONArray getseat =  new JSONArray(connect.GetRest("http://localhost:8080/api/theater/seats/all"));
         System.out.println("место" + getseat);
         ObservableList<String> nameofseat = FXCollections.observableArrayList();
@@ -151,13 +117,11 @@ public class PostController {
             nameofseat.add(getseat.getJSONObject(i).getString("location"));
             nameofseat.add(getseat.getJSONObject(i).getString("type"));
 
-            Integer location = getseat.getJSONObject(i).getInt("location");
-            System.out.println(location);
-            String type = getseat.getJSONObject(i).getString("type");
 
         }
 
         System.out.println(nameofseat);
+         */
 
 
 
@@ -172,6 +136,7 @@ public class PostController {
         /**
          * соотвкствие цены с типом сиденьев в зале
          */
+
 
         ObservableList<String>  zone = FXCollections.observableArrayList("Партер", "Амфитеатр", "Бельэтаж", "Балкон");
         zoneChoiceBox.setItems(zone);
@@ -193,7 +158,10 @@ public class PostController {
         });
 
 
+
         PostClient();
+
+
 
 
     }
@@ -234,8 +202,6 @@ public class PostController {
 
 
 
-
-
     public PostController() throws IOException{ }
 
     private void PostClient(){
@@ -261,6 +227,9 @@ public class PostController {
             }
         });
 
+
+
+
     }
 
     /**
@@ -270,7 +239,7 @@ public class PostController {
      */
 
     @FXML
-    private void handleChoice() throws IOException, JSONException {
+    private void Choice() throws IOException, JSONException {
         JSONArray getper =  new JSONArray(connect.GetRest("http://localhost:8080/api/theater/perfs/data=" + calendar.getValue()));
         System.out.println("не обработанные даты" + getper);
         ObservableList<String> nameofper = FXCollections.observableArrayList();
@@ -286,7 +255,7 @@ public class PostController {
      * @throws JSONException
      */
     @FXML
-    private void hadleTimePerf() throws IOException, JSONException {
+    private void TimePerf() throws IOException, JSONException {
         System.out.println(perfomChoiceBox.getValue());
         JSONArray getTimes =  new JSONArray(connect.GetRest("http://localhost:8080/api/theater/perfs/name="+ URLEncoder.encode(perfomChoiceBox.getValue(), StandardCharsets.UTF_8)));
         System.out.println("обработанные времена" + getTimes);
@@ -296,6 +265,25 @@ public class PostController {
         }
         timeChoiceBox.setItems(timeofper);
     }
+
+
+
+
+    /*
+
+    @FXML
+    private void handleLocalType() throws IOException, JSONException {
+        System.out.println("тип" + zoneChoiceBox.getValue());
+        JSONArray getLocal = new JSONArray(connect.GetRest("http://localhost:8080/api/theater/seats/type=" +URLEncoder.encode(zoneChoiceBox.getValue(), StandardCharsets.UTF_8)));
+        System.out.println("обработанные места" + getLocal);
+        ObservableList<Integer> localofseat = FXCollections.observableArrayList();
+        for (int i=0; i<getLocal.length(); i++) {
+            localofseat.add(getLocal.getJSONObject(i).getInt("location"));
+        }
+        placeChoiceBox.setItems(localofseat);
+    }
+
+     */
 
 
 

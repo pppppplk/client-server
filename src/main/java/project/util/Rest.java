@@ -85,6 +85,35 @@ public class Rest {
         return response;
     }
 
+    public String PutRest(String link) throws IOException{
+        URL url = new URL(link);
+
+        HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+
+        httpURLConnection.setRequestProperty("Content-Type", "utf-8");
+        httpURLConnection.setRequestProperty("Accept", "application/json");
+        httpURLConnection.setRequestMethod("PUT");
+        InputStream inputStream = new BufferedInputStream(httpURLConnection.getInputStream());  //получение данных из  источника
+        StringBuilder stringBuilder = new StringBuilder();
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream)); //считывает текст
+
+        String str = " ";
+
+        // считываеи из url  построчно информацию и добавляем ее в строку,
+        // затем возвращаем строку уже со всей информацией, которая находится в url
+        while ((str = bufferedReader.readLine()) != null) {
+
+            stringBuilder.append(str);
+
+        }
+        String response = stringBuilder.toString();
+        bufferedReader.close();
+        System.out.println("put вывод " + response);
+        return response;
+    }
+
+
+
 
 
 

@@ -201,4 +201,49 @@ public class TheaterController {
 
 
 
+
+    @GetMapping("/seats/type={type}")
+    List<Seat> getTypeofSeats(@PathVariable String type){
+        System.out.println("srtsdtudiyfddsedfgyuyrtsdgxfchjyitrtudfgvjhu");
+        List<Seat> allseat = this.seatRepo.findAll();
+        List<Seat> list = new ArrayList<>();
+        List<String> names = new ArrayList<>();
+        for ( Seat typeinseat  :  allseat){
+            if(!names.contains(typeinseat.getType())){
+                list.add(typeinseat);
+                names.add(typeinseat.getType());
+                System.out.println(names);
+            }else{
+                System.out.println("ошибка");
+            }
+
+        }
+
+
+        return list;
+    }
+
+
+    @PutMapping("/updateclient")
+    public Client updateClient(@RequestBody Client newClient){
+        Client client = this.clientRepo.findClientById(newClient.getId());
+        client.setId(newClient.getId());
+        client.setFirstname(newClient.getFirstname());
+        client.setLastname(newClient.getLastname());
+        client.setAge(newClient.getAge());
+        client.setContact(newClient.getContact());
+        System.out.println(client);
+        return this.clientRepo.save(client);
+    }
+
+
+
+
+
+
+
+
+
+
+
 }
