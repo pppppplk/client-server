@@ -84,23 +84,7 @@ public class Client{
 
 
 
-    /*
 
-    @Override
-    public String toJson() {
-        Map<String, String> map = new HashMap<>();
-        map.put("firstname", firstname);
-        map.put("lastname", firstname);
-        map.put("contact", contact);
-        map.put("age", String.valueOf(age));
-
-        Gson gson = new Gson();
-        return gson.toJson(map);
-
-
-    }
-
-     */
 
 
     @Override

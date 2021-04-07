@@ -1,4 +1,4 @@
-
+/*
 package project.spring.models;
 
 
@@ -48,6 +48,8 @@ public class Time {
                 '}';
     }
 }
+
+ */
 
 
 

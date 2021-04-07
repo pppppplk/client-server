@@ -20,16 +20,12 @@ public class Hall {
 
 
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "hall")
-    private List<Performance> performances =  new ArrayList<>();
+    //@OneToMany(fetch = FetchType.LAZY, mappedBy = "hall")
+    //private List<Performance> performances =  new ArrayList<>();
 
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "hall")
-    private List<Time> times =  new ArrayList<>();
-
-
-
-
+    //@OneToMany(fetch = FetchType.LAZY, mappedBy = "hall")
+    //private List<Time> times =  new ArrayList<>();
 
 
 
@@ -58,6 +54,8 @@ public class Hall {
         this.name = name;
     }
 
+    /*
+
     public void setPerformances(List<Performance> performances) {
         this.performances = performances;
     }
@@ -65,21 +63,15 @@ public class Hall {
         return performances;
     }
 
-    public List<Time> getTimes() {
-        return times;
-    }
+     */
 
-    public void setTimes(List<Time> times) {
-        this.times = times;
-    }
+
 
     @Override
     public String toString() {
         return "Hall{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", performances=" + performances +
-                ", times=" + times +
                 '}';
     }
 }

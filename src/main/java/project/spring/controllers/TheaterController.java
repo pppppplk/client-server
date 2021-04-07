@@ -25,19 +25,19 @@ public class TheaterController {
     private final HallRepo hallRepo;
     private final SeatRepo seatRepo;
     private final PerformanceRepo performanceRepo;
-    private final TimeRepo timeRepo;
+
 
 
 
 
     public TheaterController(ClientRepo clientRepo, TicketRepo ticketRepo, HallRepo hallRepo,
-                             SeatRepo seatRepo, PerformanceRepo performanceRepo, TimeRepo timeRepo) {
+                             SeatRepo seatRepo, PerformanceRepo performanceRepo) {
         this.clientRepo = clientRepo;
         this.ticketRepo = ticketRepo;
         this.hallRepo = hallRepo;
         this.seatRepo = seatRepo;
         this.performanceRepo = performanceRepo;
-        this.timeRepo = timeRepo;
+
     }
 
 
@@ -70,11 +70,10 @@ public class TheaterController {
                 dateprem1, dateend1,date1, 16);
         Hall hall = new Hall("малый зал");
 
-        Time time = new Time(date1);
 
         this.clientRepo.save(client);
         this.hallRepo.save(hall);
-        this.timeRepo.save(time);
+
 
         seat.setHall(hall);
         this.seatRepo.save(seat);
@@ -118,16 +117,6 @@ public class TheaterController {
         return this.hallRepo.findAll();
     }
 
-    @GetMapping("/times/{id}")
-    List<Time> getTimes(@PathVariable Long id){
-        return this.timeRepo.findAllByHall_Id(id);
-    }
-
-
-    @GetMapping("/times/all")
-    List<Time> getTimes(){
-        return this.timeRepo.findAll();
-    }
 
     @GetMapping("/seats/all")
     List<Seat> getSeats(){
@@ -194,11 +183,6 @@ public class TheaterController {
         return foundClient;
     }
 
-    @GetMapping("/perfs/name={name}")
-    List<Performance> getTimesOnPerf(@PathVariable String name){
-        return this.performanceRepo.findAllByName(URLDecoder.decode(name));
-    }
-
 
 
 
@@ -236,10 +220,52 @@ public class TheaterController {
         return this.clientRepo.save(client);
     }
 
+    @GetMapping("/seats/hall={name}")
+    List<Seat> getseatsByHall(@PathVariable String name){
+        System.out.println("srtsdtudiyfddsedfgyuyrtsdgxfchjyitrtudfgvjhu "+name);
+        return this.seatRepo.findAllByHall_Id(this.hallRepo.findHallByName(URLDecoder.decode(name, StandardCharsets.UTF_8)).getId());
+    }
+
+
+    @GetMapping("/seats/name={name}/time={time}")
+    List<Seat> getperfByNameandTime(@PathVariable String name, @PathVariable String time){
+        Performance chosen = this.performanceRepo.findPerformanceByNameAndTime(URLDecoder.decode(name,
+                StandardCharsets.UTF_8), time);
+        System.out.println("выво"+ chosen);
+        System.out.println("perf server " + name + " " +  time);
+        List<Seat> seatsForPerf = this.seatRepo.findAllByHall_Id(chosen.getHall().getId());
+        List<Seat> freeForPerf = new ArrayList<>();
+        List<Ticket> ticketsForPerf = this.ticketRepo.findAllByPerformanceId(chosen.getId());
+        List<Long> ids = new ArrayList<>();
+        for (Ticket tick: ticketsForPerf){
+            ids.add(tick.getId());
+        }
+        for (int i=0; i<seatsForPerf.size(); i++){
+            Long seatId = seatsForPerf.get(i).getId();
+            if(!ids.contains(seatId)){
+                freeForPerf.add(seatsForPerf.get(i));
+            }
+        }
+        System.out.println(freeForPerf);
+        return freeForPerf;
+    }
+
+    @GetMapping("/perfs/time={time}")
+    List<Performance> getPerfByTime(@PathVariable String time){
+        return this.performanceRepo.findAllByTime(time);
+    }
+
+    @GetMapping("/perfs/name={name}/time={time}")
+    Performance getPerByNameandTime(@PathVariable String name, @PathVariable String time) {
+        return this.performanceRepo.findPerformanceByNameAndTime(URLDecoder.decode(name), time);
+    }
 
 
 
-
+    @GetMapping("/perfs/name={name}")
+    List<Performance> getTimesOnPerf(@PathVariable String name){
+        return this.performanceRepo.findAllByName(URLDecoder.decode(name));
+    }
 
 
 

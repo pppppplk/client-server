@@ -75,7 +75,7 @@
                               <Label fx:id="lableprice" prefHeight="17.0" prefWidth="139.0" text="   Label" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="7" />
                            </children>
                         </GridPane>
-                        <Label layoutX="355.0" layoutY="4.0" prefHeight="23.0" prefWidth="89.0" text="   Клиент" textFill="#fffefe">
+                        <Label layoutX="396.0" layoutY="3.0" prefHeight="23.0" prefWidth="89.0" text="   Клиент" textFill="#fffefe">
                            <font>
                               <Font size="18.0" />
                            </font>

@@ -209,12 +209,8 @@ public class RootController {
             lastnametext.setText(String.valueOf(ticket.getClient().getLastname()));
             contacttext.setText(String.valueOf(ticket.getClient().getContact()));
             agetext.setText(String.valueOf(ticket.getClient().getAge()));
-
-            for (int i = 0; i < ticket.getSeat().getHall().getPerformances().size(); i++) {
-                lablenameofper.setText(String.valueOf(ticket.getSeat().getHall().getPerformances().get(i).getName()));
-                lablepertime.setText(String.valueOf(ticket.getSeat().getHall().getPerformances().get(i).getTime()));
-            }
-
+            lablenameofper.setText(String.valueOf(ticket.getPerformance().getName()));
+            lablepertime.setText(String.valueOf(ticket.getPerformance().getTime()));
             lableseatlocation.setText(String.valueOf(ticket.getSeat().getLocation()));
             lableseattype.setText(String.valueOf(ticket.getSeat().getType()));
 

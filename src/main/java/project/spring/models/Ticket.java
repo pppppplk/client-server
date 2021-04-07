@@ -30,6 +30,13 @@ public class Ticket {
     @JoinColumn(name = "seat_id")
     private Seat seat;
 
+    @JsonManagedReference
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "perf_id")
+    private Performance performance;
+
+
+
     private Integer price;
 
     public Ticket( Integer price) {
@@ -37,6 +44,14 @@ public class Ticket {
     }
 
     public Ticket(){}
+
+    public Performance getPerformance() {
+        return performance;
+    }
+
+    public void setPerformance(Performance performance) {
+        this.performance = performance;
+    }
 
     public Long getId() {
         return id;
@@ -76,6 +91,7 @@ public class Ticket {
                 "id=" + id +
                 ", client=" + client +
                 ", seat=" + seat +
+                ", performance=" + performance +
                 ", price=" + price +
                 '}';
     }

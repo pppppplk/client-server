@@ -1,3 +1,4 @@
+/*
 package project.spring.repo;
 
 import org.springframework.data.domain.Example;
@@ -12,6 +13,8 @@ public interface TimeRepo extends JpaRepository<Time, Long> {
 
     List<Time> findAllByHall_Id(Long id);
 }
+
+ */
 
 
 

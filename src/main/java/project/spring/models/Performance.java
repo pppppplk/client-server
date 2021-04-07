@@ -1,6 +1,7 @@
 package project.spring.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -18,9 +19,20 @@ public class Performance {
     private String timeofpremier, timeofend, time ;
     private Integer agelimit;
 
+    /*
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "hall_id", nullable = false)
+
+     */
+    @JsonManagedReference
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "hall_id")
     private Hall hall;
+
+    public Hall getHall() {
+        return hall;
+    }
+
 
 
     public Performance(){
@@ -28,7 +40,7 @@ public class Performance {
     }
 
     public Performance(String name, String timeofpremier,
-                       String timeofend,String time,  Integer agelimit ){
+                       String timeofend, String time,  Integer agelimit ){
         this.name = name;
         this.timeofpremier = timeofpremier;
         this.timeofend = timeofend;

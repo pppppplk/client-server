@@ -97,71 +97,9 @@ public class PostController {
         hallChoiceBox.setItems(names);
 
 
-        
-
-
-
-
-
-
-        ObservableList<Integer>  place = FXCollections.observableArrayList(1,2 ,3, 4 ,5, 6, 7, 8, 9, 10);
-        placeChoiceBox.setItems(place);
-
-        /**
-        JSONArray getseat =  new JSONArray(connect.GetRest("http://localhost:8080/api/theater/seats/all"));
-        System.out.println("место" + getseat);
-        ObservableList<String> nameofseat = FXCollections.observableArrayList();
-
-        for (int i=0; i<getseat.length(); i++) {
-            nameofseat.add(getseat.getJSONObject(i).getString("employment"));
-            nameofseat.add(getseat.getJSONObject(i).getString("location"));
-            nameofseat.add(getseat.getJSONObject(i).getString("type"));
-
-
-        }
-
-        System.out.println(nameofseat);
-         */
-
-
-
-
-
-
-
-
-
-
-
-        /**
-         * соотвкствие цены с типом сиденьев в зале
-         */
-
-
-        ObservableList<String>  zone = FXCollections.observableArrayList("Партер", "Амфитеатр", "Бельэтаж", "Балкон");
-        zoneChoiceBox.setItems(zone);
-        zoneChoiceBox.setOnAction(actionEvent -> {
-            String value = "Партер";
-            String value1 = "Амфитеатр";
-            String value2 = "Бельэтаж";
-            String value3 = "Балкон";
-            if(value == zoneChoiceBox.getValue()){
-                pricelabel.setText("3500");
-            }else if (value1 == zoneChoiceBox.getValue()){
-                pricelabel.setText("3000");
-            }else if (value2 == zoneChoiceBox.getValue()){
-                pricelabel.setText("2000");
-            }else if (value3 == zoneChoiceBox.getValue()){
-                pricelabel.setText("1300");
-            }
-
-        });
-
 
 
         PostClient();
-
-
 
 
     }
@@ -266,24 +204,70 @@ public class PostController {
         timeChoiceBox.setItems(timeofper);
     }
 
-
-
-
-    /*
+    /**
+     * функция заполнения зон по залу
+     * @throws IOException
+     * @throws JSONException
+     */
 
     @FXML
-    private void handleLocalType() throws IOException, JSONException {
-        System.out.println("тип" + zoneChoiceBox.getValue());
-        JSONArray getLocal = new JSONArray(connect.GetRest("http://localhost:8080/api/theater/seats/type=" +URLEncoder.encode(zoneChoiceBox.getValue(), StandardCharsets.UTF_8)));
-        System.out.println("обработанные места" + getLocal);
-        ObservableList<Integer> localofseat = FXCollections.observableArrayList();
-        for (int i=0; i<getLocal.length(); i++) {
-            localofseat.add(getLocal.getJSONObject(i).getInt("location"));
+    private void fillingZones() throws IOException, JSONException {
+        System.out.println(hallChoiceBox.getValue());
+        JSONArray getseats =  new JSONArray(connect.GetRest("http://localhost:8080/api/theater/seats/hall="+ URLEncoder.encode(hallChoiceBox.getValue(), StandardCharsets.UTF_8)));
+        ObservableList<String> zones = FXCollections.observableArrayList();
+        for (int i=0; i<getseats.length(); i++) {
+            if(!zones.contains(getseats.getJSONObject(i).getString("type"))){
+                zones.add(getseats.getJSONObject(i).getString("type"));
+            }
         }
-        placeChoiceBox.setItems(localofseat);
+        zoneChoiceBox.setItems(zones);
     }
 
+    /**
+     * функция заполнения мест по зонам и привязка к цене
+     * @throws IOException
+     * @throws JSONException
      */
+
+    /**
+     * вывожу толкьо свободные места и задаю цену по зоне
+     * @throws IOException
+     * @throws JSONException
+     */
+
+
+    @FXML
+    private void fillingSeats() throws IOException, JSONException {
+        JSONArray getseats =  new JSONArray(connect.GetRest("http://localhost:8080/api/theater/seats/name="+
+                URLEncoder.encode(perfomChoiceBox.getValue(), StandardCharsets.UTF_8)+
+                "/time="+ URLEncoder.encode(timeChoiceBox.getValue(), StandardCharsets.UTF_8)));
+
+        ObservableList<Integer> seats = FXCollections.observableArrayList();
+        System.out.println("вывод мест " + getseats);
+        for (int i=0; i<getseats.length(); i++) {
+            if (getseats.getJSONObject(i).getString("type").equals(zoneChoiceBox.getValue())&&getseats.getJSONObject(i).getJSONObject("hall").getString("name").equals(hallChoiceBox.getValue())){
+                seats.add(getseats.getJSONObject(i).getInt("location"));
+            }
+        }
+        placeChoiceBox.setItems(seats);
+        switch (zoneChoiceBox.getValue()) {
+            case "Партер":
+                pricelabel.setText("3500");
+                break;
+            case "Амфитеатр":
+                pricelabel.setText("3000");
+                break;
+            case "Бельэтаж":
+                pricelabel.setText("2000");
+                break;
+            case "Балкон":
+                pricelabel.setText("1300");
+                break;
+        }
+    }
+
+
+
 
 
 

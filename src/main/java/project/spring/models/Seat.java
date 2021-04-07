@@ -17,7 +17,6 @@ public class Seat {
     @JoinColumn(name = "hall_id")
     private Hall hall;
 
-    private boolean employment;
     private  String type;
     private Integer  location;
 
@@ -45,13 +44,7 @@ public class Seat {
         return id;
     }
 
-    public boolean getEmployment() {
-        return employment;
-    }
 
-    public void setEmployment(boolean employment) {
-        this.employment = employment;
-    }
 
     public void setId(Long id) {
         this.id = id;
@@ -74,7 +67,6 @@ public class Seat {
         return "Seat{" +
                 "id=" + id +
                 ", hall=" + hall +
-                ", employment=" + employment +
                 ", type='" + type + '\'' +
                 ", location=" + location +
                 '}';

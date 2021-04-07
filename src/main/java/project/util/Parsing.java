@@ -73,7 +73,6 @@ public class Parsing {
 
                 Seat tempSeat = new Seat();
                 tempSeat.setId(seat.getLong("id"));
-                tempSeat.setEmployment(seat.getBoolean("employment"));
                 tempSeat.setType(seat.getString("type"));
                 tempSeat.setLocation(seat.getInt("location"));
 
@@ -86,24 +85,30 @@ public class Parsing {
                 tempHall.setId(hall.getLong("id"));
                 tempHall.setName(hall.getString("name"));
 
+                String perfString = json.getJSONObject(i).getString("performance");
+                JSONObject perf = new JSONObject(perfString);
+                Performance tempPerformance = new Performance();
+                tempPerformance.setId(perf.getLong("id"));
+                tempPerformance.setName(perf.getString("name"));
+                tempPerformance.setTimeofpremier(perf.getString("timeofpremier"));
+                tempPerformance.setTimeofend(perf.getString("timeofend"));
+                tempPerformance.setTime(perf.getString("time"));
+                tempPerformance.setAgelimit(perf.getInt("agelimit"));
 
 
+                /*
                 String perfomancesString = hall.getString("performances");
-                //String timeString = hall.getString("times");
                 System.out.println(perfomancesString + "-----------------------++++++++");
                 JSONArray perfomances = new JSONArray(perfomancesString);
-                //JSONArray times = new JSONArray(timeString);
-                //List<Time> timeList = new ArrayList<>();
                 List<Performance> performanceList = new ArrayList<>();
+
+
+
 
 
                 for (int j = 0; j<perfomances.length(); j++){
                     JSONObject perfomanceJSON = perfomances.getJSONObject(j);
-                    //JSONObject timeJSON = times.getJSONObject(j);
-                    //Time tempTime = new Time();
                     Performance tempPerfomance = new Performance();
-                    //tempTime.setId(timeJSON.getLong("id"));
-                    //tempTime.setTimeinhall(timeJSON.getString("timeinhall"));
                     tempPerfomance.setId(perfomanceJSON.getLong("id"));
                     tempPerfomance.setName(perfomanceJSON.getString("name"));
                     tempPerfomance.setTimeofpremier(perfomanceJSON.getString("timeofpremier"));
@@ -113,19 +118,21 @@ public class Parsing {
 
 
                     performanceList.add(tempPerfomance);
-                    //timeList.add(tempTime);
                     System.out.println("dssd" + performanceList);
-                    tempHall.setPerformances(performanceList);
-                    //tempHall.setTimes(timeList);
+                    //tempHall.setPerformances(performanceList);
                     halls.add(tempHall);
+                    tempTicket.setPerformance(tempPerfomance);
 
 
 
                 }
 
+                 */
+
 
                 tempSeat.setHall(tempHall);
                 tempTicket.setSeat(tempSeat);
+                tempTicket.setPerformance(tempPerformance);
                 System.out.println(tempTicket);
                 tickets.add(tempTicket);
                 System.out.println("-------------------------");
