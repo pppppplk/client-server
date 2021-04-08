@@ -14,10 +14,6 @@ import java.io.IOException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
-import java.util.AbstractList;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 
 public class PostController {
@@ -42,7 +38,6 @@ public class PostController {
 
     @FXML
     private TextField age;
-
 
 
     @FXML
@@ -75,14 +70,12 @@ public class PostController {
 
 
 
-
-
-
     @FXML
     private void initialize() throws IOException, JSONException {
 
 
         System.out.println("полученная инфа из пост");
+
 
 
 
@@ -95,7 +88,6 @@ public class PostController {
 
         }
         hallChoiceBox.setItems(names);
-
 
 
 
@@ -183,6 +175,7 @@ public class PostController {
         ObservableList<String> nameofper = FXCollections.observableArrayList();
         for (int i=0; i<getper.length(); i++) {
             nameofper.add(getper.getJSONObject(i).getString("name"));
+
         }
         perfomChoiceBox.setItems(nameofper);
     }
@@ -195,12 +188,17 @@ public class PostController {
     @FXML
     private void TimePerf() throws IOException, JSONException {
         System.out.println(perfomChoiceBox.getValue());
-        JSONArray getTimes =  new JSONArray(connect.GetRest("http://localhost:8080/api/theater/perfs/name="+ URLEncoder.encode(perfomChoiceBox.getValue(), StandardCharsets.UTF_8)));
+        JSONArray getTimes =  new JSONArray(connect.GetRest("http://localhost:8080/api/theater/perfs/name="
+                + URLEncoder.encode(perfomChoiceBox.getValue(), StandardCharsets.UTF_8)));
         System.out.println("обработанные времена" + getTimes);
         ObservableList<String> timeofper = FXCollections.observableArrayList();
         for (int i=0; i<getTimes.length(); i++) {
             timeofper.add(getTimes.getJSONObject(i).getString("time"));
+
+
+
         }
+        System.out.println("вывод времени"+ timeofper);
         timeChoiceBox.setItems(timeofper);
     }
 
@@ -223,11 +221,6 @@ public class PostController {
         zoneChoiceBox.setItems(zones);
     }
 
-    /**
-     * функция заполнения мест по зонам и привязка к цене
-     * @throws IOException
-     * @throws JSONException
-     */
 
     /**
      * вывожу толкьо свободные места и задаю цену по зоне
@@ -265,6 +258,20 @@ public class PostController {
                 break;
         }
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -9,6 +9,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import org.json.JSONException;
+import org.json.JSONObject;
 import project.JavaFX;
 import project.spring.models.Ticket;
 import project.util.Rest;
@@ -77,12 +79,13 @@ public class RootController {
 
     private JavaFX main;
     private Stage stage;
+    private PostController postController;
 
     public RootController() throws IOException {
     }
 
     @FXML
-    private void initialize() {
+    public void initialize() {
 
         initTable();
         SearchTable();
@@ -117,80 +120,11 @@ public class RootController {
     }
 
 
-    private void initTable() {
+    public void initTable() {
         this.clientInfo.setItems(parsing.getTickets());
 
 
     }
-
-    /**
-     * открытие окна для изменения клиента
-     */
-
-
-    /*
-    @FXML
-    public void PutClient(){
-        System.out.println("изменение");
-        int clientrow = clientInfo.getSelectionModel().getSelectedIndex();
-
-        if (clientrow >= 0) {
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Предупреждение");
-            alert.setHeaderText("Нажмите ОК, если хотите изменить пользователя");
-            Optional<ButtonType> option = alert.showAndWait();
-            if (option.get() == ButtonType.OK) {
-                System.out.println("перед изменением");
-
-                if(clientInfo.getSelectionModel().getSelectedItem()  == null){
-                    try{
-                        Alert alert2 = new Alert(Alert.AlertType.ERROR);
-                        alert2.setTitle("Ошибка");
-                        alert2.setHeaderText("Не выбран пользователь для изменения");
-                        alert2.showAndWait();
-                    }catch (Exception e){
-
-                    }
-                }else{
-                    System.out.println("открыла окно для изменения");
-
-                    try {
-                        FXMLLoader fxmlLoader = new FXMLLoader(main.getClass().getResource("/fxml/update.fxml"));
-                        AnchorPane root1 = fxmlLoader.load();
-                        stage = new Stage();
-                        stage.setTitle("Изменение");
-                        stage.setScene(new Scene(root1));
-                        stage.show();
-
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                        System.out.println("окно не открывается ");
-
-
-                    }
-                    //initTable();
-                    //clientInfo.getItems().removeAll(clientInfo.getSelectionModel().getSelectedItem());
-                }
-
-
-            }else if (option.get() == ButtonType.CANCEL){
-                System.out.println("окно закрыто ");
-            }
-            alert.showAndWait();
-
-
-        } else {
-            Alert alert2 = new Alert(Alert.AlertType.ERROR);
-            alert2.setTitle("Ошибка");
-            alert2.setHeaderText("Не выбран пользователь для изменения");
-
-            alert2.showAndWait();
-        }
-
-
-    }
-
-     */
 
 
 
@@ -375,7 +309,40 @@ public class RootController {
     }
 
 
+    /**
+     * изменение данных о пользователе
+     * @throws JSONException
+     * @throws IOException
+     */
 
+
+    public void UpdateClient() throws JSONException, IOException {
+        System.out.println("вносим изменения");
+        if((postController.TestString(firstnametext.getText())) &&
+                (postController.TestString(lastnametext.getText())) &&
+                (postController.TestContact(contacttext.getText()))  &&
+                (postController.TestInt(agetext.getText())) ){
+            System.out.println("проверка пройдена");
+            JSONObject jsonObjectclient = new JSONObject();
+            jsonObjectclient.put("id", clientInfo.getSelectionModel().getSelectedItem().getClient().getId());
+            jsonObjectclient.put("firstname", firstnametext.getText());
+            jsonObjectclient.put("lastname", lastnametext.getText());
+            jsonObjectclient.put("contact", contacttext.getText());
+            jsonObjectclient.put("age", agetext.getText());
+            rest.PutRest("http://127.0.0.1:8080/api/theater/updateclient", jsonObjectclient);
+            System.out.println("что-топ роизошло");
+            this.main.initRootLayout();
+
+
+        }else{
+            Alert alert2 = new Alert(Alert.AlertType.ERROR);
+            alert2.setTitle("Ошибка");
+            alert2.setHeaderText("Неверный тип данных. Введите имя/фамилию русскими символами." +
+                    " Номер телефона вводится через +7");
+            alert2.showAndWait();
+        }
+
+    }
 
 
 

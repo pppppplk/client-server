@@ -96,39 +96,6 @@ public class Parsing {
                 tempPerformance.setAgelimit(perf.getInt("agelimit"));
 
 
-                /*
-                String perfomancesString = hall.getString("performances");
-                System.out.println(perfomancesString + "-----------------------++++++++");
-                JSONArray perfomances = new JSONArray(perfomancesString);
-                List<Performance> performanceList = new ArrayList<>();
-
-
-
-
-
-                for (int j = 0; j<perfomances.length(); j++){
-                    JSONObject perfomanceJSON = perfomances.getJSONObject(j);
-                    Performance tempPerfomance = new Performance();
-                    tempPerfomance.setId(perfomanceJSON.getLong("id"));
-                    tempPerfomance.setName(perfomanceJSON.getString("name"));
-                    tempPerfomance.setTimeofpremier(perfomanceJSON.getString("timeofpremier"));
-                    tempPerfomance.setTimeofend(perfomanceJSON.getString("timeofend"));
-                    tempPerfomance.setTime(perfomanceJSON.getString("time"));
-                    tempPerfomance.setAgelimit(perfomanceJSON.getInt("agelimit"));
-
-
-                    performanceList.add(tempPerfomance);
-                    System.out.println("dssd" + performanceList);
-                    //tempHall.setPerformances(performanceList);
-                    halls.add(tempHall);
-                    tempTicket.setPerformance(tempPerfomance);
-
-
-
-                }
-
-                 */
-
 
                 tempSeat.setHall(tempHall);
                 tempTicket.setSeat(tempSeat);

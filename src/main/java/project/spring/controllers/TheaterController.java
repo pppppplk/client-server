@@ -1,6 +1,7 @@
 package project.spring.controllers;
 
 
+import org.springframework.transaction.annotation.Transactional;
 import project.JavaFX;
 import project.spring.repo.*;
 import project.spring.models.*;
@@ -207,22 +208,21 @@ public class TheaterController {
         return list;
     }
 
-
+    @Transactional
     @PutMapping("/updateclient")
     public Client updateClient(@RequestBody Client newClient){
         Client client = this.clientRepo.findClientById(newClient.getId());
         client.setId(newClient.getId());
         client.setFirstname(newClient.getFirstname());
         client.setLastname(newClient.getLastname());
-        client.setAge(newClient.getAge());
         client.setContact(newClient.getContact());
+        client.setAge(newClient.getAge());
         System.out.println(client);
         return this.clientRepo.save(client);
     }
 
     @GetMapping("/seats/hall={name}")
     List<Seat> getseatsByHall(@PathVariable String name){
-        System.out.println("srtsdtudiyfddsedfgyuyrtsdgxfchjyitrtudfgvjhu "+name);
         return this.seatRepo.findAllByHall_Id(this.hallRepo.findHallByName(URLDecoder.decode(name, StandardCharsets.UTF_8)).getId());
     }
 
@@ -231,8 +231,6 @@ public class TheaterController {
     List<Seat> getperfByNameandTime(@PathVariable String name, @PathVariable String time){
         Performance chosen = this.performanceRepo.findPerformanceByNameAndTime(URLDecoder.decode(name,
                 StandardCharsets.UTF_8), time);
-        System.out.println("выво"+ chosen);
-        System.out.println("perf server " + name + " " +  time);
         List<Seat> seatsForPerf = this.seatRepo.findAllByHall_Id(chosen.getHall().getId());
         List<Seat> freeForPerf = new ArrayList<>();
         List<Ticket> ticketsForPerf = this.ticketRepo.findAllByPerformanceId(chosen.getId());
@@ -266,6 +264,7 @@ public class TheaterController {
     List<Performance> getTimesOnPerf(@PathVariable String name){
         return this.performanceRepo.findAllByName(URLDecoder.decode(name));
     }
+
 
 
 
