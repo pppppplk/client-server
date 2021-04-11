@@ -1,14 +1,14 @@
 package project.spring.controllers;
 
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.transaction.annotation.Transactional;
 import project.JavaFX;
 import project.spring.repo.*;
 import project.spring.models.*;
 import org.springframework.web.bind.annotation.*;
-
 import java.net.URLDecoder;
-import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -43,29 +43,76 @@ public class TheaterController {
 
 
 
+    @PostMapping("/clients/postclient")
+    Client postClient(@RequestBody String client) throws JSONException {
+        JSONObject rawClient = new JSONObject(client);
+        Client finalClient = new Client(rawClient.getString("firstname"), rawClient.getString("lastname"), rawClient.getString("contact"), rawClient.getInt("age"));
+        System.out.println(finalClient);
+        return this.clientRepo.save(finalClient);
+    }
+
+
+    @PostMapping("halls/posthalls")
+    Hall postHall(@RequestBody Hall hall){
+        return this.hallRepo.save(hall);
+    }
+
+    @PostMapping("/perf/postperf")
+    Performance postPerformance(@RequestBody String performance) throws JSONException {
+        JSONObject performanceObject = new JSONObject(performance);
+        Performance per = new Performance();
+        per.setName(performanceObject.getString("name"));
+        per.setTimeofend(performanceObject.getString("timeofpremier"));
+        per.setHall(this.hallRepo.findHallById(performanceObject.getJSONObject("hall").getLong("id")));
+
+        return this.performanceRepo.save(per);
+    }
+
+    @PostMapping("tickets/posttickets")
+    Ticket postTicket(@RequestBody String ticket) throws JSONException {
+        JSONObject ticketObject = new JSONObject(ticket);
+        Ticket tick  = new Ticket(ticketObject.getInt("price"), ticketObject.getString("date"));
+        System.out.println("zskdhaesfhehfjshefg"+ticketObject);
+        System.out.println("123456789"+ticket);
+
+        tick.setSeat(this.seatRepo.findSeatById(ticketObject.getJSONObject("seat").getLong("id")));
+        tick.setPerformance(this.performanceRepo.findPerformanceById(ticketObject.getJSONObject("performance").getLong("id")));
+        tick.setClient(this.clientRepo.findClientById(ticketObject.getJSONObject("client").getLong("id")));
+        System.out.println(tick);
+        return this.ticketRepo.save(tick);
+
+    }
+
+
+
+
+
+
     @PostMapping("/tickets")
     Ticket createTicket(@RequestParam Integer price,@RequestParam Integer location, @RequestParam String type,
                         @RequestParam String firstname, @RequestParam String lastname, @RequestParam String contact,
                         @RequestParam Integer age) {
 //        curl -X POST http://127.0.0.1:8080/api/theater/tickets?price=4238&location=9&type=A
-        Ticket ticket = new Ticket(price);
-        Client client = new Client(firstname, lastname, contact, age);
-        Seat seat = new Seat(location, type);
 
         Date d = new Date();
         SimpleDateFormat date;
         SimpleDateFormat dateprem;
         SimpleDateFormat dateend;
+        SimpleDateFormat dateper;
         date = new SimpleDateFormat("12:20");
+        dateper = new SimpleDateFormat("2021-04-23");
         dateprem = new SimpleDateFormat("01.01.2021 10:00");
         dateend = new SimpleDateFormat("01.07.2021 20:00");
 
-        date.format(d);
-        dateprem.format(d);
-        dateend.format(d);
         String date1 = date.format(d);
         String dateprem1 = dateprem.format(d);
         String dateend1 = dateend.format(d);
+        String dateofper = dateper.format(d);
+
+        Ticket ticket = new Ticket(price, dateofper);
+        Client client = new Client(firstname, lastname, contact, age);
+        Seat seat = new Seat(location, type);
+
 
         Performance performance = new Performance("Мастер и Маргарита",
                 dateprem1, dateend1,date1, 16);
@@ -263,6 +310,11 @@ public class TheaterController {
     @GetMapping("/perfs/name={name}")
     List<Performance> getTimesOnPerf(@PathVariable String name){
         return this.performanceRepo.findAllByName(URLDecoder.decode(name));
+    }
+
+    @GetMapping("/halls/perfName={name}")
+    Hall getHallOnPerf(@PathVariable String name){
+        return this.hallRepo.findHallById(this.performanceRepo.findAllByName(URLDecoder.decode(name)).get(0).getHall().getId());
     }
 
 

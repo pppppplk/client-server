@@ -45,7 +45,6 @@ public class Parsing {
         }
         String response = stringBuilder.toString();
         bufferedReader.close();
-        System.out.println("1111" + response);
 
         // создание json объекта
 
@@ -57,6 +56,7 @@ public class Parsing {
                 Ticket tempTicket = new Ticket();
                 tempTicket.setId(json.getJSONObject(i).getLong("id"));
                 tempTicket.setPrice(json.getJSONObject(i).getInt("price"));
+                tempTicket.setDate(json.getJSONObject(i).getString("date"));
 
                 String clientString = json.getJSONObject(i).getString("client");
                 JSONObject client = new JSONObject(clientString);
@@ -102,22 +102,12 @@ public class Parsing {
                 tempTicket.setPerformance(tempPerformance);
                 System.out.println(tempTicket);
                 tickets.add(tempTicket);
-                System.out.println("-------------------------");
-                System.out.println(tickets);
-                System.out.println("cli " + tempTicket.getClient());
                 clients.add(tempTicket.getClient());
                 System.out.println(clients);
 
 
 
-
-
-
-
             }
-            System.out.println(clients.size());
-            System.out.println(halls);
-
 
 
 

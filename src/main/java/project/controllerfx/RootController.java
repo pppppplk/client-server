@@ -54,6 +54,9 @@ public class RootController {
     private Label lablenameofper;
 
     @FXML
+    private Label labeldate;
+
+    @FXML
     private Label lableseatlocation;
 
     @FXML
@@ -138,6 +141,7 @@ public class RootController {
             lablecontact.setText(String.valueOf(ticket.getClient().getContact()));
             lableid.setText(String.valueOf(ticket.getId()));
             lableprice.setText(String.valueOf(ticket.getPrice()));
+            labeldate.setText(String.valueOf(ticket.getDate()));
             lablehallname.setText(String.valueOf(ticket.getSeat().getHall().getName()));
             firstnametext.setText(String.valueOf(ticket.getClient().getFirstname()));
             lastnametext.setText(String.valueOf(ticket.getClient().getLastname()));
@@ -147,7 +151,6 @@ public class RootController {
             lablepertime.setText(String.valueOf(ticket.getPerformance().getTime()));
             lableseatlocation.setText(String.valueOf(ticket.getSeat().getLocation()));
             lableseattype.setText(String.valueOf(ticket.getSeat().getType()));
-
 
         } else {
             lablecontact.setText("нет информации");
@@ -176,12 +179,33 @@ public class RootController {
 
         } catch (Exception e) {
             System.out.println(e);
-            System.out.println("окно не открывается ");
 
 
         }
 
     }
+
+
+    @FXML
+
+    public void AuthorButton(javafx.event.ActionEvent actionEvent) {
+        try {
+
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/author.fxml"));
+            Parent root1 = (Parent) fxmlLoader.load();
+            stage = new Stage();
+            stage.setTitle("об Авторе");
+            stage.setScene(new Scene(root1));
+            stage.show();
+
+        } catch (Exception e) {
+            System.out.println(e);
+
+
+        }
+
+    }
+
 
 
     @FXML

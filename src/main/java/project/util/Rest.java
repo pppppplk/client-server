@@ -35,29 +35,36 @@ public class Rest {
         bufferedReader.close();
     }
 
-    public  void PostRest(String link) throws IOException{
+    public String PostRest(String link, JSONObject jsonObject) throws IOException{
+        System.out.println("+++++++++++++++++ "+URLEncoder.encode(jsonObject.toString(),StandardCharsets.UTF_8));
         URL url = new URL(link);
 
         HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
 
-        httpURLConnection.setRequestProperty("Content-Type", "utf-8");
+        httpURLConnection.setRequestProperty("Content-Type","application/json; utf-8");
         httpURLConnection.setRequestProperty("Accept", "application/json");
         httpURLConnection.setRequestMethod("POST");
-        InputStream inputStream = new BufferedInputStream(httpURLConnection.getInputStream()); //получение данных из  источника
+        httpURLConnection.setDoOutput(true);
+        System.out.println("вывод объекта из рест "+jsonObject);
         StringBuilder stringBuilder = new StringBuilder();
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream)); //считывает текст
-
         String str = " ";
+        try(OutputStream os = httpURLConnection.getOutputStream()) {
+            byte[] input = jsonObject.toString().getBytes(StandardCharsets.UTF_8);
+            os.write(input, 0, input.length);
+        }
 
-        // считываеи из url  построчно информацию и добавляем ее в строку,
-        // затем возвращаем строку уже со всей информацией, которая находится в url
-        while ((str = bufferedReader.readLine()) != null) {
+        try(BufferedReader bufferedReader = new BufferedReader(
+                new InputStreamReader(httpURLConnection.getInputStream(),StandardCharsets.UTF_8)
+        )){
+            while ((str = bufferedReader.readLine()) != null) {
 
-            stringBuilder.append(str);
+                stringBuilder.append(str);
 
+            }
         }
         String response = stringBuilder.toString();
-        bufferedReader.close();
+        System.out.println("post вывод " + response);
+        return response;
     }
 
     public String GetRest(String link) throws IOException{
@@ -90,7 +97,6 @@ public class Rest {
 
     public String PutRest(String link, JSONObject jsonObject) throws IOException{
 
-        System.out.println("+++++++++++++++++ "+URLEncoder.encode(jsonObject.toString(),StandardCharsets.UTF_8));
         URL url = new URL(link);
 
         HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
@@ -100,9 +106,7 @@ public class Rest {
         httpURLConnection.setRequestMethod("PUT");
         httpURLConnection.setDoOutput(true);
         System.out.println("вывод объекта из рест "+jsonObject);
-        //InputStream inputStream = new BufferedInputStream(httpURLConnection.getInputStream());  //получение данных из  источника
         StringBuilder stringBuilder = new StringBuilder();
-        //BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream)); //считывает текст
         String str = " ";
         try(OutputStream os = httpURLConnection.getOutputStream()) {
             byte[] input = jsonObject.toString().getBytes(StandardCharsets.UTF_8);

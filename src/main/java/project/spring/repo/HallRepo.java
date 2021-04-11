@@ -10,6 +10,9 @@ public interface HallRepo extends JpaRepository<Hall, Long> {
 //    Hall findHallByTickets(List<Ticket> tickets);
     Hall findHallByName(String name);
 
+    Hall findHallById(Long id);
+
+
 }
 
 

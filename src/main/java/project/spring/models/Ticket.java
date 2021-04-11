@@ -38,9 +38,11 @@ public class Ticket {
 
 
     private Integer price;
+    private String date;
 
-    public Ticket( Integer price) {
+    public Ticket( Integer price, String date) {
         this.price = price;
+        this.date = date;
     }
 
     public Ticket(){}
@@ -55,6 +57,14 @@ public class Ticket {
 
     public Long getId() {
         return id;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 
     public void setId(Long id) {
@@ -93,6 +103,7 @@ public class Ticket {
                 ", seat=" + seat +
                 ", performance=" + performance +
                 ", price=" + price +
+                ", date='" + date + '\'' +
                 '}';
     }
 }

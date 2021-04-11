@@ -60,6 +60,9 @@ public class Performance {
         return name;
     }
 
+    public void setHall(Hall hall) {
+        this.hall = hall;
+    }
 
     public String getTime() {
         return time;

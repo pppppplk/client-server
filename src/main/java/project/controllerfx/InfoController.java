@@ -24,22 +24,6 @@ public class InfoController {
 
 
     @FXML
-    private TextField textField;
-
-
-
-    @FXML
-    private Label label1;
-
-    private Parsing parsing;
-    private Ticket ticket;
-    private RootController rootController;
-    private List<String> textlist = new ArrayList<String>();
-
-
-
-
-    @FXML
     private void initialize() throws IOException {
 
 
@@ -50,7 +34,21 @@ public class InfoController {
 
     public InfoController() throws IOException{ }
 
+    public JavaFX getMain() {
+        return main;
+    }
 
+    public void setMain(JavaFX main) {
+        this.main = main;
+    }
+
+    public Stage getStage() {
+        return stage;
+    }
+
+    public void setStage(Stage stage) {
+        this.stage = stage;
+    }
 }
 
 
