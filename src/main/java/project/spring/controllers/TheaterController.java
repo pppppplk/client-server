@@ -68,13 +68,15 @@ public class TheaterController {
         return this.performanceRepo.save(per);
     }
 
-    @PostMapping("tickets/posttickets")
+    @PostMapping(value = "tickets/posttickets")
     Ticket postTicket(@RequestBody String ticket) throws JSONException {
+        System.out.println("-".repeat(50));
+        System.out.println(ticket);
+        System.out.println("-".repeat(50));
         JSONObject ticketObject = new JSONObject(ticket);
         Ticket tick  = new Ticket(ticketObject.getInt("price"), ticketObject.getString("date"));
         System.out.println("zskdhaesfhehfjshefg"+ticketObject);
         System.out.println("123456789"+ticket);
-
         tick.setSeat(this.seatRepo.findSeatById(ticketObject.getJSONObject("seat").getLong("id")));
         tick.setPerformance(this.performanceRepo.findPerformanceById(ticketObject.getJSONObject("performance").getLong("id")));
         tick.setClient(this.clientRepo.findClientById(ticketObject.getJSONObject("client").getLong("id")));

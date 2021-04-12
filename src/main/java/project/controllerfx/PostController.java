@@ -9,12 +9,21 @@ import javafx.stage.Stage;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import project.DTO.HallDTO;
+import project.DTO.SeatDTO;
+import project.DTO.SeatLocationDTO;
 import project.JavaFX;
+import project.DTO.PerformanceDTO;
+import project.spring.models.Seat;
 import project.util.Rest;
+
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 public class PostController {
@@ -22,11 +31,13 @@ public class PostController {
     private JavaFX main;
     private Stage stage;
 
-    @FXML
-    private ChoiceBox<String> hallChoiceBox;
+    private PerformanceDTO performanceDTO;
 
     @FXML
-    private ChoiceBox<String> zoneChoiceBox;
+    private ChoiceBox<HallDTO> hallChoiceBox;
+
+    @FXML
+    private ChoiceBox<SeatDTO> zoneChoiceBox;
 
     @FXML
     private TextField firstname;
@@ -48,10 +59,14 @@ public class PostController {
     private ChoiceBox<String> timeChoiceBox;
 
     @FXML
-    private ChoiceBox<Integer> placeChoiceBox;
+    private ChoiceBox<SeatLocationDTO> placeChoiceBox;
 
     @FXML
-    private ChoiceBox<String> perfomChoiceBox;
+    private ChoiceBox<PerformanceDTO> perfomChoiceBox;
+
+    /**
+     * @FXML private ChoiceBox<String> perfomChoiceBox;
+     */
 
     @FXML
     private DatePicker calendar;
@@ -63,13 +78,10 @@ public class PostController {
     private Button cancel;
 
 
-
     private Rest connect = new Rest();
     private LocalDate datestart;
     private LocalDate dateend;
     private Rest rest = new Rest();
-
-
 
 
     @FXML
@@ -79,54 +91,60 @@ public class PostController {
 
     /**
      * метод для проверки валидации на ввод данных имя и фамилия
+     *
      * @param string
      * @return
      */
-    public static boolean TestString(String string){
+    public static boolean TestString(String string) {
         return string.matches("^[а-яА-Я]+$");
 
     }
 
     /**
      * метод для проверки валидации на ввод данных о возрасте
+     *
      * @param string
      * @return
      */
 
-    public static boolean TestInt(String string){
+    public static boolean TestInt(String string) {
         return string.matches("^(\\d){1,2}$");
 
     }
 
     /**
      * метод для проверки валидвции ввода номера телефона
+     *
      * @param string
      * @return
      */
 
 
-    public static boolean TestContact(String string){
+    public static boolean TestContact(String string) {
         return string.matches("^\\+\\d?-?\\d?\\d?\\d{11}$");
 
     }
 
 
+    public PostController() throws IOException {
+    }
 
+    /**
+     * добавление нового клиента + новый билет
+     */
 
-    public PostController() throws IOException{ }
-
-    private void PostClient(){
+    private void PostClient() {
         ok.setOnAction(actionEvent -> {
-            if(firstname.getText() == "" || lastname.getText() == "" || contact.getText() == "" || age.getText() == "" ||
-                zoneChoiceBox.getValue() == null || perfomChoiceBox.getValue() == null || hallChoiceBox.getValue() == null ||
-                placeChoiceBox.getValue() == null || timeChoiceBox.getValue() == null || calendar.getValue() == null ){
+            if (firstname.getText() == "" || lastname.getText() == "" || contact.getText() == "" || age.getText() == "" ||
+                    zoneChoiceBox.getValue().getType() == null || perfomChoiceBox.getValue().getName() == null || hallChoiceBox.getValue().getName() == null ||
+                    placeChoiceBox.getValue().getLocation() == null || timeChoiceBox.getValue() == null || calendar.getValue() == null) {
                 Alert alert2 = new Alert(Alert.AlertType.ERROR);
                 alert2.setTitle("Ошибка");
                 alert2.setHeaderText("Не все данные введены");
                 alert2.showAndWait();
-            }else{
-                if((TestString(firstname.getText())) && (TestString(lastname.getText())) && (TestContact(contact.getText()))  && (TestInt(age.getText())) ){
-                    if(calendar.getValue().isAfter(LocalDate.now())) {
+            } else {
+                if ((TestString(firstname.getText())) && (TestString(lastname.getText())) && (TestContact(contact.getText())) && (TestInt(age.getText()))) {
+                    if (calendar.getValue().isAfter(LocalDate.now())) {
 
                         System.out.println("проверка пройдена");
                         JSONObject jsonObjectclient = new JSONObject();
@@ -140,21 +158,28 @@ public class PostController {
                             jsonObjectclient.put("lastname", lastname.getText());
                             jsonObjectclient.put("contact", contact.getText());
                             jsonObjectclient.put("age", age.getText());
-                            rest.PostRest("http://127.0.0.1:8080/api/theater/clients/postclient", jsonObjectclient);
+                            JSONObject jsonObjectcl = new JSONObject(rest.PostRest("http://127.0.0.1:8080/api/theater/clients/postclient", jsonObjectclient));
                             System.out.println("добавила");
-                            if (jsonObjectclient != null) {
-                                jsonObjectticket.put("client", jsonObjectclient);
-                                jsonObjectperfomance.put("name", perfomChoiceBox.getValue());
+                            if (jsonObjectclient.length() != 0) {
+                                jsonObjectticket.put("client", jsonObjectcl);
+                                jsonObjectperfomance.put("id", perfomChoiceBox.getValue().getId());
+                                jsonObjectperfomance.put("name", perfomChoiceBox.getValue().getName());
                                 jsonObjectperfomance.put("time", timeChoiceBox.getValue());
                                 jsonObjectperfomance.put("hall", jsonObjecthall);
-                                jsonObjecthall.put("name", hallChoiceBox.getValue());
-                                jsonObjectseat.put("type", zoneChoiceBox.getValue());
-                                jsonObjectseat.put("location", placeChoiceBox.getValue());
+
+                                jsonObjecthall.put("id", hallChoiceBox.getValue().getId());
+                                jsonObjecthall.put("name", hallChoiceBox.getValue().getName());
+
+                                jsonObjectseat.put("type", zoneChoiceBox.getValue().getType());
+                                jsonObjectseat.put("location", placeChoiceBox.getValue().getLocation());
+                                jsonObjectseat.put("id", placeChoiceBox.getValue().getId());
                                 jsonObjectseat.put("hall", jsonObjecthall);
+
                                 jsonObjectticket.put("performance", jsonObjectperfomance);
                                 jsonObjectticket.put("seat", jsonObjectseat);
                                 jsonObjectticket.put("price", pricelabel.getText());
                                 jsonObjectticket.put("date", calendar.getValue());
+                                System.out.println(jsonObjectticket);
                                 rest.PostRest("http://127.0.0.1:8080/api/theater/tickets/posttickets", jsonObjectticket);
                                 System.out.println("билет добавлен");
                             } else {
@@ -165,7 +190,7 @@ public class PostController {
                         } catch (JSONException | IOException e) {
                             e.printStackTrace();
                         }
-                    }else{
+                    } else {
                         System.out.println("такая дата не может быть");
                         Alert alert2 = new Alert(Alert.AlertType.ERROR);
                         alert2.setTitle("Ошибка");
@@ -174,7 +199,7 @@ public class PostController {
                     }
                     System.out.println("добавили нового пользователя ");
 
-                }else{
+                } else {
                     Alert alert2 = new Alert(Alert.AlertType.ERROR);
                     alert2.setTitle("Ошибка");
                     alert2.setHeaderText("Неверный тип данных. Введите имя/фамилию русскими символами. Номер телефона вводится через +7");
@@ -184,57 +209,75 @@ public class PostController {
         });
 
 
-
-
     }
 
     /**
      * сопоставление даты спектаклей с календарем
+     *
      * @throws IOException
      * @throws JSONException
      */
-
+//
+//    @FXML
+//    private void Choice() throws IOException, JSONException {
+//        JSONArray getper =  new JSONArray(connect.GetRest("http://localhost:8080/api/theater/perfs/data=" + calendar.getValue()));
+//        System.out.println("не обработанные даты" + getper);
+//        ObservableList<String> nameofper = FXCollections.observableArrayList();
+//        for (int i=0; i<getper.length(); i++) {
+//            nameofper.add(getper.getJSONObject(i).getString("name"));
+//            nameofper.add(getper.getJSONObject(i).getLong("id"));
+//            System.out.println("----------------"+nameofper);
+//
+//        }
+//        jsonArray = getper;
+//        perfomChoiceBox.setItems(nameofper);
+//    }
     @FXML
     private void Choice() throws IOException, JSONException {
-        JSONArray getper =  new JSONArray(connect.GetRest("http://localhost:8080/api/theater/perfs/data=" + calendar.getValue()));
+        JSONArray getper = new JSONArray(connect.GetRest("http://localhost:8080/api/theater/perfs/data=" + calendar.getValue()));
         System.out.println("не обработанные даты" + getper);
-        ObservableList<String> nameofper = FXCollections.observableArrayList();
-        for (int i=0; i<getper.length(); i++) {
-            nameofper.add(getper.getJSONObject(i).getString("name"));
-            System.out.println("----------------"+nameofper);
-
+        ObservableList<PerformanceDTO> representations = FXCollections.observableArrayList();
+        for (int i = 0; i < getper.length(); i++) {
+            representations.add(PerformanceDTO.of(getper.getJSONObject(i)));
         }
-        perfomChoiceBox.setItems(nameofper);
+
+        perfomChoiceBox.setItems(representations);
     }
 
     /**
      * функция заполнения времени по спектаклю
+     *
      * @throws IOException
      * @throws JSONException
      */
     @FXML
     private void TimePerf() throws IOException, JSONException {
         System.out.println(perfomChoiceBox.getValue());
-        JSONArray getTimes =  new JSONArray(connect.GetRest("http://localhost:8080/api/theater/perfs/name="
-                + URLEncoder.encode(perfomChoiceBox.getValue(), StandardCharsets.UTF_8)));
+        JSONArray getTimes = new JSONArray(connect.GetRest("http://localhost:8080/api/theater/perfs/name="
+                + URLEncoder.encode(perfomChoiceBox.getValue().getName(), StandardCharsets.UTF_8)));
         System.out.println("обработанные времена" + getTimes);
         ObservableList<String> timeofper = FXCollections.observableArrayList();
-        for (int i=0; i<getTimes.length(); i++) {
+        for (int i = 0; i < getTimes.length(); i++) {
             timeofper.add(getTimes.getJSONObject(i).getString("time"));
 
 
-
         }
-        System.out.println("вывод времени"+ timeofper);
+        System.out.println("вывод времени" + timeofper);
         timeChoiceBox.setItems(timeofper);
-        JSONObject hall = new JSONObject(connect.GetRest("http://localhost:8080/api/theater/halls/perfName="+ URLEncoder.encode(perfomChoiceBox.getValue(), StandardCharsets.UTF_8)));
-        ObservableList<String> hallNames = FXCollections.observableArrayList();
-        hallNames.add(hall.getString("name"));
+        JSONObject hall = new JSONObject(connect.GetRest("http://localhost:8080/api/theater/halls/perfName=" + URLEncoder.encode(perfomChoiceBox.getValue().getName(), StandardCharsets.UTF_8)));
+        ObservableList<HallDTO> hallNames = FXCollections.observableArrayList();
+//        hallNames.add(hall.getString("name"));
+        for (PerformanceDTO perfomance : perfomChoiceBox.getItems()) {
+            if (perfomChoiceBox.getValue().getHall().getName().equals(perfomance.getHall().getName())) {
+                hallNames.add(perfomance.getHall());
+            }
+        }
         hallChoiceBox.setItems(hallNames);
     }
 
     /**
      * функция заполнения зон по залу
+     *
      * @throws IOException
      * @throws JSONException
      */
@@ -242,24 +285,38 @@ public class PostController {
     @FXML
     private void fillingZones() throws IOException, JSONException {
         System.out.println(hallChoiceBox.getValue());
-        try {
-            JSONArray getseats = new JSONArray(connect.GetRest("http://localhost:8080/api/theater/seats/hall=" + URLEncoder.encode(hallChoiceBox.getValue(), StandardCharsets.UTF_8)));
-        ObservableList<String> zones = FXCollections.observableArrayList();
-        for (int i=0; i<getseats.length(); i++) {
-            if(!zones.contains(getseats.getJSONObject(i).getString("type"))){
-                zones.add(getseats.getJSONObject(i).getString("type"));
-                zoneChoiceBox.setItems(zones);
-            }
-        }}catch (RuntimeException e){
-            ObservableList<String> zones = FXCollections.observableArrayList();
-            zoneChoiceBox.setItems(zones);
+        JSONArray getseats = new JSONArray(connect.GetRest("http://localhost:8080/api/theater/seats/hall=" + URLEncoder.encode(hallChoiceBox.getValue().getName(), StandardCharsets.UTF_8)));
+        ObservableList<SeatDTO> zones = FXCollections.observableArrayList();
+        zones.add(SeatDTO.of(getseats.getJSONObject(0)));
+        for (int i = 0; i < getseats.length(); i++) {
+            SeatDTO seatDTO = SeatDTO.of(getseats.getJSONObject(i));
+            zones.add(seatDTO);
         }
+
+        boolean flag = false;
+        ObservableList<SeatDTO> uniqZones = FXCollections.observableArrayList();
+        for (int i = 0; i < zones.size(); i++) {
+            for (int j = 0; j < uniqZones.size(); j++) {
+                if (zones.get(i).getType().equals(uniqZones.get(j).getType())) {
+                    flag = true;
+
+                }
+            }
+            if (!flag){
+                uniqZones.add(zones.get(i));
+            }
+            flag = false;
+        }
+
+
+        zoneChoiceBox.setItems(uniqZones);
 
     }
 
 
     /**
      * вывожу толкьо свободные места и задаю цену по зоне
+     *
      * @throws IOException
      * @throws JSONException
      */
@@ -269,18 +326,19 @@ public class PostController {
     private void fillingSeats() throws IOException, JSONException {
         try {
             JSONArray getseats = new JSONArray(connect.GetRest("http://localhost:8080/api/theater/seats/name=" +
-                    URLEncoder.encode(perfomChoiceBox.getValue(), StandardCharsets.UTF_8) +
+                    URLEncoder.encode(perfomChoiceBox.getValue().getName(), StandardCharsets.UTF_8) +
                     "/time=" + URLEncoder.encode(timeChoiceBox.getValue(), StandardCharsets.UTF_8)));
 
-            ObservableList<Integer> seats = FXCollections.observableArrayList();
+            ObservableList<SeatLocationDTO> seats = FXCollections.observableArrayList();
             System.out.println("вывод мест " + getseats);
             for (int i = 0; i < getseats.length(); i++) {
-                if (getseats.getJSONObject(i).getString("type").equals(zoneChoiceBox.getValue()) && getseats.getJSONObject(i).getJSONObject("hall").getString("name").equals(hallChoiceBox.getValue())) {
-                    seats.add(getseats.getJSONObject(i).getInt("location"));
+                SeatLocationDTO seatLocationDTO = SeatLocationDTO.of(getseats.getJSONObject(i));
+                if (getseats.getJSONObject(i).getString("type").equals(zoneChoiceBox.getValue().getType()) && getseats.getJSONObject(i).getJSONObject("hall").getString("name").equals(hallChoiceBox.getValue().getName())) {
+                    seats.add(seatLocationDTO);
                 }
             }
             placeChoiceBox.setItems(seats);
-            switch (zoneChoiceBox.getValue()) {
+            switch (zoneChoiceBox.getValue().getType()) {
                 case "Партер":
                     pricelabel.setText("3500");
                     break;
@@ -294,31 +352,13 @@ public class PostController {
                     pricelabel.setText("1300");
                     break;
             }
-        }catch (RuntimeException e){
+        } catch (RuntimeException e) {
             e.printStackTrace();
-            ObservableList<Integer> seats = FXCollections.observableArrayList();
+            ObservableList<SeatLocationDTO> seats = FXCollections.observableArrayList();
             placeChoiceBox.setItems(seats);
             pricelabel.setText(" ");
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 }
