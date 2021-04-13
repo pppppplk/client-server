@@ -74,8 +74,7 @@ public class PostController {
     @FXML
     private Button ok;
 
-    @FXML
-    private Button cancel;
+
 
 
     private Rest connect = new Rest();
@@ -87,6 +86,23 @@ public class PostController {
     @FXML
     private void initialize() throws IOException, JSONException {
         PostClient();
+    }
+
+
+    public JavaFX getMain() {
+        return main;
+    }
+
+    public void setMain(JavaFX main) {
+        this.main = main;
+    }
+
+    public Stage getStage() {
+        return stage;
+    }
+
+    public void setStage(Stage stage) {
+        this.stage = stage;
     }
 
     /**
@@ -144,8 +160,7 @@ public class PostController {
                 alert2.showAndWait();
             } else {
                 if ((TestString(firstname.getText())) && (TestString(lastname.getText())) && (TestContact(contact.getText())) && (TestInt(age.getText()))) {
-                    if (calendar.getValue().isAfter(LocalDate.now())) {
-
+                    if (calendar.getValue().isAfter(LocalDate.now()) || calendar.getValue().isEqual(LocalDate.now())) {
                         System.out.println("проверка пройдена");
                         JSONObject jsonObjectclient = new JSONObject();
                         JSONObject jsonObjectticket = new JSONObject();
@@ -181,7 +196,10 @@ public class PostController {
                                 jsonObjectticket.put("date", calendar.getValue());
                                 System.out.println(jsonObjectticket);
                                 rest.PostRest("http://127.0.0.1:8080/api/theater/tickets/posttickets", jsonObjectticket);
+
                                 System.out.println("билет добавлен");
+                                //this.main.initRootLayout();
+
                             } else {
                                 System.out.println("не  могу добавить билет");
                             }
@@ -217,31 +235,34 @@ public class PostController {
      * @throws IOException
      * @throws JSONException
      */
-//
-//    @FXML
-//    private void Choice() throws IOException, JSONException {
-//        JSONArray getper =  new JSONArray(connect.GetRest("http://localhost:8080/api/theater/perfs/data=" + calendar.getValue()));
-//        System.out.println("не обработанные даты" + getper);
-//        ObservableList<String> nameofper = FXCollections.observableArrayList();
-//        for (int i=0; i<getper.length(); i++) {
-//            nameofper.add(getper.getJSONObject(i).getString("name"));
-//            nameofper.add(getper.getJSONObject(i).getLong("id"));
-//            System.out.println("----------------"+nameofper);
-//
-//        }
-//        jsonArray = getper;
-//        perfomChoiceBox.setItems(nameofper);
-//    }
+
     @FXML
     private void Choice() throws IOException, JSONException {
-        JSONArray getper = new JSONArray(connect.GetRest("http://localhost:8080/api/theater/perfs/data=" + calendar.getValue()));
-        System.out.println("не обработанные даты" + getper);
-        ObservableList<PerformanceDTO> representations = FXCollections.observableArrayList();
-        for (int i = 0; i < getper.length(); i++) {
-            representations.add(PerformanceDTO.of(getper.getJSONObject(i)));
+
+        try{
+            JSONArray getper = new JSONArray(connect.GetRest("http://localhost:8080/api/theater/perfs/data=" + calendar.getValue()));
+            System.out.println("не обработанные даты" + getper);
+            ObservableList<PerformanceDTO> representations = FXCollections.observableArrayList();
+            for (int i = 0; i < getper.length(); i++) {
+                representations.add(PerformanceDTO.of(getper.getJSONObject(i)));
+            }
+
+            perfomChoiceBox.setItems(representations);
+        } catch (NullPointerException e){
+            JSONArray getper = new JSONArray(connect.GetRest("http://localhost:8080/api/theater/perfs/data=" + calendar.getValue()));
+            System.out.println("не обработанные даты" + getper);
+            ObservableList<PerformanceDTO> representations = FXCollections.observableArrayList();
+            for (int i = 0; i < getper.length(); i++) {
+                representations.add(PerformanceDTO.of(getper.getJSONObject(i)));
+            }
+
+            perfomChoiceBox.setItems(representations);
+        }
+        catch(Exception e ){
+            System.out.println("ошибка");
+            e.printStackTrace();
         }
 
-        perfomChoiceBox.setItems(representations);
     }
 
     /**
@@ -252,27 +273,40 @@ public class PostController {
      */
     @FXML
     private void TimePerf() throws IOException, JSONException {
-        System.out.println(perfomChoiceBox.getValue());
-        JSONArray getTimes = new JSONArray(connect.GetRest("http://localhost:8080/api/theater/perfs/name="
-                + URLEncoder.encode(perfomChoiceBox.getValue().getName(), StandardCharsets.UTF_8)));
-        System.out.println("обработанные времена" + getTimes);
-        ObservableList<String> timeofper = FXCollections.observableArrayList();
-        for (int i = 0; i < getTimes.length(); i++) {
-            timeofper.add(getTimes.getJSONObject(i).getString("time"));
+        try{
+            System.out.println(perfomChoiceBox.getValue());
+            JSONArray getTimes = new JSONArray(connect.GetRest("http://localhost:8080/api/theater/perfs/name="
+                    + URLEncoder.encode(perfomChoiceBox.getValue().getName(), StandardCharsets.UTF_8)));
+            System.out.println("обработанные времена" + getTimes);
+            ObservableList<String> timeofper = FXCollections.observableArrayList();
+            for (int i = 0; i < getTimes.length(); i++) {
+                timeofper.add(getTimes.getJSONObject(i).getString("time"));
 
 
-        }
-        System.out.println("вывод времени" + timeofper);
-        timeChoiceBox.setItems(timeofper);
-        JSONObject hall = new JSONObject(connect.GetRest("http://localhost:8080/api/theater/halls/perfName=" + URLEncoder.encode(perfomChoiceBox.getValue().getName(), StandardCharsets.UTF_8)));
-        ObservableList<HallDTO> hallNames = FXCollections.observableArrayList();
-//        hallNames.add(hall.getString("name"));
-        for (PerformanceDTO perfomance : perfomChoiceBox.getItems()) {
-            if (perfomChoiceBox.getValue().getHall().getName().equals(perfomance.getHall().getName())) {
-                hallNames.add(perfomance.getHall());
             }
+            System.out.println("вывод времени" + timeofper);
+            timeChoiceBox.setItems(timeofper);
+            JSONObject hall = new JSONObject(connect.GetRest("http://localhost:8080/api/theater/halls/perfName=" + URLEncoder.encode(perfomChoiceBox.getValue().getName(), StandardCharsets.UTF_8)));
+            ObservableList<HallDTO> hallNames = FXCollections.observableArrayList();
+//        hallNames.add(hall.getString("name"));
+            for (PerformanceDTO perfomance : perfomChoiceBox.getItems()) {
+                if (perfomChoiceBox.getValue().getHall().getName().equals(perfomance.getHall().getName())) {
+                    hallNames.add(perfomance.getHall());
+                }
+            }
+            hallChoiceBox.setItems(hallNames);
+        }catch(NullPointerException e){
+            System.out.println("ошибка 2");
+            e.printStackTrace();
+            Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
+            alert2.setTitle("Справка");
+            alert2.setHeaderText("Изменение даты");
+            alert2.showAndWait();
+            
+
+
         }
-        hallChoiceBox.setItems(hallNames);
+
     }
 
     /**

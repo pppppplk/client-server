@@ -12,5 +12,7 @@ public interface TicketRepo extends JpaRepository<Ticket, Long> {
 
     Ticket findTicketByClient_Id(Long id);
 
+    List<Ticket> findTicketByPerformance_Name(String name);
+
 
 }

@@ -181,6 +181,8 @@ public class TheaterController {
 
 
 
+
+
     @GetMapping("/perfs/data={data}")
     List<Performance> getPerformances(@PathVariable String data){
         List<Performance> allper = this.performanceRepo.findAll();
@@ -318,6 +320,14 @@ public class TheaterController {
     Hall getHallOnPerf(@PathVariable String name){
         return this.hallRepo.findHallById(this.performanceRepo.findAllByName(URLDecoder.decode(name)).get(0).getHall().getId());
     }
+
+    @GetMapping("/tickets/perName={name}")
+    List<Ticket> ticketOfPerName(@PathVariable String name){
+        List<Ticket> tickList = this.ticketRepo.findTicketByPerformance_Name(URLDecoder.decode(name, StandardCharsets.UTF_8));
+        return tickList;
+    }
+
+
 
 
 

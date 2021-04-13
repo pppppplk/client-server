@@ -92,7 +92,6 @@ public class RootController {
 
         initTable();
         SearchTable();
-        //Info();
 
         namecolumn.setCellValueFactory(cellData -> cellData.getValue().getClient().getFirstNameProp());
         surnamecolumn.setCellValueFactory(cellData -> cellData.getValue().getClient().getLastNameProp());
@@ -200,6 +199,25 @@ public class RootController {
 
         } catch (Exception e) {
             System.out.println(e);
+
+
+        }
+
+    }
+    @FXML
+
+    public void GraphicButton(javafx.event.ActionEvent actionEvent) {
+        try {
+
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/graphic.fxml"));
+            Parent root1 = (Parent) fxmlLoader.load();
+            stage = new Stage();
+            stage.setTitle("Статистика");
+            stage.setScene(new Scene(root1));
+            stage.show();
+
+        } catch (Exception e) {
+            e.printStackTrace();
 
 
         }

@@ -11,7 +11,7 @@
         <menus>
           <Menu mnemonicParsing="false" text="об Авторе">
             <items>
-              <MenuItem onAction="#AuthorButton" mnemonicParsing="false" text="об Авторе" />
+              <MenuItem mnemonicParsing="false" onAction="#AuthorButton" text="об Авторе" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Помощь">
@@ -19,6 +19,11 @@
               <MenuItem fx:id="searchid" mnemonicParsing="false" onAction="#searchButton" text="Инструкция" />
             </items>
           </Menu>
+            <Menu mnemonicParsing="false" text="Статистика">
+              <items>
+                <MenuItem onAction="#GraphicButton" mnemonicParsing="false" text="График" />
+              </items>
+            </Menu>
         </menus>
          <BorderPane.margin>
             <Insets />
@@ -74,7 +79,7 @@
                               <Label fx:id="lablepertime" prefHeight="17.0" prefWidth="139.0" text="   Label" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                               <Label fx:id="lablecontact" prefHeight="17.0" prefWidth="148.0" text="   Label" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                               <Label fx:id="lableprice" prefHeight="17.0" prefWidth="139.0" text="   Label" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-                              <Label  prefHeight="17.0" prefWidth="127.0" text="                     Дата:" textFill="WHITE" GridPane.rowIndex="8" />
+                              <Label prefHeight="17.0" prefWidth="127.0" text="                     Дата:" textFill="WHITE" GridPane.rowIndex="8" />
                               <Label fx:id="labeldate" text="  Label" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="8" />
                            </children>
                         </GridPane>

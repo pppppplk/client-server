@@ -41,7 +41,7 @@
             <Font name="Calibri Bold Italic" size="16.0" />
          </font>
       </Label>
-      <Label layoutX="128.0" layoutY="220.0" text="Информационно-справчная " textFill="WHITE" textOverrun="CENTER_WORD_ELLIPSIS">
+      <Label layoutX="128.0" layoutY="220.0" text="Информационно-справочная " textFill="WHITE" textOverrun="CENTER_WORD_ELLIPSIS">
          <font>
             <Font name="Calibri Bold Italic" size="16.0" />
          </font>
