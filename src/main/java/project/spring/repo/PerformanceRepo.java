@@ -13,7 +13,6 @@ public interface PerformanceRepo extends JpaRepository<Performance, Long> {
 
     Performance findPerformanceByHall_Name(String name);
 
-    //Performance findPerformanceByNameAndTime (String name, String time);
 
     Performance findPerformanceByNameAndTime(String name, String time);
 

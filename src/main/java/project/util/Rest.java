@@ -10,6 +10,13 @@ import java.nio.charset.StandardCharsets;
 
 public class Rest {
 
+
+    /**
+     * delete запрос с сервера
+     * @param link
+     * @throws IOException
+     */
+
     public void DeleteRest(String link) throws IOException {
         URL url = new URL(link);
 
@@ -24,8 +31,12 @@ public class Rest {
 
         String str = " ";
 
-        // считываеи из url  построчно информацию и добавляем ее в строку,
-        // затем возвращаем строку уже со всей информацией, которая находится в url
+        /**
+         * считываеи из url  построчно информацию и добавляем ее в строку,
+         * затем возвращаем строку уже со всей информацией, которая находится в url
+         */
+
+
         while ((str = bufferedReader.readLine()) != null) {
 
             stringBuilder.append(str);
@@ -34,6 +45,14 @@ public class Rest {
         String response = stringBuilder.toString();
         bufferedReader.close();
     }
+
+    /**
+     * post запрос с сервера
+     * @param link
+     * @param jsonObject
+     * @return
+     * @throws IOException
+     */
 
     public String PostRest(String link, JSONObject jsonObject) throws IOException{
         System.out.println("+++++++++++++++++ "+URLEncoder.encode(jsonObject.toString(),StandardCharsets.UTF_8));
@@ -67,6 +86,13 @@ public class Rest {
         return response;
     }
 
+    /**
+     * get запрос с сервера
+     * @param link
+     * @return
+     * @throws IOException
+     */
+
     public String GetRest(String link) throws IOException{
         URL url = new URL(link);
 
@@ -82,8 +108,11 @@ public class Rest {
         String str = " ";
 
 
-        // считываеи из url  построчно информацию и добавляем ее в строку,
-        // затем возвращаем строку уже со всей информацией, которая находится в url
+        /**
+         * считываеи из url  построчно информацию и добавляем ее в строку,
+         * затем возвращаем строку уже со всей информацией, которая находится в url
+         */
+
         while ((str = bufferedReader.readLine()) != null) {
 
             stringBuilder.append(str);
@@ -94,6 +123,14 @@ public class Rest {
         System.out.println("гет вывод " + response);
         return response;
     }
+
+    /**
+     * put запрос с сервера
+     * @param link
+     * @param jsonObject
+     * @return
+     * @throws IOException
+     */
 
     public String PutRest(String link, JSONObject jsonObject) throws IOException{
 

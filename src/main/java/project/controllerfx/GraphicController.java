@@ -10,11 +10,8 @@ import javafx.scene.chart.XYChart;
 import javafx.stage.Stage;
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 import project.DTO.PerformanceDTO;
-import project.DTO.SeatDTO;
 import project.JavaFX;
-import project.spring.models.Performance;
 import project.util.Rest;
 
 import java.io.IOException;
@@ -48,12 +45,6 @@ public class GraphicController {
 
     @FXML
     private void initialize() throws IOException, JSONException {
-        //XYChart.Series series = new XYChart.Series<>();
-
-        //series.getData().add(new XYChart.Data("ууу", 1));
-        //series.getData().add(new XYChart.Data("12 стульев", 12));
-
-        //barChart.getData().addAll(series);
 
         System.out.println("полученная инфа из графика");
 

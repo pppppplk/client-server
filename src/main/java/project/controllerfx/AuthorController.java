@@ -22,11 +22,6 @@ public class AuthorController {
     private Stage stage;
     private Pane pane = new Pane();
 
-    @FXML
-    private ImageView imageView;
-
-
-
 
     @FXML
     private void initialize(){

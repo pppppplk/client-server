@@ -21,7 +21,7 @@
           </Menu>
             <Menu mnemonicParsing="false" text="Статистика">
               <items>
-                <MenuItem onAction="#GraphicButton" mnemonicParsing="false" text="График" />
+                <MenuItem mnemonicParsing="false" onAction="#GraphicButton" text="График" />
               </items>
             </Menu>
         </menus>
@@ -71,16 +71,16 @@
                               <Label prefHeight="17.0" prefWidth="158.0" text="                       Цена:" textFill="WHITE" GridPane.rowIndex="7" />
                               <Label prefHeight="17.0" prefWidth="117.0" text="                      Зона: " textFill="WHITE" GridPane.rowIndex="3" />
                               <Label prefHeight="17.0" prefWidth="112.0" text="                 № билета:" textFill="WHITE" />
-                              <Label fx:id="lableid" prefHeight="17.0" prefWidth="137.0" text="   Label" textFill="WHITE" GridPane.columnIndex="1" />
-                              <Label fx:id="lablenameofper" prefHeight="17.0" prefWidth="133.0" text="   Label" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                              <Label fx:id="lablehallname" prefHeight="17.0" prefWidth="127.0" text="   Label" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                              <Label fx:id="lableseattype" prefHeight="17.0" prefWidth="134.0" text="   Label" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                              <Label fx:id="lableseatlocation" prefHeight="17.0" prefWidth="133.0" text="   Label" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                              <Label fx:id="lablepertime" prefHeight="17.0" prefWidth="139.0" text="   Label" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                              <Label fx:id="lablecontact" prefHeight="17.0" prefWidth="148.0" text="   Label" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                              <Label fx:id="lableprice" prefHeight="17.0" prefWidth="139.0" text="   Label" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                              <Label fx:id="lableid" prefHeight="17.0" prefWidth="137.0" text="нет информации " textFill="WHITE" GridPane.columnIndex="1" />
+                              <Label fx:id="lablenameofper" prefHeight="17.0" prefWidth="133.0" text="нет информации" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <Label fx:id="lablehallname" prefHeight="17.0" prefWidth="127.0" text="нет информации" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <Label fx:id="lableseattype" prefHeight="17.0" prefWidth="134.0" text="нет информации" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                              <Label fx:id="lableseatlocation" prefHeight="17.0" prefWidth="133.0" text="нет информации" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                              <Label fx:id="lablepertime" prefHeight="17.0" prefWidth="139.0" text="нет информации" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                              <Label fx:id="lablecontact" prefHeight="17.0" prefWidth="148.0" text="нет информации" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                              <Label fx:id="lableprice" prefHeight="17.0" prefWidth="139.0" text="нет информации " textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="7" />
                               <Label prefHeight="17.0" prefWidth="127.0" text="                     Дата:" textFill="WHITE" GridPane.rowIndex="8" />
-                              <Label fx:id="labeldate" text="  Label" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                              <Label fx:id="labeldate" text="нет информации" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="8" />
                            </children>
                         </GridPane>
                         <Label layoutX="396.0" layoutY="3.0" prefHeight="23.0" prefWidth="89.0" text="   Клиент" textFill="#fffefe">
@@ -106,6 +106,7 @@
              <Button layoutX="284.0" layoutY="402.0" mnemonicParsing="false" onAction="#addButton" prefHeight="24.0" prefWidth="81.0" text="Добавить" textFill="WHITE" />
              <Button layoutX="399.0" layoutY="402.0" mnemonicParsing="false" onAction="#DeleteClient" prefHeight="26.0" prefWidth="89.0" text="Удалить" textFill="WHITE">
                               </Button>
+            <Button onAction="#updatePage" layoutX="513.0" layoutY="402.0" mnemonicParsing="false" text="Обновить страницу" />
          </children>
       </AnchorPane>
    </center>

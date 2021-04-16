@@ -87,11 +87,17 @@ public class RootController {
     public RootController() throws IOException {
     }
 
+
+    /**
+     * заполнение таблицы в инициализации
+     */
+
     @FXML
     public void initialize() {
 
         initTable();
         SearchTable();
+
 
         namecolumn.setCellValueFactory(cellData -> cellData.getValue().getClient().getFirstNameProp());
         surnamecolumn.setCellValueFactory(cellData -> cellData.getValue().getClient().getLastNameProp());
@@ -103,6 +109,7 @@ public class RootController {
 
 
     }
+
 
 
     public JavaFX getMain() {
@@ -126,6 +133,11 @@ public class RootController {
         this.clientInfo.setItems(parsing.getTickets());
 
 
+    }
+
+
+    public void updatePage(){
+        this.main.initRootLayout();
     }
 
 
@@ -161,7 +173,8 @@ public class RootController {
 
 
     /**
-     * @param actionEvent функция, окрывающая окно инструкции
+     * @param actionEvent
+     * метод, окрывающий окно инструкции
      */
 
     @FXML
@@ -184,6 +197,11 @@ public class RootController {
 
     }
 
+    /**
+     * метод, открывающий окно "об авторе"
+     * @param actionEvent
+     */
+
 
     @FXML
 
@@ -204,6 +222,12 @@ public class RootController {
         }
 
     }
+
+
+    /**
+     * метод, открывающий окно статистики
+     * @param actionEvent
+     */
     @FXML
 
     public void GraphicButton(javafx.event.ActionEvent actionEvent) {
@@ -229,7 +253,7 @@ public class RootController {
     @FXML
 
     /**
-     * функция, которая ищет клиентов по бд
+     * метод, который ищет клиентов по бд
      */
 
     public void SearchTable() {
@@ -271,7 +295,8 @@ public class RootController {
 
     /**
      * @param actionEvent
-     * @throws IOException функция удаления клиента из бд + окно с предупрежденим и ошибкой
+     * @throws IOException
+     * метод удаления клиента из бд + окно с предупрежденим и ошибкой
      */
 
 
@@ -326,6 +351,10 @@ public class RootController {
 
     }
 
+    /**
+     * метод, окрыающий окно для добавления нового клиента и его билета
+     */
+
 
     @FXML
     public void addButton() {
@@ -372,7 +401,6 @@ public class RootController {
             jsonObjectclient.put("contact", contacttext.getText());
             jsonObjectclient.put("age", agetext.getText());
             rest.PutRest("http://127.0.0.1:8080/api/theater/updateclient", jsonObjectclient);
-            System.out.println("что-топ роизошло");
             this.main.initRootLayout();
 
 

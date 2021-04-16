@@ -34,8 +34,9 @@
       <Label layoutX="300.0" layoutY="265.0" prefHeight="17.0" prefWidth="51.0" text="Место:" />
       <ChoiceBox fx:id="timeChoiceBox" layoutX="93.0" layoutY="260.0" prefWidth="150.0" />
       <Label layoutX="310.0" layoutY="308.0" text="Цена:" />
-      <Button fx:id="ok" layoutX="227.0" layoutY="378.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="111.0" stylesheets="@../styles/rootview.css" text="ОК" textFill="WHITE" />
+      <Button fx:id="ok" layoutX="304.0" layoutY="378.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="111.0" stylesheets="@../styles/rootview.css" text="ОК" textFill="WHITE" />
       <DatePicker fx:id="calendar" layoutX="18.0" layoutY="171.0" onAction="#Choice" />
       <Label fx:id="pricelabel" layoutX="395.0" layoutY="308.0" prefHeight="17.0" prefWidth="111.0" text="Нет информации" />
+      <Button fx:id="closeButton" layoutX="168.0" layoutY="378.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="104.0" stylesheets="@../styles/rootview.css" text="Закрыть" />
    </children>
 </AnchorPane>

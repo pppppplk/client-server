@@ -36,8 +36,11 @@ public class Parsing {
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream)); //считывает текст
         String str = " ";
 
-        // считываеи из url  построчно информацию и добавляем ее в строку,
-        // затем возвращаем строку уже со всей информацией, которая находится в url
+        /**
+         * считываеи из url  построчно информацию и добавляем ее в строку,
+         *  затем возвращаем строку уже со всей информацией, которая находится в url
+         */
+
         while ((str = bufferedReader.readLine()) != null) {
 
             stringBuilder.append(str);
@@ -120,10 +123,6 @@ public class Parsing {
 
     public ObservableList<Ticket> getTickets(){
         return tickets;
-    }
-
-    public ObservableList<Hall> getHalls(){
-        return halls;
     }
 
 
