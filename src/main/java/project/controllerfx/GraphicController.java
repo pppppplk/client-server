@@ -33,13 +33,23 @@ public class GraphicController {
     private BarChart<String, Integer> barChart;
 
     @FXML
+    private BarChart<String, Integer> barChart2;
+
+
+
+    @FXML
     private CategoryAxis x;
 
     @FXML
     private NumberAxis y;
 
+    @FXML
+    private CategoryAxis x2;
 
-    private ObservableList<String> PerNames = FXCollections.observableArrayList();
+    @FXML
+    private NumberAxis y2;
+
+
 
 
 
@@ -49,6 +59,7 @@ public class GraphicController {
         System.out.println("полученная инфа из графика");
 
         PerfInfo();
+        ZoneInfo();
 
     }
 
@@ -108,6 +119,50 @@ public class GraphicController {
         System.out.println("вывожу названия спектаклей из графика" + name );
 
     }
+
+    /**
+     * вывод типов мест по оси Х
+     * вывод кол-ва билетов по оси У
+     * @throws IOException
+     * @throws JSONException
+     */
+
+
+    public void  ZoneInfo() throws IOException, JSONException {
+
+        JSONArray zonename = new JSONArray(rest.GetRest("http://127.0.0.1:8080/api/theater/seats/all"));
+
+
+        Set<String> nameofz = new HashSet<>();
+        for(int i = 0; i<zonename.length(); i++){
+            nameofz.add(zonename.getJSONObject(i).getString("type"));
+
+        }
+
+
+
+        XYChart.Series series2 = new XYChart.Series<>();
+
+        for( String s : nameofz){
+            JSONArray ticket = new JSONArray(rest.GetRest("http://localhost:8080/api/theater/tickets/typeName=" + URLEncoder.encode(s, StandardCharsets.UTF_8)));
+            List<Long> numzone = new ArrayList<>();
+            for(int i =0; i<ticket.length(); i++){
+                numzone.add(ticket.getJSONObject(i).getLong("id"));
+            }
+            series2.getData().add(new XYChart.Data(s, numzone.size()));
+
+
+        }
+        barChart2.getData().add(series2);
+
+
+        System.out.println("zone" + nameofz );
+
+
+    }
+
+
+
 
 
 

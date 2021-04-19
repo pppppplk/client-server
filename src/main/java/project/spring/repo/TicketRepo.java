@@ -14,5 +14,7 @@ public interface TicketRepo extends JpaRepository<Ticket, Long> {
 
     List<Ticket> findTicketByPerformance_Name(String name);
 
+    List<Ticket> findTicketBySeat_Type(String type);
+
 
 }

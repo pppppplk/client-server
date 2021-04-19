@@ -328,6 +328,16 @@ public class TheaterController {
     }
 
 
+    @GetMapping("/tickets/typeName={name}")
+    List<Ticket> ticketOfTypeName(@PathVariable String name){
+        List<Ticket> tickList = this.ticketRepo.findTicketBySeat_Type(URLDecoder.decode(name, StandardCharsets.UTF_8));
+        return tickList;
+    }
+
+
+
+
+
 
 
 
