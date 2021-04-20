@@ -1,11 +1,13 @@
 package project.spring.models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import javafx.collections.ObservableList;
-import org.hibernate.annotations.Fetch;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import javax.persistence.*;
+
+/**
+ * Класс Ticket
+ * Сущность Ticket
+ */
 
 @Entity
 @Table(name = "tickets")
@@ -18,6 +20,10 @@ public class Ticket {
 
     /*
     Соединяю ticket и client
+     */
+
+    /**
+     * Связь многие к одному со сущностью Client, Seat, Performance
      */
 
     @JsonManagedReference
@@ -40,12 +46,24 @@ public class Ticket {
     private Integer price;
     private String date;
 
+    /**
+     * Конструктор, в котором определяются переменные ( атрибуты сущности)
+     * @param price - цена билета
+     * @param date - дата проведения
+     */
+
     public Ticket( Integer price, String date) {
         this.price = price;
         this.date = date;
     }
 
     public Ticket(){}
+
+    /**
+     * Getters и Setters
+     * Getters - выводять значение
+     * Setters - задают значение
+     */
 
     public Performance getPerformance() {
         return performance;
@@ -94,6 +112,12 @@ public class Ticket {
     public void setPrice(Integer price) {
         this.price = price;
     }
+
+
+    /**
+     * Вывод сущности Ticket
+     * @return сущность Ticket со всеми значениями
+     */
 
     @Override
     public String toString() {

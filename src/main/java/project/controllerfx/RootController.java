@@ -15,9 +15,13 @@ import project.JavaFX;
 import project.spring.models.Ticket;
 import project.util.Rest;
 import project.util.Parsing;
-
 import java.io.IOException;
 import java.util.Optional;
+
+/**
+ * Контроллер окна root.fxml
+ */
+
 
 public class RootController {
 
@@ -90,6 +94,7 @@ public class RootController {
 
     /**
      * заполнение таблицы в инициализации
+     * вызовы методов  initTable() и SearchTable()
      */
 
     @FXML
@@ -111,6 +116,15 @@ public class RootController {
     }
 
 
+    /**
+     * Getters и Setters
+     * Getters - выводять значение
+     * Setters - задают значение
+     * @return
+     */
+
+
+
 
     public JavaFX getMain() {
         return main;
@@ -129,13 +143,18 @@ public class RootController {
     }
 
 
+    /**
+     * заполнения билета по клиенту в таблице
+     */
     public void initTable() {
         this.clientInfo.setItems(parsing.getTickets());
 
 
     }
 
-
+    /**
+     * обновление страницы
+     */
     public void updatePage(){
         this.main.initRootLayout();
     }
@@ -143,7 +162,8 @@ public class RootController {
 
 
     /**
-     * @param ticket полная информауия о клиенте и его билете
+     * получение полной информации о клиенте и его билете
+     * @param ticket - объект сущности Ticket
      *
      */
 
@@ -173,8 +193,8 @@ public class RootController {
 
 
     /**
-     * @param actionEvent
      * метод, окрывающий окно инструкции
+     * @param actionEvent - событие, возникающие при  нажатие кнопки
      */
 
     @FXML
@@ -199,7 +219,7 @@ public class RootController {
 
     /**
      * метод, открывающий окно "об авторе"
-     * @param actionEvent
+     * @param actionEvent - событие, возникающие при  нажатие кнопки
      */
 
 
@@ -226,7 +246,7 @@ public class RootController {
 
     /**
      * метод, открывающий окно статистики
-     * @param actionEvent
+     * @param actionEvent - событие, возникающие при  нажатие кнопки
      */
     @FXML
 
@@ -294,9 +314,9 @@ public class RootController {
 
 
     /**
-     * @param actionEvent
-     * @throws IOException
      * метод удаления клиента из бд + окно с предупрежденим и ошибкой
+     * @param actionEvent - событие, возникающие при  нажатие кнопки
+     * @throws IOException
      */
 
 
@@ -352,7 +372,7 @@ public class RootController {
     }
 
     /**
-     * метод, окрыающий окно для добавления нового клиента и его билета
+     * метод, окрывающий окно для добавления нового клиента и его билета
      */
 
 

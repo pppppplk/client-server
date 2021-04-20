@@ -1,19 +1,14 @@
 package project.controllerfx;
 
 import javafx.fxml.FXML;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.image.PixelReader;
-import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import project.JavaFX;
-import javafx.geometry.Insets;
-
-import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
+
+/**
+ * Контроллер окна author.fxml
+ */
 
 public class AuthorController {
 
@@ -29,14 +24,7 @@ public class AuthorController {
 
         System.out.println("полученная инфа из автора");
 
-
-
-
     }
-
-
-
-
 
     public AuthorController() throws IOException{ }
 

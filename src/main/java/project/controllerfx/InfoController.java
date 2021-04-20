@@ -3,17 +3,13 @@ package project.controllerfx;
 
 
 import javafx.fxml.FXML;
-
-import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import project.JavaFX;
-import project.spring.models.Ticket;
-import project.util.Parsing;
-
-import java.awt.*;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+
+/**
+ * Контроллер окна info.fxml
+ */
 
 public class InfoController {
 

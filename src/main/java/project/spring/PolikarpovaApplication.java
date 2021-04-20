@@ -6,6 +6,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 
+/**
+ * Класс PolikarpovaApplication
+ *запуск Spring Boot
+ */
 
 public class PolikarpovaApplication {
 

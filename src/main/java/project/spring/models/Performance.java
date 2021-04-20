@@ -1,12 +1,13 @@
 package project.spring.models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
+
+/**
+ * Класс Performance
+ * Сущность Performance
+ */
 
 @Entity
 @Table(name = "performances")
@@ -19,10 +20,8 @@ public class Performance {
     private String timeofpremier, timeofend, time ;
     private Integer agelimit;
 
-    /*
-    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    @JoinColumn(name = "hall_id", nullable = false)
-
+    /**
+     * Связь многие к одному с сущность Hall
      */
     @JsonManagedReference
     @ManyToOne(fetch = FetchType.EAGER)
@@ -39,6 +38,15 @@ public class Performance {
 
     }
 
+    /**
+     * Конструктор, в котором определяются переменные ( атрибуты сущности)
+     * @param name - назвнаие спектакля
+     * @param timeofpremier - дата премьеры
+     * @param timeofend - дата послежнего показа
+     * @param time - время показала спектакля
+     * @param agelimit - возрастное ограничение
+     */
+
     public Performance(String name, String timeofpremier,
                        String timeofend, String time,  Integer agelimit ){
         this.name = name;
@@ -47,6 +55,14 @@ public class Performance {
         this.time = time;
         this.agelimit = agelimit;
     }
+
+
+    /**
+     * Getters и Setters
+     * Getters - выводять значение
+     * Setters - задают значение
+     */
+
 
     public Long getId() {
         return id;
@@ -100,6 +116,12 @@ public class Performance {
     public void setAgelimit(Integer agelimit) {
         this.agelimit = agelimit;
     }
+
+
+    /**
+     * Вывод сущности Performance
+     * @return сущность Performance со всеми значениями
+     */
 
 
     @Override

@@ -2,9 +2,12 @@ package project.spring.models;
 
 
 import javax.persistence.*;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.List;
+
+
+/**
+ * Класс Hall
+ * Сущность Hall
+ */
 
 @Entity
 @Table(name = "halls")
@@ -17,26 +20,24 @@ public class Hall {
     private String name;
 
 
-
-
-
-    //@OneToMany(fetch = FetchType.LAZY, mappedBy = "hall")
-    //private List<Performance> performances =  new ArrayList<>();
-
-
-    //@OneToMany(fetch = FetchType.LAZY, mappedBy = "hall")
-    //private List<Time> times =  new ArrayList<>();
-
-
-
     public Hall(){}
+
+    /**
+     * Конструктор, в котором определяются переменные ( атрибуты сущности)
+     * @param name - название зала
+     */
 
     public Hall(String name) {
         this.name =  name;
 
     }
 
-
+    /**
+     * Getters и Setters
+     * Getters - выводять значение
+     * Setters - задают значение
+     * @return
+     */
 
     public Long getId() {
         return id;
@@ -54,18 +55,10 @@ public class Hall {
         this.name = name;
     }
 
-    /*
-
-    public void setPerformances(List<Performance> performances) {
-        this.performances = performances;
-    }
-    public List<Performance> getPerformances() {
-        return performances;
-    }
-
+    /**
+     * Вывод сущности Hall
+     * @return сущность Hall со всеми значениями
      */
-
-
 
     @Override
     public String toString() {

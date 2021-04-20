@@ -8,12 +8,17 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 
+/**
+ * класс Rest
+ * методы для осуществления rest-запросов с сервера на javafx
+ */
+
 public class Rest {
 
 
     /**
      * delete запрос с сервера
-     * @param link
+     * @param link - ссылка, поо которой совершается delete-запрос
      * @throws IOException
      */
 
@@ -48,9 +53,9 @@ public class Rest {
 
     /**
      * post запрос с сервера
-     * @param link
-     * @param jsonObject
-     * @return
+     * @param link -  ссылка, поо которой совершается post-запрос
+     * @param jsonObject - объект json
+     * @return вывод с post - запроса
      * @throws IOException
      */
 
@@ -88,8 +93,8 @@ public class Rest {
 
     /**
      * get запрос с сервера
-     * @param link
-     * @return
+     * @param link -  ссылка, поо которой совершается get-запрос
+     * @return вывод с get - запроса
      * @throws IOException
      */
 
@@ -126,9 +131,9 @@ public class Rest {
 
     /**
      * put запрос с сервера
-     * @param link
-     * @param jsonObject
-     * @return
+     * @param link ссылка, поо которой совершается put-запрос
+     * @param jsonObject - объект json
+     * @return вывод с put - запроса
      * @throws IOException
      */
 

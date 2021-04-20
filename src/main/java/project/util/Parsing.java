@@ -10,14 +10,17 @@ import project.spring.models.*;
 import java.io.*;
 import java.net.URL;
 import java.net.URLConnection;
-import java.util.ArrayList;
-import java.util.List;
+
+/**
+ * Класс Parsing
+ * парсинг JSON - объекта
+ *
+ */
 
 public class Parsing {
 
     private ObservableList<Client> clients = FXCollections.observableArrayList();
     private ObservableList<Ticket> tickets = FXCollections.observableArrayList();
-    private ObservableList<Hall> halls = FXCollections.observableArrayList();
 
 
 
@@ -49,7 +52,10 @@ public class Parsing {
         String response = stringBuilder.toString();
         bufferedReader.close();
 
-        // создание json объекта
+
+        /**
+         * создание json - объекта
+         */
 
 
         try {
@@ -119,6 +125,12 @@ public class Parsing {
         }
 
     }
+
+
+    /**
+     * метод для вывода билетов
+     * @return список билетов
+     */
 
 
     public ObservableList<Ticket> getTickets(){

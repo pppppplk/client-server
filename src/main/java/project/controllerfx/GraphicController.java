@@ -1,7 +1,6 @@
 package project.controllerfx;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+
 import javafx.fxml.FXML;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
@@ -10,10 +9,8 @@ import javafx.scene.chart.XYChart;
 import javafx.stage.Stage;
 import org.json.JSONArray;
 import org.json.JSONException;
-import project.DTO.PerformanceDTO;
 import project.JavaFX;
 import project.util.Rest;
-
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
@@ -22,11 +19,14 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * Контроллер окна graphic.fxml
+ */
+
 public class GraphicController {
 
     private JavaFX main;
     private Stage stage;
-    private PerformanceDTO performanceDTO;
     private Rest rest = new Rest();
 
     @FXML
@@ -50,7 +50,11 @@ public class GraphicController {
     private NumberAxis y2;
 
 
-
+    /**
+     * метод инициализации, вызовы методов PerfInfo() и ZoneInfo()
+     * @throws IOException
+     * @throws JSONException
+     */
 
 
     @FXML
@@ -65,6 +69,15 @@ public class GraphicController {
 
 
     public GraphicController() throws IOException{ }
+
+
+    /**
+     * Getters и Setters
+     * Getters - выводять значение
+     * Setters - задают значение
+     * @return
+     */
+
 
     public JavaFX getMain() {
         return main;
@@ -116,8 +129,6 @@ public class GraphicController {
         barChart.getData().add(series);
 
 
-        System.out.println("вывожу названия спектаклей из графика" + name );
-
     }
 
     /**
@@ -154,9 +165,6 @@ public class GraphicController {
 
         }
         barChart2.getData().add(series2);
-
-
-        System.out.println("zone" + nameofz );
 
 
     }

@@ -21,6 +21,9 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 
+/**
+ * Контроллер окна post.fxml
+ */
 
 
 public class PostController {
@@ -74,10 +77,24 @@ public class PostController {
     private Rest rest = new Rest();
 
 
+    /**
+     * метод инициализации, вызов метода PostClient()
+     * @throws IOException
+     * @throws JSONException
+     */
+
+
     @FXML
     private void initialize() throws IOException, JSONException {
         PostClient();
     }
+
+    /**
+     * Getters и Setters
+     * Getters - выводять значение
+     * Setters - задают значение
+     * @return
+     */
 
 
     public JavaFX getMain() {
@@ -100,7 +117,8 @@ public class PostController {
     /**
      * метод для проверки валидации на ввод данных имя и фамилия
      *
-     * @param string
+     * @param string - строка, которую проверяю на соотвествие регулярному выражению
+     *               с помощью matches()
      * @return
      */
     public static boolean TestString(String string) {
@@ -112,7 +130,8 @@ public class PostController {
     /**
      * метод для проверки валидации на ввод данных о возрасте
      *
-     * @param string
+     * @param string - строка, которую проверяю на соотвествие регулярному выражению
+     *                   с помощью matches()
      * @return
      */
 
@@ -125,7 +144,8 @@ public class PostController {
     /**
      * метод для проверки валидвции ввода номера телефона
      *
-     * @param string
+     * @param string - строка, которую проверяю на соотвествие регулярному выражению
+     *                   с помощью matches()
      * @return
      */
 
@@ -142,7 +162,8 @@ public class PostController {
 
 
     /**
-     * добавление нового клиента + новый билет
+     * добавление нового клиента + новый билет, с помощью создания нового JSON-объекта
+     * проверка на ввод даннных
      */
 
     private void PostClient() {

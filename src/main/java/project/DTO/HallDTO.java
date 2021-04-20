@@ -3,6 +3,10 @@ package project.DTO;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+
+/**
+ * HallDTO - подобный объект, который хранит данных
+ */
 public class HallDTO {
 
     private Long id;
@@ -13,6 +17,13 @@ public class HallDTO {
         this.id = id;
         this.name = name;
     }
+
+    /**
+     *
+     * @param jsonObject - объект JSON
+     * @return jsonObject c id и названием зала
+     * @throws JSONException
+     */
 
 
     static public HallDTO of(JSONObject jsonObject) throws JSONException {

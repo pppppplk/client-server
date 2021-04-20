@@ -1,18 +1,20 @@
 package project.spring.models;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleSetProperty;
-import javafx.beans.property.SimpleStringProperty;
 
+import javafx.beans.property.SimpleStringProperty;
 import javax.persistence.*;
-import java.util.HashMap;
-import java.util.Map;
+
+/**
+ * Класс Client
+ * Сущность Client
+ */
 
 
 @Entity
 @Table(name = "clients")
 public class Client{
+
+
 
     // создала уникальный идентификатор
     @Id
@@ -25,6 +27,15 @@ public class Client{
     public SimpleStringProperty getFirstNameProp(){return new SimpleStringProperty(firstname); }
     public SimpleStringProperty getLastNameProp(){return new SimpleStringProperty(lastname); }
 
+
+    /**
+     * Конструктор, в котором определяются переменные ( атрибуты сущности)
+     * @param firstname - имя
+     * @param lastname - фамилия
+     * @param contact - номер телефона
+     * @param age - возраст
+     */
+
     public Client(String firstname, String lastname, String contact, Integer age) {
         this.firstname = firstname;
         this.lastname = lastname;
@@ -35,6 +46,14 @@ public class Client{
 
 
     public Client(){}
+
+
+    /**
+     * Getters и Setters
+     * Getters - выводять значение
+     * Setters - задают значение
+     * @return
+     */
 
 
 
@@ -80,11 +99,10 @@ public class Client{
         this.contact = contact;
     }
 
-
-
-
-
-
+    /**
+     * Вывод сущности Client
+     * @return сущность Client со всеми значениями
+     */
 
 
     @Override
