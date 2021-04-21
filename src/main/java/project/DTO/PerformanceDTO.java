@@ -3,6 +3,10 @@ package project.DTO;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+/**
+ * PerformanceDTO - подобный объект Performance, который хранит данных
+ */
+
 public class PerformanceDTO {
     private Long id;
     private String name,timeofpremier,timeofend,time ;
@@ -12,7 +16,19 @@ public class PerformanceDTO {
     public PerformanceDTO() {
     }
 
-    protected PerformanceDTO(Long id, String name, String timeofpremier, String timeofend, String time, int agelimit, HallDTO hall) {
+    /**
+     * Задает переменные PerformanceDTO
+     * @param id - id
+     * @param name - название спектакля
+     * @param timeofpremier - премьера
+     * @param timeofend - последний день показа
+     * @param time - время проведения
+     * @param agelimit - возрастное ограничение
+     * @param hall - зал
+     */
+
+    protected PerformanceDTO(Long id, String name, String timeofpremier,
+                             String timeofend, String time, int agelimit, HallDTO hall) {
         this.id = id;
         this.name = name;
         this.timeofpremier = timeofpremier;
@@ -22,7 +38,14 @@ public class PerformanceDTO {
         this.hall = hall;
     }
 
-    static public PerformanceDTO of(JSONObject jsonObject) throws JSONException {
+    /**
+     * Возврает объект класса PerformanceDTO
+     * @param jsonObject -  серверное Json представление объекта Performance
+     * @return PerformanceDTO
+     * @throws JSONException
+     */
+
+    static public PerformanceDTO instanceOf(JSONObject jsonObject) throws JSONException {
         return new PerformanceDTO(
                 jsonObject.getLong("id"),
                 jsonObject.getString("name"),
@@ -30,7 +53,7 @@ public class PerformanceDTO {
                 jsonObject.getString("timeofend"),
                 jsonObject.getString("time"),
                 jsonObject.getInt("agelimit"),
-                HallDTO.of(jsonObject.getJSONObject("hall"))
+                HallDTO.instanceOf(jsonObject.getJSONObject("hall"))
         );
     }
 

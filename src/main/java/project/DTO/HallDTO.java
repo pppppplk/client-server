@@ -5,7 +5,7 @@ import org.json.JSONObject;
 
 
 /**
- * HallDTO - подобный объект, который хранит данных
+ * HallDTO - подобный объект Hall, который хранит данных
  */
 public class HallDTO {
 
@@ -19,14 +19,14 @@ public class HallDTO {
     }
 
     /**
-     *
-     * @param jsonObject - объект JSON
-     * @return jsonObject c id и названием зала
+     * Возврает объект класса HallDTO
+     * @param jsonObject -  серверное Json представление объекта Hall
+     * @return HallDTO
      * @throws JSONException
      */
 
 
-    static public HallDTO of(JSONObject jsonObject) throws JSONException {
+    static public HallDTO instanceOf(JSONObject jsonObject) throws JSONException {
         return new HallDTO(
                 jsonObject.getLong("id"),
                 jsonObject.getString("name")

@@ -9,11 +9,8 @@ import javafx.stage.Stage;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import project.DTO.HallDTO;
-import project.DTO.SeatDTO;
-import project.DTO.SeatLocationDTO;
+import project.DTO.*;
 import project.JavaFX;
-import project.DTO.PerformanceDTO;
 import project.util.Rest;
 
 import java.io.IOException;
@@ -58,7 +55,7 @@ public class PostController {
     private ChoiceBox<String> timeChoiceBox;
 
     @FXML
-    private ChoiceBox<SeatLocationDTO> placeChoiceBox;
+    private ChoiceBox<SeatDTO> placeChoiceBox;
 
     @FXML
     private ChoiceBox<PerformanceDTO> perfomChoiceBox;
@@ -271,7 +268,7 @@ public class PostController {
             System.out.println("не обработанные даты" + getper);
             ObservableList<PerformanceDTO> representations = FXCollections.observableArrayList();
             for (int i = 0; i < getper.length(); i++) {
-                representations.add(PerformanceDTO.of(getper.getJSONObject(i)));
+                representations.add(PerformanceDTO.instanceOf(getper.getJSONObject(i)));
             }
 
             perfomChoiceBox.setItems(representations);
@@ -332,12 +329,13 @@ public class PostController {
 
     @FXML
     private void fillingZones() throws IOException, JSONException {
+        zoneChoiceBox.setConverter(new SeatTypeStringConverter());
         System.out.println(hallChoiceBox.getValue());
         JSONArray getseats = new JSONArray(connect.GetRest("http://localhost:8080/api/theater/seats/hall=" + URLEncoder.encode(hallChoiceBox.getValue().getName(), StandardCharsets.UTF_8)));
         ObservableList<SeatDTO> zones = FXCollections.observableArrayList();
-        zones.add(SeatDTO.of(getseats.getJSONObject(0)));
+        zones.add(SeatDTO.instanceOf(getseats.getJSONObject(0)));
         for (int i = 0; i < getseats.length(); i++) {
-            SeatDTO seatDTO = SeatDTO.of(getseats.getJSONObject(i));
+            SeatDTO seatDTO = SeatDTO.instanceOf(getseats.getJSONObject(i));
             zones.add(seatDTO);
         }
 
@@ -376,15 +374,16 @@ public class PostController {
 
     @FXML
     private void fillingSeats() throws IOException, JSONException {
+        placeChoiceBox.setConverter(new SeatLocationStringConverter());
         try {
             JSONArray getseats = new JSONArray(connect.GetRest("http://localhost:8080/api/theater/seats/name=" +
                     URLEncoder.encode(perfomChoiceBox.getValue().getName(), StandardCharsets.UTF_8) +
                     "/time=" + URLEncoder.encode(timeChoiceBox.getValue(), StandardCharsets.UTF_8)));
 
-            ObservableList<SeatLocationDTO> seats = FXCollections.observableArrayList();
+            ObservableList<SeatDTO> seats = FXCollections.observableArrayList();
             System.out.println("вывод мест " + getseats);
             for (int i = 0; i < getseats.length(); i++) {
-                SeatLocationDTO seatLocationDTO = SeatLocationDTO.of(getseats.getJSONObject(i));
+                SeatDTO seatLocationDTO = SeatDTO.instanceOf(getseats.getJSONObject(i));
                 if (getseats.getJSONObject(i).getString("type").equals(zoneChoiceBox.getValue().getType()) && getseats.getJSONObject(i).getJSONObject("hall").getString("name").equals(hallChoiceBox.getValue().getName())) {
                     seats.add(seatLocationDTO);
                 }
@@ -406,7 +405,7 @@ public class PostController {
             }
         } catch (RuntimeException e) {
             e.printStackTrace();
-            ObservableList<SeatLocationDTO> seats = FXCollections.observableArrayList();
+            ObservableList<SeatDTO> seats = FXCollections.observableArrayList();
             placeChoiceBox.setItems(seats);
             pricelabel.setText(" ");
         }

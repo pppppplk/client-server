@@ -3,12 +3,23 @@ package project.DTO;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+/**
+ * SeatDTO - подобный объект Seat, который хранит данных
+ */
 public class SeatDTO  {
 
     private Long id;
     private String type;
     private Integer location;
     private HallDTO hall;
+
+    /**
+     * Задает переменные SeatDTO
+     * @param id - id
+     * @param type - тип места
+     * @param location - место
+     * @param hall - зал
+     */
 
 
     protected SeatDTO(Long id, String type, Integer location, HallDTO hall){
@@ -19,12 +30,19 @@ public class SeatDTO  {
     }
 
 
-    static public SeatDTO of(JSONObject jsonObject) throws JSONException {
+    /**
+     * Возврает объект класса SeatDTO
+     * @param jsonObject -  серверное Json представление объекта Seat
+     * @return SeatDTO
+     * @throws JSONException
+     */
+
+    static public SeatDTO instanceOf(JSONObject jsonObject) throws JSONException {
         return new SeatDTO(
                 jsonObject.getLong("id"),
                 jsonObject.getString("type"),
                 jsonObject.getInt("location"),
-                HallDTO.of(jsonObject.getJSONObject("hall"))
+                HallDTO.instanceOf(jsonObject.getJSONObject("hall"))
 
 
         );
@@ -63,8 +81,4 @@ public class SeatDTO  {
     }
 
 
-    @Override
-    public String toString() {
-        return type;
-    }
 }
