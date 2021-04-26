@@ -1,6 +1,5 @@
 package project.spring.models;
 
-
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import javax.persistence.*;
 
@@ -27,6 +26,9 @@ public class Seat {
     private  String type;
     private Integer  location;
 
+    /**
+     * Конструктор Seat
+     */
     public Seat(){
     }
 
@@ -42,39 +44,75 @@ public class Seat {
     }
 
     /**
-     * Getters и Setters
-     * Getters - выводять значение
-     * Setters - задают значение
+     * метод класса Seat
+     * @return возвращает  зал, в котором находится место
      */
 
     public Hall getHall() {
         return hall;
     }
 
+    /**
+     * метод класса Seat, который задает зал, в котором находится место
+     * @return возвращает  зал
+     */
+
     public void setHall(Hall hall) {
         this.hall = hall;
     }
+
+    /**
+     * метод класса Seat
+     * @return возвращает место
+     */
 
     public Integer getLocation() {
         return location;
     }
 
+    /**
+     * метод класса Seat
+     * @return возвращает id
+     */
+
     public Long getId() {
         return id;
     }
+
+    /**
+     * метод класса Seat, который задает id места
+     * @return возвращает  id места
+     */
 
 
     public void setId(Long id) {
         this.id = id;
     }
 
+    /**
+     * метод класса Seat, который задает само место
+     * @return возвращает  само место
+     */
+
+
     public void setLocation(Integer location) {
         this.location = location;
     }
 
+    /**
+     * метод класса Seat
+     * @return возвращает зону
+     */
+
     public String getType() {
         return type;
     }
+
+    /**
+     * метод класса Seat, который задает зону места
+     * @return возвращает  зону места
+     */
+
 
     public void setType(String type) {
         this.type = type;

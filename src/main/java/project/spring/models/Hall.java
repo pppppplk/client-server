@@ -1,8 +1,6 @@
 package project.spring.models;
 
-
 import javax.persistence.*;
-
 
 /**
  * Класс Hall
@@ -20,6 +18,10 @@ public class Hall {
     private String name;
 
 
+    /**
+     * Конструктор Hall
+     */
+
     public Hall(){}
 
     /**
@@ -33,24 +35,37 @@ public class Hall {
     }
 
     /**
-     * Getters и Setters
-     * Getters - выводять значение
-     * Setters - задают значение
-     * @return
+     * метод класса Hall
+     * @return возвращает id зала
      */
-
     public Long getId() {
         return id;
     }
+
+
+
+    /**
+     * метод класса Hall, который задает id зала
+     * @return возвращает id зала
+     */
 
     public void setId(Long id) {
         this.id = id;
     }
 
+
+    /**
+     * метод класса Hall
+     * @return возвращает название зала
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * метод класса Hall, который задает название зала
+     * @return возвращает название зала
+     */
     public void setName(String name) {
         this.name = name;
     }

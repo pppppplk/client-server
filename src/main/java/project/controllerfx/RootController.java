@@ -22,68 +22,44 @@ import java.util.Optional;
  * Контроллер окна root.fxml
  */
 
-
 public class RootController {
-
 
     private Parsing parsing = new Parsing();
     private Rest rest = new Rest();
-
-
     @FXML
     private TableView<Ticket> clientInfo;
-
     @FXML
     private TableColumn<Ticket, String> surnamecolumn;
-
     @FXML
     private TableColumn<Ticket, String> namecolumn;
-
     @FXML
     private Label lablecontact;
-
     @FXML
     private Label lableprice;
-
     @FXML
     private Label lableid;
-
     @FXML
     private Label lablehallname;
-
     @FXML
     private Label lablepertime;
-
     @FXML
     private Label lablenameofper;
-
     @FXML
     private Label labeldate;
-
     @FXML
     private Label lableseatlocation;
-
     @FXML
     private Label lableseattype;
-
     @FXML
     private TextField searchtext;
-
     @FXML
     private TextField firstnametext;
-
     @FXML
     private TextField lastnametext;
-
     @FXML
     private TextField contacttext;
-
     @FXML
     private TextField agetext;
-
-
-
-
     private JavaFX main;
     private Stage stage;
     private PostController postController;
@@ -102,41 +78,45 @@ public class RootController {
 
         initTable();
         SearchTable();
-
-
         namecolumn.setCellValueFactory(cellData -> cellData.getValue().getClient().getFirstNameProp());
         surnamecolumn.setCellValueFactory(cellData -> cellData.getValue().getClient().getLastNameProp());
-
         ShowInfo(null); //очищаем справа
         clientInfo.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue)
                 -> ShowInfo(newValue));
-
-
 
     }
 
 
     /**
-     * Getters и Setters
-     * Getters - выводять значение
-     * Setters - задают значение
-     * @return
+     * метод класса RootController, вызывающий класс JavaFX
+     * @return main
      */
-
-
-
-
     public JavaFX getMain() {
         return main;
     }
+
+    /**
+     * метод класса RootController, вызывающий класс JavaFX (задает main)
+     * @return main
+     */
 
     public void setMain(JavaFX main) {
         this.main = main;
     }
 
+    /**
+     * метод класса RootController
+     * @return stage
+     */
+
     public Stage getStage() {
         return stage;
     }
+
+    /**
+     * Метод класса RootController, который задает сцену
+     * @param stage - сцена
+     */
 
     public void setStage(Stage stage) {
         this.stage = stage;
@@ -149,7 +129,6 @@ public class RootController {
     public void initTable() {
         this.clientInfo.setItems(parsing.getTickets());
 
-
     }
 
     /**
@@ -158,8 +137,6 @@ public class RootController {
     public void updatePage(){
         this.main.initRootLayout();
     }
-
-
 
     /**
      * получение полной информации о клиенте и его билете
@@ -201,7 +178,6 @@ public class RootController {
 
     public void searchButton(javafx.event.ActionEvent actionEvent) {
         try {
-
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/info.fxml"));
             Parent root1 = (Parent) fxmlLoader.load();
             stage = new Stage();
@@ -211,10 +187,7 @@ public class RootController {
 
         } catch (Exception e) {
             System.out.println(e);
-
-
         }
-
     }
 
     /**
@@ -222,12 +195,9 @@ public class RootController {
      * @param actionEvent - событие, возникающие при  нажатие кнопки
      */
 
-
     @FXML
-
     public void AuthorButton(javafx.event.ActionEvent actionEvent) {
         try {
-
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/author.fxml"));
             Parent root1 = (Parent) fxmlLoader.load();
             stage = new Stage();
@@ -237,10 +207,7 @@ public class RootController {
 
         } catch (Exception e) {
             System.out.println(e);
-
-
         }
-
     }
 
 
@@ -252,7 +219,6 @@ public class RootController {
 
     public void GraphicButton(javafx.event.ActionEvent actionEvent) {
         try {
-
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/graphic.fxml"));
             Parent root1 = (Parent) fxmlLoader.load();
             stage = new Stage();
@@ -262,33 +228,24 @@ public class RootController {
 
         } catch (Exception e) {
             e.printStackTrace();
-
-
         }
-
     }
 
 
 
     @FXML
-
     /**
      * метод, который ищет клиентов по бд
      */
-
     public void SearchTable() {
 
         System.out.println("зашел");
-
         FilteredList<Ticket> filteredList = new FilteredList<>(parsing.getTickets(), b -> true);
-
         searchtext.textProperty().addListener((observable, oldValue, newValue) -> {
             filteredList.setPredicate(ticket -> {
-
                 if (newValue == null || newValue.isEmpty()) {
                     return true;
                 }
-
                 String filter = newValue.toLowerCase();
 
                 if (ticket.getClient().getFirstname().toLowerCase().indexOf(filter) != -1) {
@@ -297,18 +254,12 @@ public class RootController {
                     return true;
                 } else {
                     return false;
-
                 }
-
             });
-
         });
-
-
         SortedList<Ticket> sortedList = new SortedList<>(filteredList);
         sortedList.comparatorProperty().bind(clientInfo.comparatorProperty());
         clientInfo.setItems(sortedList);
-
 
     }
 
@@ -318,7 +269,6 @@ public class RootController {
      * @param actionEvent - событие, возникающие при  нажатие кнопки
      * @throws IOException
      */
-
 
     @FXML
     public void DeleteClient(javafx.event.ActionEvent actionEvent) throws IOException {
@@ -352,51 +302,36 @@ public class RootController {
                     initTable();
                     clientInfo.getItems().removeAll(clientInfo.getSelectionModel().getSelectedItem());
                 }
-
-
             }else if (option.get() == ButtonType.CANCEL){
                 System.out.println("окно закрыто ");
             }
             alert.showAndWait();
-
-
         } else {
                 Alert alert2 = new Alert(Alert.AlertType.ERROR);
                 alert2.setTitle("Ошибка");
                 alert2.setHeaderText("Не выбран пользователь для удаления");
-
                 alert2.showAndWait();
             }
-
-
     }
 
     /**
      * метод, окрывающий окно для добавления нового клиента и его билета
      */
 
-
     @FXML
     public void addButton() {
-
         System.out.println("зашел в добавление");
-
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(main.getClass().getResource("/fxml/post.fxml"));
             AnchorPane root1 = fxmlLoader.load();
             stage = new Stage();
-            stage.setTitle("Инструкция");
+            stage.setTitle("Добавление");
             stage.setScene(new Scene(root1));
             stage.show();
-
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("окно не открывается ");
-
-
         }
-
-
     }
 
 
@@ -405,8 +340,6 @@ public class RootController {
      * @throws JSONException
      * @throws IOException
      */
-
-
     public void UpdateClient() throws JSONException, IOException {
         System.out.println("вносим изменения");
         if((postController.TestString(firstnametext.getText())) &&
@@ -422,8 +355,6 @@ public class RootController {
             jsonObjectclient.put("age", agetext.getText());
             rest.PutRest("http://127.0.0.1:8080/api/theater/updateclient", jsonObjectclient);
             this.main.initRootLayout();
-
-
         }else{
             Alert alert2 = new Alert(Alert.AlertType.ERROR);
             alert2.setTitle("Ошибка");
@@ -431,10 +362,7 @@ public class RootController {
                     " Номер телефона вводится через +7");
             alert2.showAndWait();
         }
-
     }
-
-
 
 }
 

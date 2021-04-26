@@ -5,7 +5,6 @@ import org.json.JSONObject;
 import org.springframework.web.bind.annotation.*;
 import project.spring.models.Performance;
 import project.spring.repo.*;
-
 import java.net.URLDecoder;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -111,8 +110,6 @@ public class PerformanceController {
         return this.performanceRepo.findAllByTime(time);
     }
 
-
-
     /**
      * Вывод спектаклей по времени проведения спектакля  и названию самого спектакля, с помощью PerformanceRepo
      * @param name -  строка, в которой указывается название самого спектакля
@@ -125,7 +122,6 @@ public class PerformanceController {
         return this.performanceRepo.findPerformanceByNameAndTime(URLDecoder.decode(name), time);
     }
 
-
     /**
      * Вывод спектаклей по названию самого спектакля, с помощью PerformanceRepo
      * @param name -  строка, в которой указывается название самого спектакля
@@ -135,6 +131,4 @@ public class PerformanceController {
     List<Performance> getTimesOnPerf(@PathVariable String name){
         return this.performanceRepo.findAllByName(URLDecoder.decode(name));
     }
-
-
 }

@@ -1,6 +1,5 @@
 package project.spring.controllers;
 
-
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,7 +14,6 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
-
 /**
  * Класс SeatController, в котором осуществленны REST запросы
  * GET
@@ -29,7 +27,6 @@ public class SeatController {
     private final HallRepo hallRepo;
     private final SeatRepo seatRepo;
     private final PerformanceRepo performanceRepo;
-
 
     /**
      * Инициализация контроллера и запись приватнных переменных

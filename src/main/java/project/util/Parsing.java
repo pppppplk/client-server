@@ -22,18 +22,11 @@ public class Parsing {
     private ObservableList<Client> clients = FXCollections.observableArrayList();
     private ObservableList<Ticket> tickets = FXCollections.observableArrayList();
 
-
-
     public Parsing() throws IOException{
-
-
-
 
         URL url = new URL("http://localhost:8080/api/theater/tickets/all");
 
-
         URLConnection urlConnection = url.openConnection(); // предоставляем доступ к атрибутам url
-
         InputStream inputStream = new BufferedInputStream(urlConnection.getInputStream()); //получение данных из  источника
         StringBuilder stringBuilder = new StringBuilder();
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream)); //считывает текст
@@ -45,22 +38,17 @@ public class Parsing {
          */
 
         while ((str = bufferedReader.readLine()) != null) {
-
             stringBuilder.append(str);
-
         }
         String response = stringBuilder.toString();
         bufferedReader.close();
-
 
         /**
          * создание json - объекта
          */
 
-
         try {
             JSONArray json = new JSONArray(response);
-
             for (int i =0; i<json.length(); i++) {
                 Ticket tempTicket = new Ticket();
                 tempTicket.setId(json.getJSONObject(i).getLong("id"));
@@ -114,11 +102,7 @@ public class Parsing {
                 clients.add(tempTicket.getClient());
                 System.out.println(clients);
 
-
-
             }
-
-
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -131,7 +115,6 @@ public class Parsing {
      * метод для вывода билетов
      * @return список билетов
      */
-
 
     public ObservableList<Ticket> getTickets(){
         return tickets;

@@ -11,18 +11,6 @@ public interface ClientRepo extends JpaRepository<Client, Long> {
 
     Client findClientById(Long id);
 
-
 }
 
 
-
-
-
-
-
-
-
-
-
-
-//}

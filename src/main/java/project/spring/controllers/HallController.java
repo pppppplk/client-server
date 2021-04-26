@@ -1,7 +1,5 @@
 package project.spring.controllers;
 
-
-
 import project.spring.repo.*;
 import project.spring.models.*;
 import org.springframework.web.bind.annotation.*;
@@ -29,9 +27,7 @@ public class HallController {
     public HallController( HallRepo hallRepo, PerformanceRepo performanceRepo) {
         this.hallRepo = hallRepo;
         this.performanceRepo = performanceRepo;
-
     }
-
 
     /**
      * Создание нового зала с помощью HallRepo - репозиторий является ребенком JPA репозитория

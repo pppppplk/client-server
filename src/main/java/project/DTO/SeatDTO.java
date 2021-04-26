@@ -21,14 +21,12 @@ public class SeatDTO  {
      * @param hall - зал
      */
 
-
     protected SeatDTO(Long id, String type, Integer location, HallDTO hall){
         this.id = id;
         this.type = type;
         this.location = location;
         this.hall = hall;
     }
-
 
     /**
      * Возврает объект класса SeatDTO
@@ -44,37 +42,68 @@ public class SeatDTO  {
                 jsonObject.getInt("location"),
                 HallDTO.instanceOf(jsonObject.getJSONObject("hall"))
 
-
         );
     }
+
+    /**
+     * метод класса SeatDTO
+     * @return возвращает id
+     */
 
     public Long getId() {
         return id;
     }
 
+    /**
+     * метод класса SeatDTO, который задает id места
+     * @return возвращает  id места
+     */
+
     public void setId(Long id) {
         this.id = id;
     }
+
+    /**
+     * метод класса SeatDTO
+     * @return возвращает зону
+     */
 
     public String getType() {
         return type;
     }
 
+    /**
+     * метод класса SeatDTO, который задает зону места
+     * @return возвращает  зону места
+     */
+
     public void setType(String type) {
         this.type = type;
     }
+
+    /**
+     * метод класса SeatDTO
+     * @return возвращает место
+     */
+
 
     public Integer getLocation() {
         return location;
     }
 
-    public void setLocation(Integer location) {
-        this.location = location;
-    }
+    /**
+     * метод класса SeatDTO
+     * @return возвращает  зал, в котором находится место
+     */
 
     public HallDTO getHall() {
         return hall;
     }
+
+    /**
+     * метод класса SeatDTO, который задает зал, в котором находится место
+     * @return возвращает  зал
+     */
 
     public void setHall(HallDTO hall) {
         this.hall = hall;

@@ -1,12 +1,10 @@
 package project.spring.controllers;
 
-
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.web.bind.annotation.*;
 import project.spring.models.Ticket;
 import project.spring.repo.*;
-
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
@@ -32,8 +30,6 @@ public class TicketController {
      * @param seatRepo- ребенок JPA репозитория SeatRepo
      * @param performanceRepo - ребенок JPA репозитория PerformanceRepo
      */
-
-
 
     public TicketController(ClientRepo clientRepo, TicketRepo ticketRepo,
                              SeatRepo seatRepo, PerformanceRepo performanceRepo) {

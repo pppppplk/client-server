@@ -3,7 +3,6 @@ package project.spring.models;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import javax.persistence.*;
 
-
 /**
  * Класс Performance
  * Сущность Performance
@@ -33,7 +32,9 @@ public class Performance {
     }
 
 
-
+    /**
+     * Конструктор Performance
+     */
     public Performance(){
 
     }
@@ -58,9 +59,8 @@ public class Performance {
 
 
     /**
-     * Getters и Setters
-     * Getters - выводять значение
-     * Setters - задают значение
+     * метод класса Performance
+     * @return возвращает id спектакля
      */
 
 
@@ -68,50 +68,116 @@ public class Performance {
         return id;
     }
 
+    /**
+     * метод класса Performance, который задает id спектакля
+     * @return возвращает id спектакля
+     */
+
     public void setId(Long id) {
         this.id = id;
     }
+
+    /**
+     * метод класса Performance
+     * @return возвращает название спектакля
+     */
+
 
     public String getName() {
         return name;
     }
 
+    /**
+     * метод класса Performance, который задает зал, в котором проходит спектакль
+     * @return возвращает  зал
+     */
+
+
     public void setHall(Hall hall) {
         this.hall = hall;
     }
+
+
+    /**
+     * метод класса Performance
+     * @return возвращает время проведения спектакля
+     */
 
     public String getTime() {
         return time;
     }
 
+    /**
+     * метод класса Performance, который задает время проведния спектакля
+     * @return возвращает время проведения спектакля
+     */
+
+
     public void setTime(String time) {
         this.time = time;
     }
 
+    /**
+     * метод класса Performance, который задает название спектакля
+     * @return возвращает название спектакля
+     */
 
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     * метод класса Performance
+     * @return возвращает дату премьеры спектакля
+     */
+
+
     public String getTimeofpremier() {
         return timeofpremier;
     }
+
+    /**
+     * метод класса Performance, который задает дату премьерв спектакля
+     * @return возвращает дату премьервы спектакля
+     */
 
     public void setTimeofpremier(String timeofpremier) {
         this.timeofpremier = timeofpremier;
     }
 
+
+    /**
+     * метод класса Performance
+     * @return возвращает дату последнего показа спектакля
+     */
+
     public String getTimeofend() {
         return timeofend;
     }
+
+    /**
+     * метод класса Performance, который задает дату последнего показа спектакля
+     * @return возвращает дату последнего показа спектакля
+     */
 
     public void setTimeofend(String timeofend) {
         this.timeofend = timeofend;
     }
 
+    /**
+     * метод класса Performance
+     * @return возвращает возрастное ограничение спектакля
+     */
+
+
     public Integer getAgelimit() {
         return agelimit;
     }
+
+    /**
+     * метод класса Performance, который задаетвозрастное ограничение спектакля
+     * @return возвращает возрастное ограничение спектакля
+     */
 
     public void setAgelimit(Integer agelimit) {
         this.agelimit = agelimit;

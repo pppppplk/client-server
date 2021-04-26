@@ -1,13 +1,11 @@
 package project.spring.controllers;
 
-
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import project.spring.models.Client;
 import project.spring.repo.*;
-
 import java.util.List;
 
 /**
@@ -30,7 +28,6 @@ public class ClientController {
 
     }
 
-
     /**
      * Создание нового клиента с помощью ClientRepo - репозиторий является ребенком JPA репозитория
      * Создается новый JSON-объект, в который передается сущность клиента и записывается в БД
@@ -42,7 +39,8 @@ public class ClientController {
     @PostMapping("/clients/postclient")
     Client postClient(@RequestBody String client) throws JSONException {
         JSONObject rawClient = new JSONObject(client);
-        Client finalClient = new Client(rawClient.getString("firstname"), rawClient.getString("lastname"), rawClient.getString("contact"), rawClient.getInt("age"));
+        Client finalClient = new Client(rawClient.getString("firstname"), rawClient.getString("lastname"),
+                rawClient.getString("contact"), rawClient.getInt("age"));
         System.out.println(finalClient);
         return this.clientRepo.save(finalClient);
     }

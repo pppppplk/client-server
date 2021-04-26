@@ -1,6 +1,5 @@
 package project.controllerfx;
 
-
 import javafx.fxml.FXML;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
@@ -9,7 +8,6 @@ import javafx.scene.chart.XYChart;
 import javafx.stage.Stage;
 import org.json.JSONArray;
 import org.json.JSONException;
-import project.JavaFX;
 import project.util.Rest;
 import java.io.IOException;
 import java.net.URLEncoder;
@@ -24,31 +22,21 @@ import java.util.Set;
  */
 
 public class GraphicController {
-
-    private JavaFX main;
     private Stage stage;
     private Rest rest = new Rest();
 
     @FXML
     private BarChart<String, Integer> barChart;
-
     @FXML
     private BarChart<String, Integer> barChart2;
-
-
-
     @FXML
     private CategoryAxis x;
-
     @FXML
     private NumberAxis y;
-
     @FXML
     private CategoryAxis x2;
-
     @FXML
     private NumberAxis y2;
-
 
     /**
      * метод инициализации, вызовы методов PerfInfo() и ZoneInfo()
@@ -56,62 +44,52 @@ public class GraphicController {
      * @throws JSONException
      */
 
-
     @FXML
     private void initialize() throws IOException, JSONException {
 
         System.out.println("полученная инфа из графика");
-
         PerfInfo();
         ZoneInfo();
 
     }
 
+    /**
+     * Конструктор GraphicController
+     * @throws IOException
+     */
 
     public GraphicController() throws IOException{ }
 
-
     /**
-     * Getters и Setters
-     * Getters - выводять значение
-     * Setters - задают значение
-     * @return
+     * метод класса GraphicController
+     * @return stage
      */
-
-
-    public JavaFX getMain() {
-        return main;
-    }
-
-    public void setMain(JavaFX main) {
-        this.main = main;
-    }
 
     public Stage getStage() {
         return stage;
     }
 
+    /**
+     * Метод класса GraphicController, который задает сцену
+     * @param stage - сцена
+     */
+
     public void setStage(Stage stage) {
         this.stage = stage;
     }
-
 
     /**
      * вывод спектаклей по оси Х
      * вывод кол-ва билетов по оси Y
      */
 
-
     public void  PerfInfo() throws IOException, JSONException {
 
-
         JSONArray perfname = new JSONArray(rest.GetRest("http://127.0.0.1:8080/api/theater/perfs/all"));
-
 
         Set<String> name = new HashSet<>();
         for(int i = 0; i<perfname.length(); i++){
             name.add(perfname.getJSONObject(i).getString("name"));
-
         }
 
         XYChart.Series series = new XYChart.Series<>();
@@ -123,11 +101,8 @@ public class GraphicController {
                 num.add(ticket.getJSONObject(i).getLong("id"));
             }
             series.getData().add(new XYChart.Data(s, num.size()));
-
-
         }
         barChart.getData().add(series);
-
 
     }
 
@@ -137,20 +112,13 @@ public class GraphicController {
      * @throws IOException
      * @throws JSONException
      */
-
-
     public void  ZoneInfo() throws IOException, JSONException {
 
         JSONArray zonename = new JSONArray(rest.GetRest("http://127.0.0.1:8080/api/theater/seats/all"));
-
-
         Set<String> nameofz = new HashSet<>();
         for(int i = 0; i<zonename.length(); i++){
             nameofz.add(zonename.getJSONObject(i).getString("type"));
-
         }
-
-
 
         XYChart.Series series2 = new XYChart.Series<>();
 
@@ -161,17 +129,8 @@ public class GraphicController {
                 numzone.add(ticket.getJSONObject(i).getLong("id"));
             }
             series2.getData().add(new XYChart.Data(s, numzone.size()));
-
-
         }
         barChart2.getData().add(series2);
-
-
     }
-
-
-
-
-
 
 }

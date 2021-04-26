@@ -2,17 +2,18 @@ package project.DTO;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
 /**
  * PerformanceDTO - подобный объект Performance, который хранит данных
  */
-
 public class PerformanceDTO {
     private Long id;
     private String name,timeofpremier,timeofend,time ;
     private Integer agelimit;
     private HallDTO hall;
 
+    /**
+     * Конструктор PerformanceDTO
+     */
     public PerformanceDTO() {
     }
 
@@ -57,60 +58,73 @@ public class PerformanceDTO {
         );
     }
 
+    /**
+     * метод класса PerformanceDTO
+     * @return возвращает id спектакля
+     */
+
     public Long getId() {
         return id;
     }
+
+    /**
+     * метод класса PerformanceDTO, который задает id спектакля
+     * @return возвращает id спектакля
+     */
 
     public void setId(Long id) {
         this.id = id;
     }
 
+    /**
+     * метод класса PerformanceDTO
+     * @return возвращает название спектакля
+     */
     public String getName() {
         return name;
     }
+
+    /**
+     * метод класса PerformanceDTO
+     * @return возвращает зал
+     */
 
     public HallDTO getHall() {
         return hall;
     }
 
+    /**
+     * метод класса PerformanceDTO, который задает зал, в котором проходит спектакль
+     * @return возвращает  зал
+     */
+
     public void setHall(HallDTO hall) {
         this.hall = hall;
     }
 
+    /**
+     * метод класса PerformanceDTO, который задает название спектакля
+     * @return возвращает название спектакля
+     */
     public void setName(String name) {
         this.name = name;
     }
 
-    public String getTimeofpremier() {
-        return timeofpremier;
-    }
-
-    public void setTimeofpremier(String timeofpremier) {
-        this.timeofpremier = timeofpremier;
-    }
-
-    public String getTimeofend() {
-        return timeofend;
-    }
-
-    public void setTimeofend(String timeofend) {
-        this.timeofend = timeofend;
-    }
-
+    /**
+     * метод класса PerformanceDTO
+     * @return возвращает время проведения спектакля
+     */
     public String getTime() {
         return time;
     }
 
+    /**
+     * метод класса PerformanceDTO, который задает время проведния спектакля
+     * @return возвращает время проведения спектакля
+     */
+
     public void setTime(String time) {
         this.time = time;
-    }
-
-    public Integer getAgelimit() {
-        return agelimit;
-    }
-
-    public void setAgelimit(Integer agelimit) {
-        this.agelimit = agelimit;
     }
 
     @Override

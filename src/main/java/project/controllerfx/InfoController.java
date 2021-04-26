@@ -1,10 +1,6 @@
-
 package project.controllerfx;
-
-
 import javafx.fxml.FXML;
 import javafx.stage.Stage;
-import project.JavaFX;
 import java.io.IOException;
 
 /**
@@ -13,34 +9,34 @@ import java.io.IOException;
 
 public class InfoController {
 
-
-    private JavaFX main;
     private Stage stage;
-
-
 
     @FXML
     private void initialize() throws IOException {
-
-
         System.out.println("полученная инфа");
 
     }
 
+    /**
+     * Конструктор InfoController
+     * @throws IOException
+     */
 
     public InfoController() throws IOException{ }
 
-    public JavaFX getMain() {
-        return main;
-    }
-
-    public void setMain(JavaFX main) {
-        this.main = main;
-    }
+    /**
+     * метод класса InfoController
+     * @return stage
+     */
 
     public Stage getStage() {
         return stage;
     }
+
+    /**
+     * Метод класса InfoController, который задает сцену
+     * @param stage - сцена
+     */
 
     public void setStage(Stage stage) {
         this.stage = stage;

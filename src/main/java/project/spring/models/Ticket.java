@@ -1,6 +1,5 @@
 package project.spring.models;
 
-
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import javax.persistence.*;
 
@@ -17,10 +16,6 @@ public class Ticket {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-
-    /*
-    Соединяю ticket и client
-     */
 
     /**
      * Связь многие к одному со сущностью Client, Seat, Performance
@@ -57,57 +52,118 @@ public class Ticket {
         this.date = date;
     }
 
+    /**
+     * Конструктор Ticket
+     */
+
     public Ticket(){}
 
     /**
-     * Getters и Setters
-     * Getters - выводять значение
-     * Setters - задают значение
+     * метод класса Ticket
+     * @return возвращает  спектакль, на который куплен билет
      */
-
     public Performance getPerformance() {
         return performance;
     }
+
+    /**
+     * метод класса Ticket, который задает спектакль, на который куплен билет
+     * @return возвращает  спектакль
+     */
 
     public void setPerformance(Performance performance) {
         this.performance = performance;
     }
 
+    /**
+     * метод класса Ticket
+     * @return возвращает  id билета
+     */
+
     public Long getId() {
         return id;
     }
+
+    /**
+     * метод класса Ticket
+     * @return возвращает дату на билете
+     */
 
     public String getDate() {
         return date;
     }
 
+    /**
+     * метод класса Ticket, который задает дату на билете
+     * @return возвращает дату на билете
+     */
+
+
     public void setDate(String date) {
         this.date = date;
     }
+
+    /**
+     * метод класса Ticket, который задает id билета
+     * @return возвращает id билета
+     */
 
     public void setId(Long id) {
         this.id = id;
     }
 
+    /**
+     * метод класса Ticket
+     * @return возвращает  клиента, который купил билет
+     */
+
     public Client getClient() {
         return client;
     }
+
+    /**
+     * метод класса Ticket, который задает клиента, который покупает билет
+     * @return возвращает  клиента
+     */
+
 
     public void setClient(Client client) {
         this.client = client;
     }
 
+    /**
+     * метод класса Ticket
+     * @return возвращает  место, которое передается в билет
+     */
+
     public Seat getSeat() {
         return seat;
     }
+
+    /**
+     * метод класса Ticket, который задает место, которое передается в билет
+     * @return возвращает  место
+     */
+
 
     public void setSeat(Seat seat) {
         this.seat = seat;
     }
 
+    /**
+     * метод класса Ticket
+     * @return возвращает  цену билета
+     */
+
     public Integer getPrice() {
         return price;
     }
+
+    /**
+     * метод класса Ticket, который задает цену билета
+     * @return возвращает цену билета
+     */
+
 
     public void setPrice(Integer price) {
         this.price = price;
