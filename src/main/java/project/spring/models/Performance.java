@@ -27,6 +27,10 @@ public class Performance {
     @JoinColumn(name = "hall_id")
     private Hall hall;
 
+    /**
+     * метод класса Hall
+     * @return - hall
+     */
     public Hall getHall() {
         return hall;
     }
@@ -68,9 +72,10 @@ public class Performance {
         return id;
     }
 
+
     /**
      * метод класса Performance, который задает id спектакля
-     * @return возвращает id спектакля
+     * @param id - id спектакля
      */
 
     public void setId(Long id) {
@@ -87,9 +92,11 @@ public class Performance {
         return name;
     }
 
+
+
     /**
      * метод класса Performance, который задает зал, в котором проходит спектакль
-     * @return возвращает  зал
+     * @param hall - зал
      */
 
 
@@ -107,9 +114,10 @@ public class Performance {
         return time;
     }
 
+
     /**
-     * метод класса Performance, который задает время проведния спектакля
-     * @return возвращает время проведения спектакля
+     *  метод класса Performance, который задает время проведния спектакля
+     * @param time - время спектакля
      */
 
 
@@ -117,9 +125,10 @@ public class Performance {
         this.time = time;
     }
 
+
     /**
-     * метод класса Performance, который задает название спектакля
-     * @return возвращает название спектакля
+     *  метод класса Performance, который задает название спектакля
+     * @param name - название спектакля
      */
 
     public void setName(String name) {
@@ -136,9 +145,10 @@ public class Performance {
         return timeofpremier;
     }
 
+
     /**
-     * метод класса Performance, который задает дату премьерв спектакля
-     * @return возвращает дату премьервы спектакля
+     * метод класса Performance, который задает дату премьеры спектакля
+     * @param timeofpremier - дата премьеры
      */
 
     public void setTimeofpremier(String timeofpremier) {
@@ -155,9 +165,10 @@ public class Performance {
         return timeofend;
     }
 
+
     /**
-     * метод класса Performance, который задает дату последнего показа спектакля
-     * @return возвращает дату последнего показа спектакля
+     * метод класса Performance, который задает дату последнего показа спектакл
+     * @param timeofend - дата последнего показа
      */
 
     public void setTimeofend(String timeofend) {
@@ -174,9 +185,11 @@ public class Performance {
         return agelimit;
     }
 
+
+
     /**
      * метод класса Performance, который задаетвозрастное ограничение спектакля
-     * @return возвращает возрастное ограничение спектакля
+     * @param agelimit - возрастное ограничение
      */
 
     public void setAgelimit(Integer agelimit) {

@@ -1,5 +1,4 @@
 package project.spring.repo;
-
 import project.spring.models.Client;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -9,6 +8,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ClientRepo extends JpaRepository<Client, Long> {
 
+    /**
+     * поиск клиента по id
+     * @param id - id клиента
+     * @return клиент по id
+     */
     Client findClientById(Long id);
 
 }

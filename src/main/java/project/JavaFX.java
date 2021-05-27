@@ -6,31 +6,26 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-
 /**
  * Класс JavaFX для построения сцены
  */
 public class JavaFX extends Application {
     private Stage primaryStage;
     private BorderPane rootLayout;
-
     /**
      * запуск сцены
      * @param primaryStage - сцена
-     * @throws Exception
+     * @throws Exception - обработка ошибки
      */
-
     @Override
     public void start(Stage primaryStage) throws Exception {
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("Информационно-справочная система театра");
         initRootLayout();
     }
-
     /**
      * метод инициализации для запуска главного окна
      */
-
     public void initRootLayout() {
         try {
             FXMLLoader loader = new FXMLLoader();
@@ -48,7 +43,6 @@ public class JavaFX extends Application {
             alert2.setTitle("Ошибка");
             alert2.setHeaderText("Сервер не запущен. Запустите сервер!");
             alert2.showAndWait();
-
         }
     }
 

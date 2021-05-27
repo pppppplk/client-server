@@ -1,5 +1,4 @@
 package project.spring.models;
-
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import javax.persistence.*;
 
@@ -15,7 +14,6 @@ public class Ticket {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
 
     /**
      * Связь многие к одному со сущностью Client, Seat, Performance
@@ -35,8 +33,6 @@ public class Ticket {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "perf_id")
     private Performance performance;
-
-
 
     private Integer price;
     private String date;
@@ -66,9 +62,10 @@ public class Ticket {
         return performance;
     }
 
+
     /**
      * метод класса Ticket, который задает спектакль, на который куплен билет
-     * @return возвращает  спектакль
+     * @param performance - спектакль
      */
 
     public void setPerformance(Performance performance) {
@@ -77,7 +74,7 @@ public class Ticket {
 
     /**
      * метод класса Ticket
-     * @return возвращает  id билета
+     * @return - возвращает  id билета
      */
 
     public Long getId() {
@@ -86,7 +83,7 @@ public class Ticket {
 
     /**
      * метод класса Ticket
-     * @return возвращает дату на билете
+     * @return - возвращает дату на билете
      */
 
     public String getDate() {
@@ -95,9 +92,8 @@ public class Ticket {
 
     /**
      * метод класса Ticket, который задает дату на билете
-     * @return возвращает дату на билете
+     * @param date - дата на билет
      */
-
 
     public void setDate(String date) {
         this.date = date;
@@ -105,7 +101,7 @@ public class Ticket {
 
     /**
      * метод класса Ticket, который задает id билета
-     * @return возвращает id билета
+     * @param id -id билета
      */
 
     public void setId(Long id) {
@@ -114,7 +110,7 @@ public class Ticket {
 
     /**
      * метод класса Ticket
-     * @return возвращает  клиента, который купил билет
+     * @return - возвращает  клиента, который купил билет
      */
 
     public Client getClient() {
@@ -123,9 +119,8 @@ public class Ticket {
 
     /**
      * метод класса Ticket, который задает клиента, который покупает билет
-     * @return возвращает  клиента
+     * @param client - клиент
      */
-
 
     public void setClient(Client client) {
         this.client = client;
@@ -133,7 +128,7 @@ public class Ticket {
 
     /**
      * метод класса Ticket
-     * @return возвращает  место, которое передается в билет
+     * @return - возвращает  место, которое передается в билет
      */
 
     public Seat getSeat() {
@@ -142,9 +137,8 @@ public class Ticket {
 
     /**
      * метод класса Ticket, который задает место, которое передается в билет
-     * @return возвращает  место
+     * @param seat - место
      */
-
 
     public void setSeat(Seat seat) {
         this.seat = seat;
@@ -152,7 +146,7 @@ public class Ticket {
 
     /**
      * метод класса Ticket
-     * @return возвращает  цену билета
+     * @return - возвращает  цену билета
      */
 
     public Integer getPrice() {
@@ -161,18 +155,16 @@ public class Ticket {
 
     /**
      * метод класса Ticket, который задает цену билета
-     * @return возвращает цену билета
+     * @param price - цена билета
      */
-
 
     public void setPrice(Integer price) {
         this.price = price;
     }
 
-
     /**
      * Вывод сущности Ticket
-     * @return сущность Ticket со всеми значениями
+     * @return - сущность Ticket со всеми значениями
      */
 
     @Override

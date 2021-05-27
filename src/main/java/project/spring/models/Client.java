@@ -12,6 +12,7 @@ import javax.persistence.*;
 @Table(name = "clients")
 public class Client{
 
+
     // создала уникальный идентификатор
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -20,7 +21,17 @@ public class Client{
     private String firstname, lastname, contact;
     private int age;
 
+    /**
+     *
+     * @return - имя
+     */
+
     public SimpleStringProperty getFirstNameProp(){return new SimpleStringProperty(firstname); }
+
+    /**
+     *
+     * @return - фамилию
+     */
     public SimpleStringProperty getLastNameProp(){return new SimpleStringProperty(lastname); }
 
     /**
@@ -55,25 +66,27 @@ public class Client{
 
     /**
      * метод класса Client
-     * @return возвращает возраст клиента
+     * @return - возвращает возраст клиента
      */
 
     public int getAge() {
         return age;
     }
 
+
     /**
      * метод класса Client, который задает возраст клиента
-     * @return возвращает возраст клиента
+     * @param age - вораст
      */
 
     public void setAge(int age) {
         this.age = age;
     }
 
+
     /**
      * метод класса Client, который задает id клиента
-     * @return возвращает id клиента
+     * @param id - id клиента
      */
     public void setId(Long id) {
         this.id = id;
@@ -81,7 +94,7 @@ public class Client{
 
     /**
      * метод класса Client,
-     * @return возвращает возраст имя клиента
+     * @return - возвращает возраст имя клиента
      */
 
     public String getFirstname() {
@@ -89,9 +102,10 @@ public class Client{
     }
 
 
+
     /**
      * метод класса Client, который задает имя клиента
-     * @return возвращает имя  клиента
+     * @param firstname - имя
      */
 
     public void setFirstname(String firstname) {
@@ -100,16 +114,17 @@ public class Client{
 
     /**
      * метод класса Client
-     * @return возвращает фамилию клиента
+     * @return - возвращает фамилию клиента
      */
 
     public String getLastname() {
         return lastname;
     }
 
+
     /**
      * метод класса Client, который задает фамилию клиента
-     * @return возвращает фамилию клиента
+     * @param lastname - фамилия
      */
 
     public void setLastname(String lastname) {
@@ -119,15 +134,16 @@ public class Client{
 
     /**
      * метод класса Client
-     * @return возвращает номер телефона клиента
+     * @return - возвращает номер телефона клиента
      */
     public String getContact() {
         return contact;
     }
 
+
     /**
      * метод класса Client, который задает номер телефона клиента
-     * @return возвращает номер телефона клиента
+     * @param contact - номер телефона
      */
 
     public void setContact(String contact) {
@@ -136,7 +152,7 @@ public class Client{
 
     /**
      * Вывод сущности Client
-     * @return сущность Client со всеми значениями
+     * @return - сущность Client со всеми значениями
      */
 
     @Override

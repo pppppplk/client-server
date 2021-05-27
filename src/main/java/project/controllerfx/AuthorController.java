@@ -1,5 +1,4 @@
 package project.controllerfx;
-
 import javafx.fxml.FXML;
 import javafx.stage.Stage;
 import java.io.IOException;
@@ -11,18 +10,17 @@ import java.io.IOException;
 public class AuthorController {
 
     private Stage stage;
-
+    /**
+     * инициализация контроллера
+     */
     @FXML
     private void initialize(){
         System.out.println("полученная инфа из автора");
     }
-
     /**
      * Конструктор AuthorController
-     * @throws IOException
      */
-
-    public AuthorController() throws IOException{ }
+    public AuthorController(){ }
 
     /**
      * метод класса AuthorController
@@ -32,14 +30,11 @@ public class AuthorController {
     public Stage getStage() {
         return stage;
     }
-
     /**
      * Метод класса AuthorController, который задает сцену
      * @param stage - сцена
      */
-
     public void setStage(Stage stage) {
         this.stage = stage;
     }
-
 }

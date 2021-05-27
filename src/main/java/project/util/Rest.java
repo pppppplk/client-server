@@ -1,5 +1,4 @@
 package project.util;
-
 import org.json.JSONObject;
 
 import java.io.*;
@@ -12,26 +11,22 @@ import java.nio.charset.StandardCharsets;
  * класс Rest
  * методы для осуществления rest-запросов с сервера на javafx
  */
-
 public class Rest {
 
     /**
      * delete запрос с сервера
      * @param link - ссылка, поо которой совершается delete-запрос
-     * @throws IOException
+     * @throws IOException - ошибка соединения
      */
     public void DeleteRest(String link) throws IOException {
         URL url = new URL(link);
-
         HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
-
         httpURLConnection.setRequestProperty("Content-Type", "utf-8");
         httpURLConnection.setRequestProperty("Accept", "application/json");
         httpURLConnection.setRequestMethod("DELETE");
         InputStream inputStream = new BufferedInputStream(httpURLConnection.getInputStream()); //получение данных из  источника
         StringBuilder stringBuilder = new StringBuilder();
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream)); //считывает текст
-
         String str = " ";
 
         /**
@@ -40,7 +35,6 @@ public class Rest {
          */
 
         while ((str = bufferedReader.readLine()) != null) {
-
             stringBuilder.append(str);
         }
         String response = stringBuilder.toString();
@@ -52,9 +46,8 @@ public class Rest {
      * @param link -  ссылка, поо которой совершается post-запрос
      * @param jsonObject - объект json
      * @return вывод с post - запроса
-     * @throws IOException
+     * @throws IOException - ошибка соединеия
      */
-
     public String PostRest(String link, JSONObject jsonObject) throws IOException{
         System.out.println("+++++++++++++++++ "+URLEncoder.encode(jsonObject.toString(),StandardCharsets.UTF_8));
         URL url = new URL(link);
@@ -74,9 +67,7 @@ public class Rest {
                 new InputStreamReader(httpURLConnection.getInputStream(),StandardCharsets.UTF_8)
         )){
             while ((str = bufferedReader.readLine()) != null) {
-
                 stringBuilder.append(str);
-
             }
         }
         String response = stringBuilder.toString();
@@ -88,9 +79,8 @@ public class Rest {
      * get запрос с сервера
      * @param link -  ссылка, поо которой совершается get-запрос
      * @return вывод с get - запроса
-     * @throws IOException
+     * @throws IOException - ошибка соединения
      */
-
     public String GetRest(String link) throws IOException{
         URL url = new URL(link);
         HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
@@ -101,14 +91,11 @@ public class Rest {
         StringBuilder stringBuilder = new StringBuilder();
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream)); //считывает текст
         String str = " ";
-
         /**
          * считываеи из url  построчно информацию и добавляем ее в строку,
          * затем возвращаем строку уже со всей информацией, которая находится в url
          */
-
         while ((str = bufferedReader.readLine()) != null) {
-
             stringBuilder.append(str);
 
         }
@@ -123,9 +110,8 @@ public class Rest {
      * @param link ссылка, поо которой совершается put-запрос
      * @param jsonObject - объект json
      * @return вывод с put - запроса
-     * @throws IOException
+     * @throws IOException - ошибка соединения
      */
-
     public String PutRest(String link, JSONObject jsonObject) throws IOException{
 
         URL url = new URL(link);

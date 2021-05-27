@@ -43,7 +43,7 @@ public class PerformanceDTO {
      * Возврает объект класса PerformanceDTO
      * @param jsonObject -  серверное Json представление объекта Performance
      * @return PerformanceDTO
-     * @throws JSONException
+     * @throws JSONException - json ошибка
      */
 
     static public PerformanceDTO instanceOf(JSONObject jsonObject) throws JSONException {
@@ -67,9 +67,10 @@ public class PerformanceDTO {
         return id;
     }
 
+
     /**
      * метод класса PerformanceDTO, который задает id спектакля
-     * @return возвращает id спектакля
+     * @param id - id спектакля
      */
 
     public void setId(Long id) {
@@ -93,18 +94,20 @@ public class PerformanceDTO {
         return hall;
     }
 
+
     /**
      * метод класса PerformanceDTO, который задает зал, в котором проходит спектакль
-     * @return возвращает  зал
+     * @param hall - зал
      */
 
     public void setHall(HallDTO hall) {
         this.hall = hall;
     }
 
+
     /**
      * метод класса PerformanceDTO, который задает название спектакля
-     * @return возвращает название спектакля
+     * @param name - название спектакля
      */
     public void setName(String name) {
         this.name = name;
@@ -118,14 +121,20 @@ public class PerformanceDTO {
         return time;
     }
 
+
     /**
      * метод класса PerformanceDTO, который задает время проведния спектакля
-     * @return возвращает время проведения спектакля
+     * @param time - время спектакля
      */
 
     public void setTime(String time) {
         this.time = time;
     }
+
+    /**
+     * конвертирует в строку
+     * @return строковое представление объекта
+     */
 
     @Override
     public String toString() {

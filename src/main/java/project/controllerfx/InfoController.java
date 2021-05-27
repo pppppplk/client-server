@@ -11,6 +11,11 @@ public class InfoController {
 
     private Stage stage;
 
+    /**
+     * инициализация контроллера
+     * @throws IOException
+     */
+
     @FXML
     private void initialize() throws IOException {
         System.out.println("полученная инфа");
@@ -19,10 +24,9 @@ public class InfoController {
 
     /**
      * Конструктор InfoController
-     * @throws IOException
      */
 
-    public InfoController() throws IOException{ }
+    public InfoController(){ }
 
     /**
      * метод класса InfoController

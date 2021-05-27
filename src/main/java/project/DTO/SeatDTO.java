@@ -32,7 +32,7 @@ public class SeatDTO  {
      * Возврает объект класса SeatDTO
      * @param jsonObject -  серверное Json представление объекта Seat
      * @return SeatDTO
-     * @throws JSONException
+     * @throws JSONException - json ошибка
      */
 
     static public SeatDTO instanceOf(JSONObject jsonObject) throws JSONException {
@@ -54,9 +54,11 @@ public class SeatDTO  {
         return id;
     }
 
+
+
     /**
      * метод класса SeatDTO, который задает id места
-     * @return возвращает  id места
+     * @param id - id места
      */
 
     public void setId(Long id) {
@@ -72,9 +74,11 @@ public class SeatDTO  {
         return type;
     }
 
+
+
     /**
-     * метод класса SeatDTO, который задает зону места
-     * @return возвращает  зону места
+     *  метод класса SeatDTO, который задает зону места
+     * @param type - тип места
      */
 
     public void setType(String type) {
@@ -100,9 +104,11 @@ public class SeatDTO  {
         return hall;
     }
 
+
+
     /**
      * метод класса SeatDTO, который задает зал, в котором находится место
-     * @return возвращает  зал
+     * @param hall - зал
      */
 
     public void setHall(HallDTO hall) {

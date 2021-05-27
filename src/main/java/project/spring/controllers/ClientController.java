@@ -1,5 +1,4 @@
 package project.spring.controllers;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.transaction.annotation.Transactional;
@@ -8,6 +7,7 @@ import project.spring.models.Client;
 import project.spring.repo.*;
 import java.util.List;
 
+
 /**
  * Класс ClientController, в котором осуществленны REST запросы
  * POST, GET, PUT, DELETE
@@ -15,6 +15,7 @@ import java.util.List;
 @RestController
 @RequestMapping("api/theater")
 public class ClientController {
+
 
     private final ClientRepo clientRepo;
 
@@ -57,12 +58,11 @@ public class ClientController {
         return this.clientRepo.findClientById(id);
     }
 
-
-
     /**
      * Вывод всех существующих клиентов в БД, с помощью ClientRepo
      * @return все клиенты БД
      */
+
 
     @GetMapping("/clients/all")
     List<Client> getClients(){

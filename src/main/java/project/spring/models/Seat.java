@@ -52,9 +52,10 @@ public class Seat {
         return hall;
     }
 
+
     /**
      * метод класса Seat, который задает зал, в котором находится место
-     * @return возвращает  зал
+     * @param hall - зал
      */
 
     public void setHall(Hall hall) {
@@ -63,7 +64,7 @@ public class Seat {
 
     /**
      * метод класса Seat
-     * @return возвращает место
+     * @return - возвращает место
      */
 
     public Integer getLocation() {
@@ -72,16 +73,17 @@ public class Seat {
 
     /**
      * метод класса Seat
-     * @return возвращает id
+     * @return - возвращает id
      */
 
     public Long getId() {
         return id;
     }
 
+
     /**
      * метод класса Seat, который задает id места
-     * @return возвращает  id места
+     * @param id - id места
      */
 
 
@@ -89,9 +91,10 @@ public class Seat {
         this.id = id;
     }
 
+
     /**
      * метод класса Seat, который задает само место
-     * @return возвращает  само место
+     * @param location - место
      */
 
 
@@ -101,16 +104,17 @@ public class Seat {
 
     /**
      * метод класса Seat
-     * @return возвращает зону
+     * @return - возвращает зону
      */
 
     public String getType() {
         return type;
     }
 
+
     /**
      * метод класса Seat, который задает зону места
-     * @return возвращает  зону места
+     * @param type - тип места
      */
 
 
@@ -120,7 +124,7 @@ public class Seat {
 
     /**
      *  Вывод сущности Seat
-     * @return сущность Seat со всеми значениями
+     * @return - сущность Seat со всеми значениями
      */
 
     @Override

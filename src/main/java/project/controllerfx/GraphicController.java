@@ -1,5 +1,4 @@
 package project.controllerfx;
-
 import javafx.fxml.FXML;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
@@ -24,7 +23,6 @@ import java.util.Set;
 public class GraphicController {
     private Stage stage;
     private Rest rest = new Rest();
-
     @FXML
     private BarChart<String, Integer> barChart;
     @FXML
@@ -46,41 +44,38 @@ public class GraphicController {
 
     @FXML
     private void initialize() throws IOException, JSONException {
-
-        System.out.println("полученная инфа из графика");
         PerfInfo();
         ZoneInfo();
-
     }
 
     /**
      * Конструктор GraphicController
-     * @throws IOException
      */
 
-    public GraphicController() throws IOException{ }
+    public GraphicController(){ }
 
     /**
      * метод класса GraphicController
      * @return stage
      */
-
     public Stage getStage() {
         return stage;
     }
-
     /**
      * Метод класса GraphicController, который задает сцену
      * @param stage - сцена
      */
-
     public void setStage(Stage stage) {
         this.stage = stage;
     }
 
+
+
     /**
      * вывод спектаклей по оси Х
      * вывод кол-ва билетов по оси Y
+     * @throws IOException - плохое соединение
+     * @throws JSONException - json ошибка
      */
 
     public void  PerfInfo() throws IOException, JSONException {
@@ -109,8 +104,8 @@ public class GraphicController {
     /**
      * вывод типов мест по оси Х
      * вывод кол-ва билетов по оси У
-     * @throws IOException
-     * @throws JSONException
+     * @throws IOException - ошибка соединения
+     * @throws JSONException - json ошибка
      */
     public void  ZoneInfo() throws IOException, JSONException {
 

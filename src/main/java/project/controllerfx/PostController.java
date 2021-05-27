@@ -1,5 +1,4 @@
 package project.controllerfx;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -18,7 +17,6 @@ import java.time.LocalDate;
 /**
  * Контроллер окна post.fxml
  */
-
 public class PostController {
 
     private Stage stage;
@@ -62,7 +60,6 @@ public class PostController {
     private void initialize() throws IOException, JSONException {
         PostClient();
     }
-
     /**
      * метод класса PostController
      * @return stage
@@ -71,12 +68,10 @@ public class PostController {
     public Stage getStage() {
         return stage;
     }
-
     /**
      * Метод класса PostController, который задает сцену
      * @param stage - сцена
      */
-
     public void setStage(Stage stage) {
         this.stage = stage;
     }
@@ -85,7 +80,7 @@ public class PostController {
      * метод для проверки валидации на ввод данных имя и фамилия
      * @param string - строка, которую проверяю на соотвествие регулярному выражению
      *               с помощью matches()
-     * @return
+     * @return регулярное выражение
      */
     public static boolean TestString(String string) {
         return string.matches("^[а-яА-Я]+$");
@@ -95,7 +90,7 @@ public class PostController {
      * метод для проверки валидации на ввод данных о возрасте
      * @param string - строка, которую проверяю на соотвествие регулярному выражению
      *                   с помощью matches()
-     * @return
+     * @return - регулярное выражение
      */
 
     public static boolean TestInt(String string) {
@@ -106,7 +101,7 @@ public class PostController {
      * метод для проверки валидвции ввода номера телефона
      * @param string - строка, которую проверяю на соотвествие регулярному выражению
      *                   с помощью matches()
-     * @return
+     * @return - регулярное выражение
      */
 
     public static boolean TestContact(String string) {
@@ -115,10 +110,9 @@ public class PostController {
 
     /**
      * конструктор PostController
-     * @throws IOException
      */
 
-    public PostController() throws IOException { }
+    public PostController()  { }
 
     /**
      * добавление нового клиента + новый билет, с помощью создания нового JSON-объекта
@@ -208,14 +202,11 @@ public class PostController {
 
     /**
      * сопоставление даты спектаклей с календарем
-     *
      * @throws IOException
      * @throws JSONException
      */
-
     @FXML
     private void Choice() throws IOException, JSONException {
-
         try {
             JSONArray getper = new JSONArray(connect.GetRest("http://localhost:8080/api/theater/perfs/data=" + calendar.getValue()));
             System.out.println("не обработанные даты" + getper);
@@ -226,13 +217,11 @@ public class PostController {
             perfomChoiceBox.setItems(representations);
         } catch (NullPointerException e) {
             e.printStackTrace();
-
         }
     }
 
     /**
      * метод заполнения времени по спектаклю и зала
-     *
      * @throws IOException
      * @throws JSONException
      */
@@ -270,7 +259,6 @@ public class PostController {
 
     /**
      * метод заполнения зон по залу
-     *
      * @throws IOException
      * @throws JSONException
      */
@@ -287,11 +275,9 @@ public class PostController {
             SeatDTO seatDTO = SeatDTO.instanceOf(getseats.getJSONObject(i));
             zones.add(seatDTO);
         }
-
         /**
          * проверка на уникальность зон
          */
-
         boolean flag = false;
         ObservableList<SeatDTO> uniqZones = FXCollections.observableArrayList();
         for (int i = 0; i < zones.size(); i++) {
@@ -311,11 +297,9 @@ public class PostController {
 
     /**
      * вывожу только свободные места и задаю цену по зоне
-     *
      * @throws IOException
      * @throws JSONException
      */
-
     @FXML
     private void fillingSeats() throws IOException, JSONException {
         placeChoiceBox.setConverter(new SeatLocationStringConverter());
@@ -325,7 +309,6 @@ public class PostController {
                     "/time=" + URLEncoder.encode(timeChoiceBox.getValue(), StandardCharsets.UTF_8)));
             ObservableList<SeatDTO> seats = FXCollections.observableArrayList();
             System.out.println("вывод мест " + getseats);
-
             for (int i = 0; i < getseats.length(); i++) {
                 SeatDTO seatLocationDTO = SeatDTO.instanceOf(getseats.getJSONObject(i));
                 if (getseats.getJSONObject(i).getString("type").equals(zoneChoiceBox.getValue().getType()) &&

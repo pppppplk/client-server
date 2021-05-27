@@ -1,5 +1,4 @@
 package project.controllerfx;
-
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
@@ -17,11 +16,9 @@ import project.util.Rest;
 import project.util.Parsing;
 import java.io.IOException;
 import java.util.Optional;
-
 /**
  * Контроллер окна root.fxml
  */
-
 public class RootController {
 
     private Parsing parsing = new Parsing();
@@ -64,9 +61,13 @@ public class RootController {
     private Stage stage;
     private PostController postController;
 
+    /**
+     * констурктор RootController
+     * @throws IOException - ошибка соединения
+     */
+
     public RootController() throws IOException {
     }
-
 
     /**
      * заполнение таблицы в инициализации
@@ -75,7 +76,6 @@ public class RootController {
 
     @FXML
     public void initialize() {
-
         initTable();
         SearchTable();
         namecolumn.setCellValueFactory(cellData -> cellData.getValue().getClient().getFirstNameProp());
@@ -83,9 +83,7 @@ public class RootController {
         ShowInfo(null); //очищаем справа
         clientInfo.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue)
                 -> ShowInfo(newValue));
-
     }
-
 
     /**
      * метод класса RootController, вызывающий класс JavaFX
@@ -96,8 +94,8 @@ public class RootController {
     }
 
     /**
-     * метод класса RootController, вызывающий класс JavaFX (задает main)
-     * @return main
+     * запуск
+     * @param main - main
      */
 
     public void setMain(JavaFX main) {
@@ -108,29 +106,22 @@ public class RootController {
      * метод класса RootController
      * @return stage
      */
-
     public Stage getStage() {
         return stage;
     }
-
     /**
      * Метод класса RootController, который задает сцену
      * @param stage - сцена
      */
-
     public void setStage(Stage stage) {
         this.stage = stage;
     }
-
-
     /**
      * заполнения билета по клиенту в таблице
      */
     public void initTable() {
         this.clientInfo.setItems(parsing.getTickets());
-
     }
-
     /**
      * обновление страницы
      */
@@ -143,7 +134,6 @@ public class RootController {
      * @param ticket - объект сущности Ticket
      *
      */
-
     private void ShowInfo(Ticket ticket) {
         if (ticket != null) {
             lablecontact.setText(String.valueOf(ticket.getClient().getContact()));
@@ -166,16 +156,11 @@ public class RootController {
 
     }
 
-
-
-
     /**
      * метод, окрывающий окно инструкции
      * @param actionEvent - событие, возникающие при  нажатие кнопки
      */
-
     @FXML
-
     public void searchButton(javafx.event.ActionEvent actionEvent) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/info.fxml"));
@@ -184,7 +169,6 @@ public class RootController {
             stage.setTitle("Инструкция");
             stage.setScene(new Scene(root1));
             stage.show();
-
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -231,14 +215,12 @@ public class RootController {
         }
     }
 
-
-
-    @FXML
     /**
      * метод, который ищет клиентов по бд
      */
-    public void SearchTable() {
 
+    @FXML
+    public void SearchTable() {
         System.out.println("зашел");
         FilteredList<Ticket> filteredList = new FilteredList<>(parsing.getTickets(), b -> true);
         searchtext.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -247,7 +229,6 @@ public class RootController {
                     return true;
                 }
                 String filter = newValue.toLowerCase();
-
                 if (ticket.getClient().getFirstname().toLowerCase().indexOf(filter) != -1) {
                     return true;
                 } else if (ticket.getClient().getLastname().toLowerCase().indexOf(filter) != -1) {
@@ -260,30 +241,26 @@ public class RootController {
         SortedList<Ticket> sortedList = new SortedList<>(filteredList);
         sortedList.comparatorProperty().bind(clientInfo.comparatorProperty());
         clientInfo.setItems(sortedList);
-
     }
 
 
     /**
      * метод удаления клиента из бд + окно с предупрежденим и ошибкой
      * @param actionEvent - событие, возникающие при  нажатие кнопки
-     * @throws IOException
+     * @throws IOException - ошибка соединения
      */
-
     @FXML
     public void DeleteClient(javafx.event.ActionEvent actionEvent) throws IOException {
 
         System.out.println("удаление");
         int clientrow = clientInfo.getSelectionModel().getSelectedIndex();
-
         if (clientrow >= 0) {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Предупреждение");
+            alert.setTitle("Подтверждение");
             alert.setHeaderText("Нажмите ОК, если хотите удалить пользователя");
             Optional<ButtonType> option = alert.showAndWait();
             if (option.get() == ButtonType.OK) {
                 System.out.println("перед удалением");
-
                 if(clientInfo.getSelectionModel().getSelectedItem()  == null){
                     try{
                         Alert alert2 = new Alert(Alert.AlertType.ERROR);
@@ -291,7 +268,6 @@ public class RootController {
                         alert2.setHeaderText("Не выбран пользователь для удаления");
                         alert2.showAndWait();
                     }catch (Exception e){
-
                     }
                 }else{
                     Long idticket = clientInfo.getSelectionModel().getSelectedItem().getId();
@@ -337,8 +313,8 @@ public class RootController {
 
     /**
      * изменение данных о пользователе
-     * @throws JSONException
-     * @throws IOException
+     * @throws JSONException - json ошибка
+     * @throws IOException - ошибка соединения
      */
     public void UpdateClient() throws JSONException, IOException {
         System.out.println("вносим изменения");

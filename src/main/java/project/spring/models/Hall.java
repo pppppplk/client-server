@@ -44,9 +44,10 @@ public class Hall {
 
 
 
+
     /**
      * метод класса Hall, который задает id зала
-     * @return возвращает id зала
+     * @param id - id зала
      */
 
     public void setId(Long id) {
@@ -62,9 +63,11 @@ public class Hall {
         return name;
     }
 
+
+
     /**
      * метод класса Hall, который задает название зала
-     * @return возвращает название зала
+     * @param name - название зала
      */
     public void setName(String name) {
         this.name = name;
@@ -72,7 +75,7 @@ public class Hall {
 
     /**
      * Вывод сущности Hall
-     * @return сущность Hall со всеми значениями
+     * @return - сущность Hall со всеми значениями
      */
 
     @Override
