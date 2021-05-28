@@ -39,6 +39,7 @@ class HallControllerTest {
 
     /**
      * Проверка Get-запроса, размер массива залов
+     *
      */
     @Test
     public void getHalls() {

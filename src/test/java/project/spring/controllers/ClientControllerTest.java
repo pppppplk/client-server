@@ -35,6 +35,7 @@ public class ClientControllerTest {
 
     /**
      * Проверка Get-запроса, размер массива клиента
+     *
      */
 
     @Test

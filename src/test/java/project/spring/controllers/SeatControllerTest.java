@@ -37,6 +37,7 @@ class SeatControllerTest {
 
     /**
      * Проверка Get-запроса, размер массива мест
+     *
      */
     @Test
     void getSeats() {
