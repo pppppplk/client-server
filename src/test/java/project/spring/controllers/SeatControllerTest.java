@@ -12,9 +12,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import project.spring.repo.HallRepo;
-import project.spring.repo.PerformanceRepo;
 import project.spring.repo.SeatRepo;
-import project.spring.repo.TicketRepo;
+
 
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;

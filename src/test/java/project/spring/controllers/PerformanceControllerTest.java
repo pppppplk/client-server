@@ -1,5 +1,6 @@
 package project.spring.controllers;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
@@ -7,14 +8,14 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
+import project.spring.models.Performance;
 import project.spring.repo.HallRepo;
 import project.spring.repo.PerformanceRepo;
-
-import java.net.URLDecoder;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -95,7 +96,52 @@ class PerformanceControllerTest {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
 
+    /**
+     * вспомогателный метод для преобразования json-объект в строку
+     * @param object -объект - json, который передается для преобразования в строку
+     * @return
+     */
+
+    public static String JSONObjectToString(Object object) {
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            String jsonToString = mapper.writeValueAsString(object);
+            return jsonToString;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     *  проверка post- запроса для создания  спектакля
+     */
+
+
+    @Test
+    public void postPerformance(){
+        String Name = "Отцы и дети";
+        String Prem = "2021-03-02";
+        String End = "2021-06-07";
+        String Time = "10:00";
+        Integer Age = 12;
+
+        Performance performance = new Performance(Name, Prem, End,Time,Age);
+        try {
+            this.mvc.perform(MockMvcRequestBuilders.post("http://localhost:8080/api/theater/perf/postperf")
+                    .content(JSONObjectToString(performance))
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .accept(MediaType.APPLICATION_JSON))
+                    .andDo(MockMvcResultHandlers.print());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
+
+
+
+
 }
