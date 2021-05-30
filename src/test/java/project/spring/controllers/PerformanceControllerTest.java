@@ -1,5 +1,6 @@
 package project.spring.controllers;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -98,23 +99,7 @@ class PerformanceControllerTest {
         }
     }
 
-    /**
-     * вспомогателный метод для преобразования json-объект в строку
-     * @param object -объект - json, который передается для преобразования в строку
-     *
-     * @return
-     */
 
-    public static String JSONObjectToString(Object object) {
-        try {
-            ObjectMapper mapper = new ObjectMapper();
-            String jsonToString = mapper.writeValueAsString(object);
-            return jsonToString;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
 
     /**
      *  проверка post- запроса для создания  спектакля
@@ -130,9 +115,16 @@ class PerformanceControllerTest {
         Integer Age = 12;
 
         Performance performance = new Performance(Name, Prem, End,Time,Age);
+        ObjectMapper mapper = new ObjectMapper();
+        String StringPer = null;
+        try {
+            StringPer = mapper.writeValueAsString(performance);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
         try {
             this.mvc.perform(MockMvcRequestBuilders.post("http://localhost:8080/api/theater/perf/postperf")
-                    .content(JSONObjectToString(performance))
+                    .content(StringPer)
                     .contentType(MediaType.APPLICATION_JSON)
                     .accept(MediaType.APPLICATION_JSON))
                     .andDo(MockMvcResultHandlers.print());

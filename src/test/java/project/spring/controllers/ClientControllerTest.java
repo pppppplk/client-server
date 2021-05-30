@@ -1,5 +1,6 @@
 package project.spring.controllers;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.json.JSONArray;
 import org.junit.Test;
@@ -76,22 +77,7 @@ public class ClientControllerTest {
         }
     }
 
-    /**
-     * вспомогателный метод для преобразования json-объект в строку
-     * @param object -объект - json, который передается для преобразования в строку
-     * @return
-     */
 
-    public static String JSONObjectToString(Object object) {
-        try {
-            ObjectMapper mapper = new ObjectMapper();
-            String jsonToString = mapper.writeValueAsString(object);
-            return jsonToString;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
 
     /**
      * проверка post- запроса для создания клиента
@@ -106,8 +92,11 @@ public class ClientControllerTest {
         Integer Age = 34;
 
         Client client = new Client(FirstName, LastName, Contact, Age);
+        ObjectMapper mapper = new ObjectMapper();
+        String StringClient = mapper.writeValueAsString(client);
+
         this.mvc.perform(MockMvcRequestBuilders.post("http://localhost:8080/api/theater/clients/postclient")
-                .content(JSONObjectToString(client))
+                .content(StringClient)
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andDo(MockMvcResultHandlers.print());
@@ -126,9 +115,16 @@ public class ClientControllerTest {
         Integer Age = 18;
 
         Client client = new Client(FirstName, LastName, Contact, Age);
+        ObjectMapper mapper = new ObjectMapper();
+        String StringClient = null;
+        try {
+            StringClient = mapper.writeValueAsString(client);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
         try {
             this.mvc.perform(MockMvcRequestBuilders.put("http://localhost:8080/api/theater/clients/updateclient")
-                    .content(JSONObjectToString(client))
+                    .content(StringClient)
                     .contentType(MediaType.APPLICATION_JSON)
                     .accept(MediaType.APPLICATION_JSON))
                     .andDo(MockMvcResultHandlers.print());

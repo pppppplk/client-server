@@ -75,7 +75,8 @@ class HallControllerTest {
                 JSONObject jsonObject = new JSONObject(body);
                 byte bytes[] = jsonObject.getString("name").getBytes("ISO-8859-1");
                 String value = new String(bytes, "UTF-8");
-                assertEquals(hallRepo.findHallById(this.performanceRepo.findAllByName(URLDecoder.decode(PerfName)).get(0).getHall().getId()).getName(), value);
+                assertEquals(hallRepo.findHallById(this.performanceRepo.findAllByName(URLDecoder.decode(PerfName)).
+                        get(0).getHall().getId()).getName(), value);
 
             });
         } catch (Exception e) {
@@ -83,22 +84,7 @@ class HallControllerTest {
         }
     }
 
-    /**
-     * вспомогателный метод для преобразования json-объект в строку
-     * @param object -объект - json, который передается для преобразования в строку
-     * @return
-     */
 
-    public static String JSONObjectToString(Object object) {
-        try {
-            ObjectMapper mapper = new ObjectMapper();
-            String jsonToString = mapper.writeValueAsString(object);
-            return jsonToString;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
 
     /**
      * проверка post- запроса для создания зала
@@ -109,8 +95,11 @@ class HallControllerTest {
     public void postHall() throws Exception {
         String Name = "левый зал";
         Hall hall = new Hall(Name);
+
+        ObjectMapper mapper = new ObjectMapper();
+        String StringHall = mapper.writeValueAsString(hall);
         this.mvc.perform(MockMvcRequestBuilders.post("http://localhost:8080/api/theater/halls/posthalls")
-                .content(JSONObjectToString(hall))
+                .content(StringHall)
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andDo(MockMvcResultHandlers.print());
